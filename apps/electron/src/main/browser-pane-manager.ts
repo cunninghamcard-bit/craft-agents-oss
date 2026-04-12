@@ -3124,6 +3124,20 @@ export class BrowserPaneManager implements IBrowserPaneManager {
     instance.window.on('show', () => {
       instance.isVisible = true
       this.emitStateChange(instance)
+      // Workaround for Electron on Linux/Wayland: BrowserViews may retain their
+      // initial surface size after the first show. Re-attaching them forces the
+      // compositor to recreate surfaces at the current window size.
+      if (process.platform === 'linux') {
+        const win = instance.window
+        win.removeBrowserView(instance.pageView)
+        win.removeBrowserView(instance.nativeOverlayView)
+        win.removeBrowserView(instance.toolbarView)
+        win.addBrowserView(instance.pageView)
+        win.addBrowserView(instance.nativeOverlayView)
+        win.addBrowserView(instance.toolbarView)
+        win.setTopBrowserView(instance.toolbarView)
+        this.layoutAllViews(instance)
+      }
       this.reapplyAgentControlVisual(instance)
       this.pushToolbarState(instance)
       this.updateNativeOverlayState(instance)

@@ -609,6 +609,7 @@
   "settings.appearance.font": "字体",
   "settings.appearance.fontInter": "Inter",
   "settings.appearance.fontSystem": "系统",
+  "settings.appearance.fontCustom": "自定义",
   "settings.appearance.iconHeader": "图标",
   "settings.appearance.interface": "界面",
   "settings.appearance.language": "语言",

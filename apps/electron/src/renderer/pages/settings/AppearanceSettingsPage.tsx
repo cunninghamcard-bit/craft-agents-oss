@@ -5,7 +5,7 @@
  * workspace-specific theme overrides, and CLI tool icon mappings.
  */
 
-import { useState, useEffect, useMemo, useCallback } from 'react'
+import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LANGUAGES, type LanguageCode } from '@craft-agent/shared/i18n'
 import type { ColumnDef } from '@tanstack/react-table'
@@ -16,7 +16,7 @@ import { EditPopover, EditButton, getEditConfig } from '@/components/ui/EditPopo
 import { useTheme } from '@/context/ThemeContext'
 import { useAppShellContext } from '@/context/AppShellContext'
 import { routes } from '@/lib/navigate'
-import { Monitor, Sun, Moon } from 'lucide-react'
+import { Monitor, Sun, Moon, ChevronDown } from 'lucide-react'
 import type { DetailsPageMeta } from '@/lib/navigation-registry'
 import type { ToolIconMapping } from '../../../shared/types'
 
@@ -28,11 +28,29 @@ import {
   SettingsMenuSelect,
   SettingsToggle,
 } from '@/components/settings'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
+import {
+  Command,
+  CommandInput,
+  CommandList,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+} from '@/components/ui/command'
 import * as storage from '@/lib/local-storage'
 import { useWorkspaceIcons } from '@/hooks/useWorkspaceIcon'
 import { Info_DataTable, SortableHeader } from '@/components/info/Info_DataTable'
 import { Info_Badge } from '@/components/info/Info_Badge'
 import type { PresetTheme } from '@config/theme'
+import type { FontPreset } from '@/context/ThemeContext'
+
+interface QueryLocalFontsAPI {
+  queryLocalFonts(): Promise<Array<{ family: string }>>
+}
 
 export const meta: DetailsPageMeta = {
   navigator: 'settings',
@@ -105,6 +123,8 @@ export default function AppearanceSettingsPage() {
     setColorTheme,
     font,
     setFont,
+    fontPreset,
+    setFontPreset,
     activeWorkspaceId,
     setWorkspaceColorTheme,
     themeLoadError,
@@ -135,6 +155,44 @@ export default function AppearanceSettingsPage() {
     setShowConnectionIcons(checked)
     storage.set(storage.KEYS.showConnectionIcons, checked)
   }, [])
+
+  // System font picker state
+  const [systemFonts, setSystemFonts] = useState<string[]>([])
+  const [fontQuery, setFontQuery] = useState('')
+  const [fontOpen, setFontOpen] = useState(false)
+  const hasQueriedFonts = useRef(false)
+
+  useEffect(() => {
+    if (fontPreset !== 'custom') return
+    if (hasQueriedFonts.current) return
+    const win = window as unknown as Window & QueryLocalFontsAPI
+    if (!('queryLocalFonts' in win)) return
+    win.queryLocalFonts()
+      .then((fonts) => {
+        const families = Array.from(new Set(fonts.map((f) => f.family))).sort()
+        hasQueriedFonts.current = true
+        setSystemFonts(families)
+      })
+      .catch(() => {
+        // Permission denied or API unavailable — leave list empty
+      })
+  }, [fontPreset])
+
+  const filteredFonts = useMemo(() => {
+    if (!fontQuery.trim()) return systemFonts.slice(0, 50)
+    const q = fontQuery.toLowerCase()
+    return systemFonts.filter(f => f.toLowerCase().includes(q)).slice(0, 50)
+  }, [systemFonts, fontQuery])
+
+  const passThroughFilter = useCallback(() => 1, [])
+
+  const handleFontSearchEnter = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && fontQuery.trim()) {
+      setFont(fontQuery.trim())
+      setFontOpen(false)
+      setFontQuery('')
+    }
+  }, [fontQuery, setFont])
 
   // Rich tool descriptions toggle (persisted in config.json, read by SDK subprocess)
   const [richToolDescriptions, setRichToolDescriptions] = useState(true)
@@ -271,14 +329,61 @@ export default function AppearanceSettingsPage() {
                     />
                   </SettingsRow>
                   <SettingsRow label={t("settings.appearance.font")}>
-                    <SettingsSegmentedControl
-                      value={font}
-                      onValueChange={setFont}
-                      options={[
-                        { value: 'inter', label: t("settings.appearance.fontInter") },
-                        { value: 'system', label: t("settings.appearance.fontSystem") },
-                      ]}
-                    />
+                    <div className="flex flex-col gap-2">
+                      <SettingsSegmentedControl
+                        value={fontPreset}
+                        onValueChange={setFontPreset}
+                        options={[
+                          { value: 'inter' as const, label: t("settings.appearance.fontInter") },
+                          { value: 'system' as const, label: t("settings.appearance.fontSystem") },
+                          { value: 'custom' as const, label: t("settings.appearance.fontCustom") }
+                        ]}
+                      />
+                      {fontPreset === 'custom' && (
+                        <Popover open={fontOpen} onOpenChange={setFontOpen}>
+                          <PopoverTrigger asChild>
+                            <button
+                              type="button"
+                              className="flex items-center justify-between gap-2 px-2.5 py-1.5 text-sm rounded-md border border-border bg-background text-foreground hover:bg-muted/50 focus:outline-none focus:ring-1 focus:ring-ring w-full max-w-[240px]"
+                            >
+                              <span className="truncate">{font || 'Select font...'}</span>
+                              <ChevronDown className="w-4 h-4 shrink-0 text-muted-foreground" />
+                            </button>
+                          </PopoverTrigger>
+                          <PopoverContent className="p-0 w-[260px]" align="start">
+                            <Command filter={passThroughFilter}>
+                              <CommandInput
+                                placeholder="Search fonts..."
+                                value={fontQuery}
+                                onValueChange={setFontQuery}
+                                onKeyDown={handleFontSearchEnter}
+                              />
+                              <CommandList>
+                                <CommandEmpty className="py-2 text-xs text-center text-muted-foreground">
+                                  Press Enter to use “{fontQuery.trim()}”
+                                </CommandEmpty>
+                                <CommandGroup>
+                                  {filteredFonts.map((name) => (
+                                    <CommandItem
+                                      key={name}
+                                      value={name}
+                                      onSelect={() => {
+                                        setFont(name)
+                                        setFontOpen(false)
+                                        setFontQuery('')
+                                      }}
+                                      className="cursor-pointer"
+                                    >
+                                      <span style={{ fontFamily: name }}>{name}</span>
+                                    </CommandItem>
+                                  ))}
+                                </CommandGroup>
+                              </CommandList>
+                            </Command>
+                          </PopoverContent>
+                        </Popover>
+                      )}
+                    </div>
                   </SettingsRow>
                   <SettingsRow label={t("settings.appearance.language")}>
                     <SettingsMenuSelect

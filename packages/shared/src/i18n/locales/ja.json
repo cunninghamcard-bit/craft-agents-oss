@@ -609,6 +609,7 @@
   "settings.appearance.font": "フォント",
   "settings.appearance.fontInter": "Inter",
   "settings.appearance.fontSystem": "システム",
+  "settings.appearance.fontCustom": "カスタム",
   "settings.appearance.iconHeader": "アイコン",
   "settings.appearance.interface": "インターフェース",
   "settings.appearance.language": "言語",
