@@ -83,12 +83,12 @@
 /* Light Mode */
 :root {
   /* === 6 BASE COLORS === */
-  --background: oklch(0.97 0.005 95);
-  --background-elevated: color-mix(in srgb, var(--foreground) 1.5%, var(--background));
+  --background: #faf9f5;
+  --background-elevated: #f5f3eb;
   --foreground: oklch(0.18 0.01 95);
   --foreground-dimmed: color-mix(in srgb, var(--foreground) 80%, var(--background)); /* unfocused panel text */
   --foreground-rgb: 42, 40, 36;             /* RGB for shadow borders */
-  --user-message-bubble: oklch(0.95 0.01 95);
+  --user-message-bubble: #f5f3eb;
   --user-message-bubble-dimmed: oklch(from var(--foreground) l c h / 0.03);
   --accent: oklch(0.62 0.18 45);            /* terracotta - brand, Auto mode */
   --accent-rgb: 140, 90, 65;                /* darkened RGB for shadow-tinted (70% of accent) */
@@ -152,16 +152,16 @@
 
   /* === SHADCN COMPATIBILITY (derived from 6 base colors) === */
   /* These variables exist for shadcn/ui component updates */
-  --secondary: oklch(from var(--foreground) l c h / 0.05);
+  --secondary: #e8e6dc;
   --secondary-foreground: var(--foreground);
-  --muted: oklch(from var(--foreground) l c h / 0.05);
+  --muted: #e8e6dc;
   --muted-foreground: var(--foreground-50);
-  --card: var(--background);
+  --card: #f5f3eb;
   --card-foreground: var(--foreground);
-  --popover: var(--background);
+  --popover: #f5f3eb;
   --popover-foreground: var(--foreground);
-  --border: oklch(0.8 0.01 95);
-  --input: oklch(0.8 0.01 95);
+  --border: #c9c6bc;
+  --input: #c9c6bc;
   --ring: oklch(0.62 0.18 45);
   --ring-width: 1px;
   --ring-offset: 0px;
@@ -237,12 +237,12 @@
 /* Dark Mode */
 .dark {
   /* === 6 BASE COLORS (must match DEFAULT_THEME.dark in theme.ts) === */
-  --background: oklch(0.22 0.01 95);
-  --background-elevated: color-mix(in srgb, var(--foreground) 1.5%, var(--background));
+  --background: #262521;
+  --background-elevated: #2e2c26;
   --foreground: oklch(0.91 0.005 95);
   --foreground-dimmed: color-mix(in srgb, var(--foreground) 80%, var(--background)); /* unfocused panel text */
   --foreground-rgb: 232, 230, 220;           /* RGB for shadow borders */
-  --user-message-bubble: oklch(0.3 0.01 95);
+  --user-message-bubble: #3a362e;
   --user-message-bubble-dimmed: oklch(from var(--foreground) l c h / 0.03);
   --accent: oklch(0.68 0.16 45);             /* brighter terracotta in dark */
   --accent-rgb: 155, 105, 75;               /* darkened RGB for shadow-tinted (70% of accent) */
@@ -280,16 +280,16 @@
   --info-text: color-mix(in oklab, var(--info) 50%, var(--foreground));
 
   /* === SHADCN COMPATIBILITY (derived from 6 base colors) === */
-  --secondary: oklch(from var(--foreground) l c h / 0.05);
+  --secondary: #2a2822;
   --secondary-foreground: var(--foreground);
-  --muted: oklch(from var(--foreground) l c h / 0.05);
+  --muted: #2a2822;
   --muted-foreground: var(--foreground-50);
-  --card: var(--background);
+  --card: #2e2c26;
   --card-foreground: var(--foreground);
-  --popover: var(--background);
+  --popover: #2e2c26;
   --popover-foreground: var(--foreground);
-  --border: oklch(0.38 0.01 95);
-  --input: oklch(0.38 0.01 95);
+  --border: #3a362e;
+  --input: #3a362e;
   --ring: oklch(0.68 0.16 45);
 
   /* Markdown list markers */
@@ -297,7 +297,8 @@
   --md-counters: var(--foreground-50);
 }
 
-/* Theme Override - Semi-transparent background to allow vibrancy through */
+/* Theme Override - Disabled vibrancy for solid paper-like backgrounds */
+/*
 html[data-theme-override]::before {
   content: '';
   position: fixed;
@@ -306,6 +307,7 @@ html[data-theme-override]::before {
   z-index: -1;
   pointer-events: none;
 }
+*/
 
 /* Theme Mismatch - Solid background when theme doesn't support current mode
    e.g. dark-only theme in light mode. Uses foreground-10 for subtle contrast. */
@@ -367,7 +369,7 @@ html[data-scenic][data-theme-override]::before {
 /* Scenic mode: Make background color semi-transparent for glass effect
    Panels with bg-background will become translucent glass */
 html[data-scenic] {
-  --background: oklch(0.22 0.01 95 / 0.55);
+  --background: oklch(0.24 0.01 95 / 0.55);
 }
 
 /* Inter Font - Opt-in via data-font="inter" attribute

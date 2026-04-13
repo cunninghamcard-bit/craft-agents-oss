@@ -32,7 +32,7 @@
 
 :root {
   /* === 6 BASE COLORS === */
-  --background: oklch(0.97 0.005 95);         /* warm cream paper */
+  --background: #faf9f5;                     /* warm cream paper */
   --foreground: oklch(0.18 0.01 95);          /* deep warm charcoal */
   --foreground-rgb: 42, 40, 36;               /* RGB for shadow borders */
   --accent: oklch(0.62 0.18 45);              /* terracotta - brand, Auto mode */
@@ -110,22 +110,22 @@
   --foreground-95: color-mix(in oklch, var(--foreground) 95%, var(--background));
 
   /* === SHADCN COMPATIBILITY (derived from 6 base colors) === */
-  --secondary: oklch(from var(--foreground) l c h / 0.05);
+  --secondary: #e8e6dc;
   --secondary-foreground: var(--foreground);
-  --muted: oklch(from var(--foreground) l c h / 0.05);
+  --muted: #e8e6dc;
   --muted-foreground: var(--foreground-50);
-  --card: var(--background);
+  --card: #f5f3eb;
   --card-foreground: var(--foreground);
-  --popover: var(--background);
+  --popover: #f5f3eb;
   --popover-foreground: var(--foreground);
-  --border: oklch(from var(--foreground) l c h / 0.05);
-  --input: oklch(from var(--foreground) l c h / 0.1);
-  --ring: oklch(from var(--foreground) l c h / 0.25);
+  --border: #c9c6bc;
+  --input: #c9c6bc;
+  --ring: oklch(0.62 0.18 45);
   --ring-width: 1px;
   --ring-offset: 0px;
 
   /* === COMPONENT TOKENS === */
-  --user-message-bubble: oklch(0.95 0.01 95);
+  --user-message-bubble: #f5f3eb;
   --paper: var(--foreground-5);
 
   /* Markdown list markers */
@@ -151,7 +151,7 @@
 
 .dark {
   /* === 6 BASE COLORS === */
-  --background: oklch(0.22 0.01 95);           /* warm espresso black */
+  --background: #262521;           /* warm espresso black */
   --foreground: oklch(0.91 0.005 95);          /* aged cream white */
   --foreground-rgb: 232, 230, 220;             /* RGB for shadow borders */
   --accent: oklch(0.68 0.16 45);               /* brighter terracotta in dark */
@@ -188,20 +188,20 @@
   --foreground-95: color-mix(in oklch, var(--foreground) 95%, var(--background));
 
   /* === SHADCN COMPATIBILITY (derived from 6 base colors) === */
-  --secondary: oklch(from var(--foreground) l c h / 0.05);
+  --secondary: #2a2822;
   --secondary-foreground: var(--foreground);
-  --muted: oklch(from var(--foreground) l c h / 0.05);
+  --muted: #2a2822;
   --muted-foreground: var(--foreground-50);
-  --card: var(--background);
+  --card: #2e2c26;
   --card-foreground: var(--foreground);
-  --popover: var(--background);
+  --popover: #2e2c26;
   --popover-foreground: var(--foreground);
-  --border: oklch(from var(--foreground) l c h / 0.05);
-  --input: oklch(from var(--foreground) l c h / 0.1);
-  --ring: oklch(from var(--foreground) l c h / 0.25);
+  --border: #3a362e;
+  --input: #3a362e;
+  --ring: oklch(0.68 0.16 45);
 
   /* === COMPONENT TOKENS === */
-  --user-message-bubble: oklch(0.3 0.01 95);
+  --user-message-bubble: #3a362e;
   --paper: var(--foreground-5);
 
   /* Markdown list markers */
