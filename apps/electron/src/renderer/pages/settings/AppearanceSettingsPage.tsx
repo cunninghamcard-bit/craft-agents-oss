@@ -340,7 +340,7 @@ export default function AppearanceSettingsPage() {
                     />
                   </SettingsRow>
                   <SettingsRow label={t("settings.appearance.font")}>
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-2 items-end">
                       <SettingsSegmentedControl
                         value={fontPreset}
                         onValueChange={setFontPreset}
@@ -487,7 +487,7 @@ export default function AppearanceSettingsPage() {
                     <div className="flex items-center gap-2">
                       <button
                         type="button"
-                        onClick={() => applyZoom(zoomFactor - 0.1)}
+                        onClick={() => applyZoom(zoomFactor - 0.05)}
                         className="px-2.5 py-1 text-sm rounded-md border border-border bg-background hover:bg-muted/50 focus:outline-none focus:ring-1 focus:ring-ring"
                         aria-label={t("settings.appearance.zoomOut")}
                       >
@@ -498,7 +498,7 @@ export default function AppearanceSettingsPage() {
                       </span>
                       <button
                         type="button"
-                        onClick={() => applyZoom(zoomFactor + 0.1)}
+                        onClick={() => applyZoom(zoomFactor + 0.05)}
                         className="px-2.5 py-1 text-sm rounded-md border border-border bg-background hover:bg-muted/50 focus:outline-none focus:ring-1 focus:ring-ring"
                         aria-label={t("settings.appearance.zoomIn")}
                       >

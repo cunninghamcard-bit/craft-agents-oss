@@ -327,7 +327,7 @@ export function registerSystemGuiHandlers(server: RpcServer, deps: HandlerDeps):
     const win = windowManager.getWindowByWebContentsId(ctx.webContentsId!)
     if (win) {
       const currentZoom = win.webContents.getZoomFactor()
-      const nextZoom = Math.min(currentZoom + 0.1, 3.0)
+      const nextZoom = Math.min(currentZoom + 0.05, 3.0)
       win.webContents.setZoomFactor(nextZoom)
       const workspaceId = windowManager.getWorkspaceForWindow(win.webContents.id)
       if (workspaceId) persistZoomForWindow(workspaceId, nextZoom)
@@ -339,7 +339,7 @@ export function registerSystemGuiHandlers(server: RpcServer, deps: HandlerDeps):
     const win = windowManager.getWindowByWebContentsId(ctx.webContentsId!)
     if (win) {
       const currentZoom = win.webContents.getZoomFactor()
-      const nextZoom = Math.max(currentZoom - 0.1, 0.5)
+      const nextZoom = Math.max(currentZoom - 0.05, 0.5)
       win.webContents.setZoomFactor(nextZoom)
       const workspaceId = windowManager.getWorkspaceForWindow(win.webContents.id)
       if (workspaceId) persistZoomForWindow(workspaceId, nextZoom)
