@@ -144,7 +144,7 @@ export function ImagePreviewOverlay({
         resetDisabled={isDefaultView}
       />
 
-      <CopyButton content={activeItem?.src || filePath} title={t('common.copyPath')} className="bg-background shadow-minimal" />
+      <CopyButton content={activeItem?.src || filePath} title={t('common.copyPath')} className="bg-background border border-border" />
     </div>
   )
 

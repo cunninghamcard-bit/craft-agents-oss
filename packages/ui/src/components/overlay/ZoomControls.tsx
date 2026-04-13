@@ -123,7 +123,7 @@ export function ZoomControls({
   const activePreset = zoomPresets.find(p => p === zoomPercent)
 
   const resetBtnClass = cn(
-    'p-1.5 rounded-[6px] bg-background shadow-minimal cursor-pointer',
+    'p-1.5 rounded-md bg-background border border-border cursor-pointer',
     'opacity-70 hover:opacity-100 transition-opacity',
     'disabled:opacity-30 disabled:cursor-not-allowed',
     'focus:outline-none focus-visible:ring-1 focus-visible:ring-ring'
@@ -131,7 +131,7 @@ export function ZoomControls({
 
   return (
     <div className={cn('flex items-center gap-1.5', className)}>
-      <div className="flex items-center gap-px bg-background shadow-minimal rounded-[6px]">
+      <div className="flex items-center gap-px bg-background border border-border rounded-md">
         <button
           onClick={onZoomOut}
           disabled={scale <= minScale}

@@ -405,7 +405,7 @@ function FilesPopoverButton({ sessionId, sessionFolderPath }: { sessionId?: stri
           type="button"
           className={cn(
             "h-[30px] pl-[12px] pr-[14px] text-xs font-medium rounded-[8px] flex items-center gap-1.5 shrink-0",
-            "outline-none select-none transition-colors shadow-minimal",
+            "outline-none select-none transition-colors border border-border",
             "hover:bg-foreground/5 data-[state=open]:bg-foreground/5",
             "bg-[color-mix(in_srgb,var(--background)_97%,var(--foreground)_3%)]",
             "text-foreground/80",

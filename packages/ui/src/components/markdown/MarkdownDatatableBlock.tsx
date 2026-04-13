@@ -543,7 +543,7 @@ export function MarkdownDatatableBlock({ code, className }: MarkdownDatatableBlo
         <button
           className={cn(
             'p-1 rounded-[6px] transition-all select-none',
-            'bg-background shadow-minimal',
+            'bg-background border border-border',
             'data-[state=open]:opacity-100',
             hasActiveControls
               ? 'opacity-100 bg-accent/5 text-accent shadow-tinted'
@@ -675,7 +675,7 @@ export function MarkdownDatatableBlock({ code, className }: MarkdownDatatableBlo
           onClick={() => setIsFullscreen(true)}
           className={cn(
             "absolute top-[7px] right-2 p-1 rounded-[6px] transition-all z-10 select-none",
-            "bg-background shadow-minimal",
+            "bg-background border border-border",
             hasActiveControls ? "opacity-100" : "opacity-0 group-hover:opacity-100",
             "text-muted-foreground/50 hover:text-foreground",
             "focus:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:opacity-100"
@@ -710,7 +710,7 @@ export function MarkdownDatatableBlock({ code, className }: MarkdownDatatableBlo
         }
       >
         <div className="px-6">
-          <div className="bg-background shadow-minimal rounded-[12px] overflow-hidden">
+          <div className="bg-background border border-border rounded-[12px] overflow-hidden">
             {tableContent(false)}
           </div>
         </div>

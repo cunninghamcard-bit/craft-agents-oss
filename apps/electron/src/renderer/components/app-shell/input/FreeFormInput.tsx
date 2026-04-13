@@ -1468,8 +1468,8 @@ export function FreeFormInput({
         className={cn(
           'overflow-hidden transition-all',
           // Container styling - only when not wrapped by InputContainer
-          !unstyled && 'rounded-[16px] shadow-middle',
-          !unstyled && 'bg-background',
+          !unstyled && 'rounded-2xl border border-border',
+          !unstyled && 'bg-card',
           isDraggingOver && 'ring-2 ring-foreground ring-offset-2 ring-offset-background bg-foreground/5'
         )}
         onDragEnter={handleDragEnter}
@@ -1590,7 +1590,7 @@ export function FreeFormInput({
                               <span
                                 role="button"
                                 tabIndex={0}
-                                className="inline-flex h-4 min-w-4 cursor-pointer items-center justify-center rounded-[4px] bg-background px-0.5 text-[10px] font-medium text-foreground shadow-minimal focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                                className="inline-flex h-4 min-w-4 cursor-pointer items-center justify-center rounded-sm bg-background border border-border px-0.5 text-[10px] font-medium text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                                 onMouseDown={(event) => {
                                   event.preventDefault()
                                   event.stopPropagation()
@@ -1720,7 +1720,7 @@ export function FreeFormInput({
                             {displaySources.map((source, index) => (
                               <div
                                 key={source.config.slug}
-                                className={cn("relative h-5 w-5 rounded-[4px] bg-background shadow-minimal flex items-center justify-center", index > 0 && "-ml-1")}
+                                className={cn("relative h-5 w-5 rounded-sm bg-background border border-border flex items-center justify-center", index > 0 && "-ml-1")}
                                 style={{ zIndex: index + 1 }}
                               >
                                 <SourceAvatar source={source} size="xs" />
@@ -1728,7 +1728,7 @@ export function FreeFormInput({
                             ))}
                             {remainingCount > 0 && (
                               <div
-                                className="-ml-1 h-5 w-5 rounded-[4px] bg-background shadow-minimal flex items-center justify-center text-[8px] font-medium text-muted-foreground"
+                                className="-ml-1 h-5 w-5 rounded-sm bg-background border border-border flex items-center justify-center text-[8px] font-medium text-muted-foreground"
                                 style={{ zIndex: displaySources.length + 1 }}
                               >
                                 +{remainingCount}
@@ -1825,7 +1825,7 @@ export function FreeFormInput({
                             {displaySources.map((source, index) => (
                               <div
                                 key={source.config.slug}
-                                className={cn("relative h-5 w-5 rounded-[4px] bg-background shadow-minimal flex items-center justify-center", index > 0 && "-ml-1")}
+                                className={cn("relative h-5 w-5 rounded-sm bg-background border border-border flex items-center justify-center", index > 0 && "-ml-1")}
                                 style={{ zIndex: index + 1 }}
                               >
                                 <SourceAvatar source={source} size="xs" />
@@ -1833,7 +1833,7 @@ export function FreeFormInput({
                             ))}
                             {remainingCount > 0 && (
                               <div
-                                className="-ml-1 h-5 w-5 rounded-[4px] bg-background shadow-minimal flex items-center justify-center text-[8px] font-medium text-muted-foreground"
+                                className="-ml-1 h-5 w-5 rounded-sm bg-background border border-border flex items-center justify-center text-[8px] font-medium text-muted-foreground"
                                 style={{ zIndex: displaySources.length + 1 }}
                               >
                                 +{remainingCount}

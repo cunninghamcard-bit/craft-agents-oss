@@ -254,7 +254,7 @@ export function BrowserControls({
             'w-full rounded-[8px] bg-transparent px-3 pl-8 text-[13px] text-foreground/70 outline-none transition-all',
             compact ? 'h-[28px]' : 'h-[30px]',
             !safeThemeColor && (isFocused
-              ? 'bg-background border border-transparent shadow-minimal'
+              ? 'bg-background border border-border'
               : 'border border-foreground/5'),
             safeThemeColor && 'border border-transparent',
           )}

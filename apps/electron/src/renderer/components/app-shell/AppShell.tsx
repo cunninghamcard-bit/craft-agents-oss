@@ -188,8 +188,8 @@ function FilterModeBadge({ mode }: { mode: FilterMode }) {
       className={cn(
         "flex items-center justify-center h-5 w-5 rounded-[4px] -mr-1",
         mode === 'include'
-          ? "bg-background text-foreground shadow-minimal"
-          : "bg-destructive/10 text-destructive shadow-tinted",
+          ? "bg-background text-foreground border border-border"
+          : "bg-destructive/10 text-destructive border border-destructive/30",
       )}
       style={mode === 'exclude' ? { '--shadow-color': 'var(--destructive-rgb)' } as React.CSSProperties : undefined}
     >
@@ -2224,7 +2224,7 @@ function AppShellContent({
                             <Button
                               variant="ghost"
                               onClick={(e) => handleNewChat(e.metaKey || e.ctrlKey)}
-                              className="w-full justify-start gap-2 py-[7px] px-2 text-[13px] font-normal rounded-[6px] shadow-minimal bg-background"
+                              className="w-full justify-start gap-2 py-[7px] px-2 text-[13px] font-normal rounded-md border border-border bg-background"
                               data-tutorial="new-chat-button"
                             >
                               <SquarePenRounded className="h-3.5 w-3.5 shrink-0" />
@@ -2565,7 +2565,7 @@ function AppShellContent({
                         {/* Search input — typing switches from hierarchical submenus to a flat filtered list.
                             stopPropagation prevents Radix from intercepting keys. Arrow/Enter handled for navigation. */}
                         <div className="px-1 pb-3 border-b border-foreground/5">
-                          <div className="bg-background rounded-[6px] shadow-minimal px-2 py-1.5">
+                          <div className="bg-background rounded-md border border-border px-2 py-1.5">
                             <input
                               ref={filterDropdownInputRef}
                               type="text"

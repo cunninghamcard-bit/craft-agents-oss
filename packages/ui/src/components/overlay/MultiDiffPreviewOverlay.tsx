@@ -336,7 +336,7 @@ export function MultiDiffPreviewOverlay({
                   <div
                     key={change.id}
                     ref={(el) => setChangeRef(change.id, el)}
-                    className="rounded-xl overflow-hidden bg-background shadow-minimal"
+                    className="rounded-xl overflow-hidden bg-background border border-border"
                     style={{ minHeight: change.error ? undefined : 200, borderRadius: 12 }}
                   >
                     {change.error ? (

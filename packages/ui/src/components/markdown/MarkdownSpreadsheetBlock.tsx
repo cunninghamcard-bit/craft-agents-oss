@@ -282,7 +282,7 @@ export function MarkdownSpreadsheetBlock({ code, className }: MarkdownSpreadshee
           className={cn(
             "absolute top-[7px] right-2 p-1 rounded-[6px] transition-all z-10 select-none",
             "opacity-0 group-hover:opacity-100",
-            "bg-background shadow-minimal",
+            "bg-background border border-border",
             "text-muted-foreground/50 hover:text-foreground",
             "focus:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:opacity-100"
           )}
@@ -309,7 +309,7 @@ export function MarkdownSpreadsheetBlock({ code, className }: MarkdownSpreadshee
         headerActions={<TableExportDropdown columns={parsed.columns} rows={parsed.rows} filename={parsed.filename || parsed.sheetName || 'Spreadsheet'} />}
       >
         <div className="px-6">
-          <div className="bg-background shadow-minimal rounded-[12px] overflow-hidden">
+          <div className="bg-background border border-border rounded-[12px] overflow-hidden">
             {tableContent(false)}
           </div>
         </div>
