@@ -585,6 +585,8 @@ export interface ElectronAPI {
   menuZoomIn(): Promise<void>
   menuZoomOut(): Promise<void>
   menuZoomReset(): Promise<void>
+  getZoomFactor(): Promise<number>
+  setZoomFactor(zoom: number): Promise<void>
   menuToggleDevTools(): Promise<void>
   menuUndo(): Promise<void>
   menuRedo(): Promise<void>

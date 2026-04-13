@@ -329,6 +329,8 @@ export const CHANNEL_MAP = {
   menuZoomIn: invoke(RPC_CHANNELS.menu.ZOOM_IN),
   menuZoomOut: invoke(RPC_CHANNELS.menu.ZOOM_OUT),
   menuZoomReset: invoke(RPC_CHANNELS.menu.ZOOM_RESET),
+  getZoomFactor: invoke(RPC_CHANNELS.menu.GET_ZOOM),
+  setZoomFactor: invoke(RPC_CHANNELS.menu.SET_ZOOM),
   menuToggleDevTools: invoke(RPC_CHANNELS.menu.TOGGLE_DEV_TOOLS),
   menuUndo: invoke(RPC_CHANNELS.menu.UNDO),
   menuRedo: invoke(RPC_CHANNELS.menu.REDO),

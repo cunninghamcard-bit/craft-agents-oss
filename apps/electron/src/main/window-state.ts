@@ -16,6 +16,7 @@ export interface SavedWindow {
   workspaceId: string
   bounds: WindowBounds
   focused?: boolean
+  zoomFactor?: number
   // Full URL captured from webContents.getURL() at quit time.
   // May be localhost (dev) or file:// (prod) — both are safe to store because
   // createWindow() never loads this URL directly. It extracts query params
@@ -72,6 +73,31 @@ export function loadWindowState(): WindowState | null {
   } catch (error) {
     mainLog.error('[WindowState] Failed to load window state:', error)
     return null
+  }
+}
+
+/**
+ * Update zoom factor for a specific window (matched by workspaceId) in the saved state.
+ * Non-destructive — preserves other fields like lastFocusedWorkspaceId.
+ */
+export function persistZoomForWindow(workspaceId: string, zoomFactor: number): void {
+  try {
+    const state = loadWindowState()
+    if (!state) return
+
+    let matched = false
+    const updated = state.windows.map((w) => {
+      if (w.workspaceId === workspaceId) {
+        matched = true
+        return { ...w, zoomFactor }
+      }
+      return w
+    })
+    // If no match, don't mutate state (window may not have been saved yet)
+    if (!matched) return
+    saveWindowState({ ...state, windows: updated })
+  } catch (error) {
+    mainLog.error('[WindowState] Failed to persist zoom:', error)
   }
 }
 

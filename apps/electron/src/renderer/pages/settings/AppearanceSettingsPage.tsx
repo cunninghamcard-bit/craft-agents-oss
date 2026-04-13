@@ -186,6 +186,17 @@ export default function AppearanceSettingsPage() {
 
   const passThroughFilter = useCallback(() => 1, [])
 
+  // Zoom level state
+  const [zoomFactor, setZoomFactor] = useState(1.0)
+  useEffect(() => {
+    window.electronAPI?.getZoomFactor?.().then((z) => setZoomFactor(z ?? 1.0))
+  }, [])
+  const handleZoomChange = useCallback(async (value: number) => {
+    const clamped = Math.min(Math.max(value, 0.5), 3.0)
+    setZoomFactor(clamped)
+    await window.electronAPI?.setZoomFactor?.(clamped)
+  }, [])
+
   const handleFontSearchEnter = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && fontQuery.trim()) {
       setFont(fontQuery.trim())
@@ -469,6 +480,36 @@ export default function AppearanceSettingsPage() {
                     checked={richToolDescriptions}
                     onCheckedChange={handleRichToolDescriptionsChange}
                   />
+                  <SettingsRow label={t("settings.appearance.zoomLevel")}>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => handleZoomChange(zoomFactor - 0.1)}
+                        className="px-2.5 py-1 text-sm rounded-md border border-border bg-background hover:bg-muted/50 focus:outline-none focus:ring-1 focus:ring-ring"
+                        aria-label={t("settings.appearance.zoomOut")}
+                      >
+                        -
+                      </button>
+                      <span className="w-12 text-center text-sm tabular-nums">
+                        {Math.round(zoomFactor * 100)}%
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => handleZoomChange(zoomFactor + 0.1)}
+                        className="px-2.5 py-1 text-sm rounded-md border border-border bg-background hover:bg-muted/50 focus:outline-none focus:ring-1 focus:ring-ring"
+                        aria-label={t("settings.appearance.zoomIn")}
+                      >
+                        +
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleZoomChange(1.0)}
+                        className="px-2.5 py-1 text-sm rounded-md border border-border bg-background hover:bg-muted/50 focus:outline-none focus:ring-1 focus:ring-ring"
+                      >
+                        {t("settings.appearance.zoomReset")}
+                      </button>
+                    </div>
+                  </SettingsRow>
                 </SettingsCard>
               </SettingsSection>
 
