@@ -620,6 +620,7 @@
   "settings.appearance.richToolDescriptionsDesc": "为所有工具调用添加操作名称和意图描述。为会话提供更丰富的活动上下文。",
   "settings.appearance.zoomIn": "放大",
   "settings.appearance.zoomLevel": "缩放级别",
+  "settings.appearance.zoomLevelDesc": "控制应用的整体缩放级别。",
   "settings.appearance.zoomOut": "缩小",
   "settings.appearance.zoomReset": "重置",
   "settings.appearance.searchTools": "搜索工具...",

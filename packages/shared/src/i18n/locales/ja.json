@@ -620,6 +620,7 @@
   "settings.appearance.richToolDescriptionsDesc": "すべてのツール呼び出しにアクション名と意図の説明を追加します。セッション内のアクティビティコンテキストをより豊かにします。",
   "settings.appearance.zoomIn": "拡大",
   "settings.appearance.zoomLevel": "ズームレベル",
+  "settings.appearance.zoomLevelDesc": "アプリ全体のズームレベルを制御します。",
   "settings.appearance.zoomOut": "縮小",
   "settings.appearance.zoomReset": "リセット",
   "settings.appearance.searchTools": "ツールを検索...",

@@ -621,6 +621,7 @@
   "settings.appearance.searchTools": "Search tools...",
   "settings.appearance.zoomIn": "Zoom in",
   "settings.appearance.zoomLevel": "Zoom level",
+  "settings.appearance.zoomLevelDesc": "Controls the overall zoom level of the app.",
   "settings.appearance.zoomOut": "Zoom out",
   "settings.appearance.zoomReset": "Reset",
   "settings.appearance.system": "System",

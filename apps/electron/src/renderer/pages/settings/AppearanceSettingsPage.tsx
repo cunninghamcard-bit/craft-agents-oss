@@ -16,7 +16,7 @@ import { EditPopover, EditButton, getEditConfig } from '@/components/ui/EditPopo
 import { useTheme } from '@/context/ThemeContext'
 import { useAppShellContext } from '@/context/AppShellContext'
 import { routes } from '@/lib/navigate'
-import { Monitor, Sun, Moon, ChevronDown } from 'lucide-react'
+import { Monitor, Sun, Moon, ChevronDown, RotateCcw } from 'lucide-react'
 import type { DetailsPageMeta } from '@/lib/navigation-registry'
 import type { ToolIconMapping } from '../../../shared/types'
 
@@ -480,34 +480,30 @@ export default function AppearanceSettingsPage() {
                     checked={richToolDescriptions}
                     onCheckedChange={handleRichToolDescriptionsChange}
                   />
-                  <SettingsRow label={t("settings.appearance.zoomLevel")}>
-                    <div className="flex items-center gap-2">
-                      <button
-                        type="button"
-                        onClick={() => handleZoomChange(zoomFactor - 0.1)}
-                        className="px-2.5 py-1 text-sm rounded-md border border-border bg-background hover:bg-muted/50 focus:outline-none focus:ring-1 focus:ring-ring"
-                        aria-label={t("settings.appearance.zoomOut")}
-                      >
-                        -
-                      </button>
-                      <span className="w-12 text-center text-sm tabular-nums">
-                        {Math.round(zoomFactor * 100)}%
-                      </span>
-                      <button
-                        type="button"
-                        onClick={() => handleZoomChange(zoomFactor + 0.1)}
-                        className="px-2.5 py-1 text-sm rounded-md border border-border bg-background hover:bg-muted/50 focus:outline-none focus:ring-1 focus:ring-ring"
-                        aria-label={t("settings.appearance.zoomIn")}
-                      >
-                        +
-                      </button>
+                  <SettingsRow
+                    label={t("settings.appearance.zoomLevel")}
+                    description={t("settings.appearance.zoomLevelDesc")}
+                  >
+                    <div className="flex items-center gap-3">
                       <button
                         type="button"
                         onClick={() => handleZoomChange(1.0)}
-                        className="px-2.5 py-1 text-sm rounded-md border border-border bg-background hover:bg-muted/50 focus:outline-none focus:ring-1 focus:ring-ring"
+                        className="p-1.5 rounded-md border border-border bg-background hover:bg-muted/50 focus:outline-none focus:ring-1 focus:ring-ring text-muted-foreground hover:text-foreground transition-colors"
+                        aria-label={t("settings.appearance.zoomReset")}
+                        title={t("settings.appearance.zoomReset")}
                       >
-                        {t("settings.appearance.zoomReset")}
+                        <RotateCcw className="w-4 h-4" />
                       </button>
+                      <input
+                        type="range"
+                        min={0.5}
+                        max={3.0}
+                        step={0.1}
+                        value={zoomFactor}
+                        onChange={(e) => handleZoomChange(parseFloat(e.target.value))}
+                        className="w-32 h-1.5 bg-muted rounded-lg appearance-none cursor-pointer accent-foreground"
+                        aria-label={t("settings.appearance.zoomLevel")}
+                      />
                     </div>
                   </SettingsRow>
                 </SettingsCard>

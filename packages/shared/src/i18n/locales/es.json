@@ -620,6 +620,7 @@
   "settings.appearance.richToolDescriptionsDesc": "Añade nombres de acción y descripciones de intención a todas las llamadas de herramienta. Proporciona un contexto de actividad más rico en las sesiones.",
   "settings.appearance.zoomIn": "Acercar",
   "settings.appearance.zoomLevel": "Nivel de zoom",
+  "settings.appearance.zoomLevelDesc": "Controla el nivel de zoom general de la aplicación.",
   "settings.appearance.zoomOut": "Alejar",
   "settings.appearance.zoomReset": "Restablecer",
   "settings.appearance.searchTools": "Buscar herramientas...",
