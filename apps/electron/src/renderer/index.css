@@ -29,37 +29,37 @@
 @property --background {
   syntax: "<color>";
   inherits: true;
-  initial-value: oklch(0.98 0.003 265);
+  initial-value: oklch(0.97 0.005 95);
 }
 
 @property --foreground {
   syntax: "<color>";
   inherits: true;
-  initial-value: oklch(0.185 0.01 270);
+  initial-value: oklch(0.18 0.01 95);
 }
 
 @property --accent {
   syntax: "<color>";
   inherits: true;
-  initial-value: oklch(0.62 0.13 293);
+  initial-value: oklch(0.62 0.18 45);
 }
 
 @property --info {
   syntax: "<color>";
   inherits: true;
-  initial-value: oklch(0.65 0.16 70);
+  initial-value: oklch(0.72 0.14 75);
 }
 
 @property --success {
   syntax: "<color>";
   inherits: true;
-  initial-value: oklch(0.55 0.17 145);
+  initial-value: oklch(0.60 0.14 135);
 }
 
 @property --destructive {
   syntax: "<color>";
   inherits: true;
-  initial-value: oklch(0.55 0.22 27);
+  initial-value: oklch(0.58 0.22 25);
 }
 
 /* =============================================================================
@@ -83,21 +83,21 @@
 /* Light Mode */
 :root {
   /* === 6 BASE COLORS === */
-  --background: oklch(0.98 0.003 265);
+  --background: oklch(0.97 0.005 95);
   --background-elevated: color-mix(in srgb, var(--foreground) 1.5%, var(--background));
-  --foreground: oklch(0.185 0.01 270);
+  --foreground: oklch(0.18 0.01 95);
   --foreground-dimmed: color-mix(in srgb, var(--foreground) 80%, var(--background)); /* unfocused panel text */
-  --foreground-rgb: 38, 36, 42;             /* RGB for shadow borders */
-  --user-message-bubble: oklch(from var(--foreground) l c h / 0.05);
+  --foreground-rgb: 42, 40, 36;             /* RGB for shadow borders */
+  --user-message-bubble: oklch(0.95 0.01 95);
   --user-message-bubble-dimmed: oklch(from var(--foreground) l c h / 0.03);
-  --accent: oklch(0.62 0.13 293);           /* purple - brand, Auto mode */
-  --accent-rgb: 104, 78, 133;               /* darkened RGB for shadow-tinted (70% of accent) */
-  --info: oklch(0.75 0.16 70);              /* amber - warnings, Ask mode */
-  --info-rgb: 180, 120, 40;                 /* RGB for shadow-tinted */
-  --success: oklch(0.55 0.17 145);          /* green - connected, checkmarks */
-  --success-rgb: 34, 120, 60;               /* RGB for shadow-tinted */
-  --destructive: oklch(0.58 0.24 28);       /* red - errors, failed */
-  --destructive-rgb: 180, 60, 50;           /* RGB for shadow-tinted */
+  --accent: oklch(0.62 0.18 45);            /* terracotta - brand, Auto mode */
+  --accent-rgb: 140, 90, 65;                /* darkened RGB for shadow-tinted (70% of accent) */
+  --info: oklch(0.72 0.14 75);              /* amber - warnings, Ask mode */
+  --info-rgb: 175, 130, 70;                 /* RGB for shadow-tinted */
+  --success: oklch(0.60 0.14 135);          /* sage green - connected, checkmarks */
+  --success-rgb: 90, 115, 65;                /* RGB for shadow-tinted */
+  --destructive: oklch(0.58 0.22 25);       /* brick red - errors, failed */
+  --destructive-rgb: 165, 70, 55;           /* RGB for shadow-tinted */
 
   /* === SHADOW OPACITY (light mode = subtle, dark mode = stronger) === */
   --shadow-border-opacity: 0.08;            /* Border ring opacity */
@@ -160,9 +160,9 @@
   --card-foreground: var(--foreground);
   --popover: var(--background);
   --popover-foreground: var(--foreground);
-  --border: oklch(from var(--foreground) l c h / 0.05);
-  --input: oklch(from var(--foreground) l c h / 0.1);
-  --ring: oklch(from var(--foreground) l c h / 0.25);
+  --border: oklch(0.8 0.01 95);
+  --input: oklch(0.8 0.01 95);
+  --ring: oklch(0.62 0.18 45);
   --ring-width: 1px;
   --ring-offset: 0px;
 
@@ -188,7 +188,7 @@
 
   /* Layout */
   --font-size-base: 15px;
-  --radius: 0rem;
+  --radius: 0.5rem;
   --spacing: 0.25rem;
   --tracking-normal: 0em;
 
@@ -237,21 +237,21 @@
 /* Dark Mode */
 .dark {
   /* === 6 BASE COLORS (must match DEFAULT_THEME.dark in theme.ts) === */
-  --background: oklch(0.145 0.015 270);
+  --background: oklch(0.22 0.01 95);
   --background-elevated: color-mix(in srgb, var(--foreground) 1.5%, var(--background));
-  --foreground: oklch(0.95 0.01 270);
+  --foreground: oklch(0.91 0.005 95);
   --foreground-dimmed: color-mix(in srgb, var(--foreground) 80%, var(--background)); /* unfocused panel text */
-  --foreground-rgb: 237, 236, 240;           /* RGB for shadow borders */
-  --user-message-bubble: oklch(from var(--foreground) l c h / 0.05);
+  --foreground-rgb: 232, 230, 220;           /* RGB for shadow borders */
+  --user-message-bubble: oklch(0.3 0.01 95);
   --user-message-bubble-dimmed: oklch(from var(--foreground) l c h / 0.03);
-  --accent: oklch(0.65 0.22 293);            /* brighter purple in dark */
-  --accent-rgb: 130, 75, 185;               /* darkened RGB for shadow-tinted (70% of accent) */
-  --info: oklch(0.78 0.14 70);               /* amber */
-  --info-rgb: 210, 155, 55;                  /* RGB for shadow-tinted */
-  --success: oklch(0.60 0.17 145);           /* green */
-  --success-rgb: 50, 140, 80;               /* RGB for shadow-tinted */
-  --destructive: oklch(0.65 0.22 28);        /* brighter red in dark */
-  --destructive-rgb: 200, 70, 60;            /* RGB for shadow-tinted */
+  --accent: oklch(0.68 0.16 45);             /* brighter terracotta in dark */
+  --accent-rgb: 155, 105, 75;               /* darkened RGB for shadow-tinted (70% of accent) */
+  --info: oklch(0.70 0.14 75);               /* amber */
+  --info-rgb: 185, 140, 75;                  /* RGB for shadow-tinted */
+  --success: oklch(0.62 0.12 135);           /* sage green */
+  --success-rgb: 105, 125, 80;               /* RGB for shadow-tinted */
+  --destructive: oklch(0.68 0.18 25);        /* brighter brick red in dark */
+  --destructive-rgb: 180, 90, 70;            /* RGB for shadow-tinted */
 
   /* === SHADOW OPACITY (stronger in dark mode for visibility) === */
   --shadow-border-opacity: 0.15;
@@ -288,9 +288,9 @@
   --card-foreground: var(--foreground);
   --popover: var(--background);
   --popover-foreground: var(--foreground);
-  --border: oklch(from var(--foreground) l c h / 0.05);
-  --input: oklch(from var(--foreground) l c h / 0.1);
-  --ring: oklch(from var(--foreground) l c h / 0.25);
+  --border: oklch(0.38 0.01 95);
+  --input: oklch(0.38 0.01 95);
+  --ring: oklch(0.68 0.16 45);
 
   /* Markdown list markers */
   --md-bullets: var(--foreground-50);
@@ -367,7 +367,7 @@ html[data-scenic][data-theme-override]::before {
 /* Scenic mode: Make background color semi-transparent for glass effect
    Panels with bg-background will become translucent glass */
 html[data-scenic] {
-  --background: oklch(0.2 0.005 270 / 0.55);
+  --background: oklch(0.22 0.01 95 / 0.55);
 }
 
 /* Inter Font - Opt-in via data-font="inter" attribute
