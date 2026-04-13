@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import "tailwindcss" source(none);
 @plugin "@tailwindcss/typography";
 
@@ -29,37 +30,37 @@
 @property --background {
   syntax: "<color>";
   inherits: true;
-  initial-value: oklch(0.98 0.003 265);
+  initial-value: oklch(0.97 0.005 95);
 }
 
 @property --foreground {
   syntax: "<color>";
   inherits: true;
-  initial-value: oklch(0.185 0.01 270);
+  initial-value: oklch(0.18 0.01 95);
 }
 
 @property --accent {
   syntax: "<color>";
   inherits: true;
-  initial-value: oklch(0.62 0.13 293);
+  initial-value: oklch(0.62 0.18 45);
 }
 
 @property --info {
   syntax: "<color>";
   inherits: true;
-  initial-value: oklch(0.65 0.16 70);
+  initial-value: oklch(0.72 0.14 75);
 }
 
 @property --success {
   syntax: "<color>";
   inherits: true;
-  initial-value: oklch(0.55 0.17 145);
+  initial-value: oklch(0.60 0.14 135);
 }
 
 @property --destructive {
   syntax: "<color>";
   inherits: true;
-  initial-value: oklch(0.55 0.22 27);
+  initial-value: oklch(0.58 0.22 25);
 }
 
 /* =============================================================================
@@ -83,21 +84,21 @@
 /* Light Mode */
 :root {
   /* === 6 BASE COLORS === */
-  --background: oklch(0.98 0.003 265);
-  --background-elevated: color-mix(in srgb, var(--foreground) 1.5%, var(--background));
-  --foreground: oklch(0.185 0.01 270);
+  --background: #faf9f5;
+  --background-elevated: #f5f3eb;
+  --foreground: oklch(0.18 0.01 95);
   --foreground-dimmed: color-mix(in srgb, var(--foreground) 80%, var(--background)); /* unfocused panel text */
-  --foreground-rgb: 38, 36, 42;             /* RGB for shadow borders */
-  --user-message-bubble: oklch(from var(--foreground) l c h / 0.05);
+  --foreground-rgb: 42, 40, 36;             /* RGB for shadow borders */
+  --user-message-bubble: #f5f3eb;
   --user-message-bubble-dimmed: oklch(from var(--foreground) l c h / 0.03);
-  --accent: oklch(0.62 0.13 293);           /* purple - brand, Auto mode */
-  --accent-rgb: 104, 78, 133;               /* darkened RGB for shadow-tinted (70% of accent) */
-  --info: oklch(0.75 0.16 70);              /* amber - warnings, Ask mode */
-  --info-rgb: 180, 120, 40;                 /* RGB for shadow-tinted */
-  --success: oklch(0.55 0.17 145);          /* green - connected, checkmarks */
-  --success-rgb: 34, 120, 60;               /* RGB for shadow-tinted */
-  --destructive: oklch(0.58 0.24 28);       /* red - errors, failed */
-  --destructive-rgb: 180, 60, 50;           /* RGB for shadow-tinted */
+  --accent: oklch(0.62 0.18 45);            /* terracotta - brand, Auto mode */
+  --accent-rgb: 140, 90, 65;                /* darkened RGB for shadow-tinted (70% of accent) */
+  --info: oklch(0.72 0.14 75);              /* amber - warnings, Ask mode */
+  --info-rgb: 175, 130, 70;                 /* RGB for shadow-tinted */
+  --success: oklch(0.60 0.14 135);          /* sage green - connected, checkmarks */
+  --success-rgb: 90, 115, 65;                /* RGB for shadow-tinted */
+  --destructive: oklch(0.58 0.22 25);       /* brick red - errors, failed */
+  --destructive-rgb: 165, 70, 55;           /* RGB for shadow-tinted */
 
   /* === SHADOW OPACITY (light mode = subtle, dark mode = stronger) === */
   --shadow-border-opacity: 0.08;            /* Border ring opacity */
@@ -105,11 +106,7 @@
 
   /* === SHADOW VALUES (reusable across utility classes and component overrides) === */
   --shadow-minimal:
-    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
-    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
-    rgba(var(--foreground-rgb), 0.06) 0px 0px 0px 1px,
-    rgba(0, 0, 0, var(--shadow-blur-opacity)) 0px 1px 1px -0.5px,
-    rgba(0, 0, 0, var(--shadow-blur-opacity)) 0px 3px 3px -1.5px;
+    rgba(var(--foreground-rgb), 0.15) 0px 0px 0px 1px;
 
   /* Minimal shadow without blur layers — just the border ring */
   --shadow-minimal-flat:
@@ -118,14 +115,7 @@
     rgba(var(--foreground-rgb), 0.06) 0px 0px 0px 1px;
 
   --shadow-modal-small:
-    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
-    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
-    rgba(var(--foreground-rgb), 0.06) 0px 0px 0px 1px,
-    rgba(0, 0, 0, calc(var(--shadow-blur-opacity) * 0.67)) 0px 1px 1px -0.5px,
-    rgba(0, 0, 0, calc(var(--shadow-blur-opacity) * 0.67)) 0px 3px 3px 0px,
-    rgba(0, 0, 0, calc(var(--shadow-blur-opacity) * 0.33)) 0px 6px 6px 0px,
-    rgba(0, 0, 0, calc(var(--shadow-blur-opacity) * 0.33)) 0px 12px 12px 0px,
-    rgba(0, 0, 0, calc(var(--shadow-blur-opacity) * 0.33)) 0px 24px 24px 0px;
+    rgba(var(--foreground-rgb), 0.15) 0px 0px 0px 1px;
 
   /* === MIX VARIANTS (solid interpolation toward background) === */
   /* Use -2, -3, -5, -10, -20, ..., -90, -95 for solid colors (e.g., separators, Explore mode) */
@@ -152,17 +142,17 @@
 
   /* === SHADCN COMPATIBILITY (derived from 6 base colors) === */
   /* These variables exist for shadcn/ui component updates */
-  --secondary: oklch(from var(--foreground) l c h / 0.05);
+  --secondary: #e8e6dc;
   --secondary-foreground: var(--foreground);
-  --muted: oklch(from var(--foreground) l c h / 0.05);
+  --muted: #e8e6dc;
   --muted-foreground: var(--foreground-50);
-  --card: var(--background);
+  --card: #f5f3eb;
   --card-foreground: var(--foreground);
-  --popover: var(--background);
+  --popover: #f5f3eb;
   --popover-foreground: var(--foreground);
-  --border: oklch(from var(--foreground) l c h / 0.05);
-  --input: oklch(from var(--foreground) l c h / 0.1);
-  --ring: oklch(from var(--foreground) l c h / 0.25);
+  --border: #c9c6bc;
+  --input: #c9c6bc;
+  --ring: oklch(0.62 0.18 45);
   --ring-width: 1px;
   --ring-offset: 0px;
 
@@ -180,15 +170,15 @@
   --step-content-gap: 1.5rem;
   --step-actions-margin: 2rem;
 
-  /* Fonts - System fonts as default, Inter via data-font="inter" */
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-serif: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  /* Fonts - Poppins for UI, Lora for body text, JetBrains Mono for code */
+  --font-sans: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Lora", "Georgia", serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
-  --font-default: var(--font-sans);
+  --font-default: var(--font-serif);
 
   /* Layout */
   --font-size-base: 15px;
-  --radius: 0rem;
+  --radius: 0.5rem;
   --spacing: 0.25rem;
   --tracking-normal: 0em;
 
@@ -237,21 +227,21 @@
 /* Dark Mode */
 .dark {
   /* === 6 BASE COLORS (must match DEFAULT_THEME.dark in theme.ts) === */
-  --background: oklch(0.145 0.015 270);
-  --background-elevated: color-mix(in srgb, var(--foreground) 1.5%, var(--background));
-  --foreground: oklch(0.95 0.01 270);
+  --background: #262521;
+  --background-elevated: #2e2c26;
+  --foreground: oklch(0.91 0.005 95);
   --foreground-dimmed: color-mix(in srgb, var(--foreground) 80%, var(--background)); /* unfocused panel text */
-  --foreground-rgb: 237, 236, 240;           /* RGB for shadow borders */
-  --user-message-bubble: oklch(from var(--foreground) l c h / 0.05);
+  --foreground-rgb: 232, 230, 220;           /* RGB for shadow borders */
+  --user-message-bubble: #3a362e;
   --user-message-bubble-dimmed: oklch(from var(--foreground) l c h / 0.03);
-  --accent: oklch(0.65 0.22 293);            /* brighter purple in dark */
-  --accent-rgb: 130, 75, 185;               /* darkened RGB for shadow-tinted (70% of accent) */
-  --info: oklch(0.78 0.14 70);               /* amber */
-  --info-rgb: 210, 155, 55;                  /* RGB for shadow-tinted */
-  --success: oklch(0.60 0.17 145);           /* green */
-  --success-rgb: 50, 140, 80;               /* RGB for shadow-tinted */
-  --destructive: oklch(0.65 0.22 28);        /* brighter red in dark */
-  --destructive-rgb: 200, 70, 60;            /* RGB for shadow-tinted */
+  --accent: oklch(0.68 0.16 45);             /* brighter terracotta in dark */
+  --accent-rgb: 155, 105, 75;               /* darkened RGB for shadow-tinted (70% of accent) */
+  --info: oklch(0.70 0.14 75);               /* amber */
+  --info-rgb: 185, 140, 75;                  /* RGB for shadow-tinted */
+  --success: oklch(0.62 0.12 135);           /* sage green */
+  --success-rgb: 105, 125, 80;               /* RGB for shadow-tinted */
+  --destructive: oklch(0.68 0.18 25);        /* brighter brick red in dark */
+  --destructive-rgb: 180, 90, 70;            /* RGB for shadow-tinted */
 
   /* === SHADOW OPACITY (stronger in dark mode for visibility) === */
   --shadow-border-opacity: 0.15;
@@ -280,24 +270,25 @@
   --info-text: color-mix(in oklab, var(--info) 50%, var(--foreground));
 
   /* === SHADCN COMPATIBILITY (derived from 6 base colors) === */
-  --secondary: oklch(from var(--foreground) l c h / 0.05);
+  --secondary: #2a2822;
   --secondary-foreground: var(--foreground);
-  --muted: oklch(from var(--foreground) l c h / 0.05);
+  --muted: #2a2822;
   --muted-foreground: var(--foreground-50);
-  --card: var(--background);
+  --card: #2e2c26;
   --card-foreground: var(--foreground);
-  --popover: var(--background);
+  --popover: #2e2c26;
   --popover-foreground: var(--foreground);
-  --border: oklch(from var(--foreground) l c h / 0.05);
-  --input: oklch(from var(--foreground) l c h / 0.1);
-  --ring: oklch(from var(--foreground) l c h / 0.25);
+  --border: #3a362e;
+  --input: #3a362e;
+  --ring: oklch(0.68 0.16 45);
 
   /* Markdown list markers */
   --md-bullets: var(--foreground-50);
   --md-counters: var(--foreground-50);
 }
 
-/* Theme Override - Semi-transparent background to allow vibrancy through */
+/* Theme Override - Disabled vibrancy for solid paper-like backgrounds */
+/*
 html[data-theme-override]::before {
   content: '';
   position: fixed;
@@ -306,6 +297,7 @@ html[data-theme-override]::before {
   z-index: -1;
   pointer-events: none;
 }
+*/
 
 /* Theme Mismatch - Solid background when theme doesn't support current mode
    e.g. dark-only theme in light mode. Uses foreground-10 for subtle contrast. */
@@ -367,7 +359,7 @@ html[data-scenic][data-theme-override]::before {
 /* Scenic mode: Make background color semi-transparent for glass effect
    Panels with bg-background will become translucent glass */
 html[data-scenic] {
-  --background: oklch(0.2 0.005 270 / 0.55);
+  --background: oklch(0.24 0.01 95 / 0.55);
 }
 
 /* Theme integration for Tailwind v4 */
@@ -397,8 +389,8 @@ html[data-scenic] {
   --color-foreground-95: var(--foreground-95);
 
   /* === SEMANTIC SURFACE COLORS === */
-  /* Subtle hover background for sidebar list items (2% foreground opacity) */
-  --color-sidebar-hover: oklch(from var(--foreground) l c h / 0.02);
+  /* Warm hover background for sidebar list items */
+  --color-sidebar-hover: var(--muted);
   /* User message bubble background (overridden on unfocused panels) */
   --color-user-message-bubble: var(--user-message-bubble);
 
@@ -586,8 +578,9 @@ html[data-scenic] {
     box-shadow: inset 0 -1px 0 var(--color-border);
   }
 
-  .shadow-minimal {
-    box-shadow: var(--shadow-minimal);
+    .shadow-minimal {
+    border: 1px solid var(--border);
+    box-shadow: none;
   }
 
   .shadow-middle {
@@ -676,8 +669,9 @@ html[data-scenic] {
     z-index: 2;
   }
 
-  .shadow-modal-small {
-    box-shadow: var(--shadow-modal-small);
+    .shadow-modal-small {
+    border: 1px solid var(--border);
+    box-shadow: none;
   }
 
   /* =============================================================================
@@ -1095,7 +1089,8 @@ html.dark[data-scenic] .fullscreen-overlay-background {
 ============================================================================= */
 
 [data-sonner-toast] {
-  box-shadow: var(--shadow-modal-small) !important;
+  box-shadow: none !important;
+  border: 1px solid var(--border) !important;
   background-color: oklch(from var(--popover) l c h / 0.8) !important;
   -webkit-app-region: no-drag !important;
   /* Fixed width to ensure text truncation works */
@@ -1139,7 +1134,8 @@ html.dark[data-scenic] .fullscreen-overlay-background {
 [data-sonner-toast] [data-button],
 [data-sonner-toast] [data-cancel] {
   background-color: var(--background) !important;
-  box-shadow: var(--shadow-minimal) !important;
+  box-shadow: none !important;
+  border: 1px solid var(--border) !important;
   color: oklch(from var(--foreground) l c h / 0.7) !important;
   transition: color 0.15s ease !important;
 }

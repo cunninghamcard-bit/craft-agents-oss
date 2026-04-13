@@ -125,7 +125,7 @@ export function AddWorkspaceStep_CreateNew({
           <label className="block text-sm font-medium text-foreground mb-2.5">
             Workspace name
           </label>
-          <div className="bg-background shadow-minimal rounded-lg">
+          <div className="bg-background border border-border rounded-lg">
             <Input
               value={name}
               onChange={(e) => setName(e.target.value)}

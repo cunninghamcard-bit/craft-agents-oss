@@ -124,7 +124,7 @@ export function ComponentPreview({ component, props }: ComponentPreviewProps) {
                 setSize({ width: DEFAULT_WIDTH, height: DEFAULT_HEIGHT })
                 localStorage.removeItem(STORAGE_KEY)
               }}
-              className="px-2 py-1 rounded text-xs text-muted-foreground hover:text-foreground hover:bg-foreground/5 transition-colors"
+              className="px-2 py-1 rounded text-xs text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
             >
               Reset
             </button>
@@ -164,19 +164,19 @@ export function ComponentPreview({ component, props }: ComponentPreviewProps) {
           {/* Right resize handle */}
           <div
             onMouseDown={(e) => handleMouseDown(e, 'right')}
-            className="absolute top-0 -right-1 w-2 h-full cursor-ew-resize hover:bg-foreground/20 active:bg-foreground/30 transition-colors"
+            className="absolute top-0 -right-1 w-2 h-full cursor-ew-resize hover:bg-foreground/20 active:bg-muted-foreground/100 transition-colors"
           />
 
           {/* Bottom resize handle */}
           <div
             onMouseDown={(e) => handleMouseDown(e, 'bottom')}
-            className="absolute -bottom-1 left-0 h-2 w-full cursor-ns-resize hover:bg-foreground/20 active:bg-foreground/30 transition-colors"
+            className="absolute -bottom-1 left-0 h-2 w-full cursor-ns-resize hover:bg-foreground/20 active:bg-muted-foreground/100 transition-colors"
           />
 
           {/* Corner resize handle */}
           <div
             onMouseDown={(e) => handleMouseDown(e, 'corner')}
-            className="absolute -bottom-1 -right-1 w-3 h-3 cursor-nwse-resize hover:bg-foreground/30 active:bg-foreground/40 transition-colors rounded-br"
+            className="absolute -bottom-1 -right-1 w-3 h-3 cursor-nwse-resize hover:bg-muted-foreground/100 active:bg-foreground/40 transition-colors rounded-br"
           />
         </div>
       </div>

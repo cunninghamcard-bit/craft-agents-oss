@@ -138,7 +138,7 @@ export function AddWorkspaceSecondaryButton({
     <Button
       variant="secondary"
       size="sm"
-      className={cn("bg-background shadow-minimal", className)}
+      className={cn("bg-background border border-border", className)}
       {...props}
     >
       {children}

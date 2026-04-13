@@ -93,7 +93,7 @@ export function SettingsInput({
       )}
       <div className="flex gap-2">
         <div className={cn(
-          'relative flex-1 rounded-md shadow-minimal has-[:focus-visible]:bg-background',
+          'relative flex-1 rounded-md border border-border has-[:focus-visible]:bg-background',
           error && 'ring-1 ring-destructive'
         )}>
           <Input
@@ -193,7 +193,7 @@ export function SettingsInputRow({
         {error && <p className={cn('text-sm text-destructive', settingsUI.labelDescriptionGap)}>{error}</p>}
       </div>
       <div data-layout="settings-control" className={cn(
-        'ml-4 shrink-0 rounded-md shadow-minimal has-[:focus-visible]:bg-background',
+        'ml-4 shrink-0 rounded-md border border-border has-[:focus-visible]:bg-background',
         error && 'ring-1 ring-destructive'
       )}>
         <Input
@@ -272,7 +272,7 @@ export function SettingsSecretInput({
         </div>
       )}
       <div className={cn(
-        'relative rounded-md shadow-minimal bg-muted/50 has-[:focus-visible]:bg-background',
+        'relative rounded-md border border-border bg-muted/50 has-[:focus-visible]:bg-background',
         error && 'ring-1 ring-destructive'
       )}>
         <Input

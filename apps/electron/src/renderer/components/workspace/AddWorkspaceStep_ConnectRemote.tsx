@@ -213,7 +213,7 @@ export function AddWorkspaceStep_ConnectRemote({
           <label className="block text-sm font-medium text-foreground">
             Server URL
           </label>
-          <div className="bg-background shadow-minimal rounded-lg">
+          <div className="bg-background border border-border rounded-lg">
             <Input
               value={serverUrl}
               onChange={(e) => setServerUrl(e.target.value)}
@@ -230,7 +230,7 @@ export function AddWorkspaceStep_ConnectRemote({
           <label className="block text-sm font-medium text-foreground">
             Token
           </label>
-          <div className="bg-background shadow-minimal rounded-lg">
+          <div className="bg-background border border-border rounded-lg">
             <Input
               type="password"
               value={token}
@@ -287,7 +287,7 @@ export function AddWorkspaceStep_ConnectRemote({
             <label className="block text-sm font-medium text-foreground">
               Workspace
             </label>
-            <div className="bg-background shadow-minimal rounded-lg">
+            <div className="bg-background border border-border rounded-lg">
               <Select
                 value={selectedValue ?? ''}
                 onValueChange={setSelectedValue}
@@ -323,7 +323,7 @@ export function AddWorkspaceStep_ConnectRemote({
             <label className="block text-sm font-medium text-foreground">
               Workspace name
             </label>
-            <div className="bg-background shadow-minimal rounded-lg">
+            <div className="bg-background border border-border rounded-lg">
               <Input
                 value={newWorkspaceName}
                 onChange={(e) => setNewWorkspaceName(e.target.value)}

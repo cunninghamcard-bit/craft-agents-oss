@@ -222,9 +222,9 @@ export function LabelValuePopover({
                       aria-label="Select date"
                       className={cn(
                         'flex items-center justify-center w-7 h-7 rounded-[5px]',
-                        'hover:bg-foreground/5 transition-colors cursor-pointer',
+                        'hover:bg-muted transition-colors cursor-pointer',
                         'outline-none',
-                        calendarOpen && 'bg-foreground/5'
+                        calendarOpen && 'bg-muted'
                       )}
                     >
                       <CalendarDays className="w-3.5 h-3.5 text-foreground/50" />
@@ -296,7 +296,7 @@ export function LabelValuePopover({
             className={cn(
               'w-full flex items-center gap-2 px-2 py-1.5 rounded-[4px]',
               'text-[13px] text-destructive',
-              'hover:bg-foreground/[0.03] focus:bg-foreground/[0.03]',
+              'hover:bg-muted focus:bg-muted',
               'transition-colors cursor-pointer outline-none'
             )}
           >

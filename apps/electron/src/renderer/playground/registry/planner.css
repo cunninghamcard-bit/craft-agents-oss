@@ -14,7 +14,7 @@
 }
 
 .planner-sortable-item--selected {
-  --sortable-shadow-base: var(--shadow-minimal);
+  --sortable-shadow-base: var(--border border-border);
 }
 
 .planner-sortable-item[aria-grabbed='true'] {

@@ -134,7 +134,7 @@ export function PanelStackContainer({
             opacity: hasSidebar ? 1 : 0,
           }}
           transition={transition}
-          className="h-full relative shrink-0"
+          className="h-full relative shrink-0 bg-background border border-border rounded-[8px]"
           style={{ overflowX: 'clip', overflowY: 'visible' }}
         >
           <div className="h-full" style={{ width: sidebarWidth }}>
@@ -154,7 +154,7 @@ export function PanelStackContainer({
           transition={transition}
           className={cn(
             'h-full overflow-hidden relative shrink-0 z-[2]',
-            'bg-background shadow-middle',
+            'bg-background border border-border',
           )}
           style={{
             // In compact mode (no content selected), navigator fills available space

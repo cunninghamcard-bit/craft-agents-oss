@@ -1468,9 +1468,9 @@ export function FreeFormInput({
         className={cn(
           'overflow-hidden transition-all',
           // Container styling - only when not wrapped by InputContainer
-          !unstyled && 'rounded-[16px] shadow-middle',
-          !unstyled && 'bg-background',
-          isDraggingOver && 'ring-2 ring-foreground ring-offset-2 ring-offset-background bg-foreground/5'
+          !unstyled && 'rounded-2xl border border-border',
+          !unstyled && 'bg-card',
+          isDraggingOver && 'ring-2 ring-foreground ring-offset-2 ring-offset-background bg-muted'
         )}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
@@ -1576,7 +1576,7 @@ export function FreeFormInput({
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: -4, scale: 0.98 }}
                           transition={{ duration: 0.16, ease: [0.2, 0, 0.2, 1] }}
-                          className="inline-flex max-w-full items-center gap-1.5 overflow-hidden rounded-[6px] bg-foreground/2 pl-1.5 pr-2 py-1 text-[13px] text-foreground/80 select-none transition-colors hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                          className="inline-flex max-w-full items-center gap-1.5 overflow-hidden rounded-[6px] bg-foreground/2 pl-1.5 pr-2 py-1 text-[13px] text-foreground/80 select-none transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                           onClick={(event) => {
                             const rect = event.currentTarget.getBoundingClientRect()
                             onFollowUpClick?.(item, {
@@ -1590,7 +1590,7 @@ export function FreeFormInput({
                               <span
                                 role="button"
                                 tabIndex={0}
-                                className="inline-flex h-4 min-w-4 cursor-pointer items-center justify-center rounded-[4px] bg-background px-0.5 text-[10px] font-medium text-foreground shadow-minimal focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                                className="inline-flex h-4 min-w-4 cursor-pointer items-center justify-center rounded-sm bg-background border border-border px-0.5 text-[10px] font-medium text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                                 onMouseDown={(event) => {
                                   event.preventDefault()
                                   event.stopPropagation()
@@ -1720,7 +1720,7 @@ export function FreeFormInput({
                             {displaySources.map((source, index) => (
                               <div
                                 key={source.config.slug}
-                                className={cn("relative h-5 w-5 rounded-[4px] bg-background shadow-minimal flex items-center justify-center", index > 0 && "-ml-1")}
+                                className={cn("relative h-5 w-5 rounded-sm bg-background border border-border flex items-center justify-center", index > 0 && "-ml-1")}
                                 style={{ zIndex: index + 1 }}
                               >
                                 <SourceAvatar source={source} size="xs" />
@@ -1728,7 +1728,7 @@ export function FreeFormInput({
                             ))}
                             {remainingCount > 0 && (
                               <div
-                                className="-ml-1 h-5 w-5 rounded-[4px] bg-background shadow-minimal flex items-center justify-center text-[8px] font-medium text-muted-foreground"
+                                className="-ml-1 h-5 w-5 rounded-sm bg-background border border-border flex items-center justify-center text-[8px] font-medium text-muted-foreground"
                                 style={{ zIndex: displaySources.length + 1 }}
                               >
                                 +{remainingCount}
@@ -1825,7 +1825,7 @@ export function FreeFormInput({
                             {displaySources.map((source, index) => (
                               <div
                                 key={source.config.slug}
-                                className={cn("relative h-5 w-5 rounded-[4px] bg-background shadow-minimal flex items-center justify-center", index > 0 && "-ml-1")}
+                                className={cn("relative h-5 w-5 rounded-sm bg-background border border-border flex items-center justify-center", index > 0 && "-ml-1")}
                                 style={{ zIndex: index + 1 }}
                               >
                                 <SourceAvatar source={source} size="xs" />
@@ -1833,7 +1833,7 @@ export function FreeFormInput({
                             ))}
                             {remainingCount > 0 && (
                               <div
-                                className="-ml-1 h-5 w-5 rounded-[4px] bg-background shadow-minimal flex items-center justify-center text-[8px] font-medium text-muted-foreground"
+                                className="-ml-1 h-5 w-5 rounded-sm bg-background border border-border flex items-center justify-center text-[8px] font-medium text-muted-foreground"
                                 style={{ zIndex: displaySources.length + 1 }}
                               >
                                 +{remainingCount}
@@ -1910,8 +1910,8 @@ export function FreeFormInput({
                   <button
                     type="button"
                     className={cn(
-                      "input-toolbar-btn inline-flex items-center h-7 px-1.5 gap-0.5 text-[13px] shrink-0 rounded-[6px] hover:bg-foreground/5 transition-colors select-none",
-                      modelDropdownOpen && "bg-foreground/5",
+                      "input-toolbar-btn inline-flex items-center h-7 px-1.5 gap-0.5 text-[13px] shrink-0 rounded-[6px] hover:bg-muted transition-colors select-none",
+                      modelDropdownOpen && "bg-muted",
                       connectionUnavailable && "text-destructive",
                     )}
                   >
@@ -1972,7 +1972,7 @@ Model
                             disabled={!isAuthenticated}
                             className={cn(
                               "flex items-center justify-between px-2 py-2 rounded-lg",
-                              isCurrentConnection && "bg-foreground/5"
+                              isCurrentConnection && "bg-muted"
                             )}
                           >
                             <div className="text-left flex-1">
@@ -2153,7 +2153,7 @@ Model
                     type="button"
                     onClick={handleCompactClick}
                     disabled={isProcessing}
-                    className="inline-flex items-center h-6 px-2 text-[12px] font-medium bg-info/10 rounded-[6px] shadow-tinted select-none cursor-pointer hover:bg-info/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="inline-flex items-center h-6 px-2 text-[12px] font-medium bg-info/10 rounded-[6px] border border-border select-none cursor-pointer hover:bg-info/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     style={{
                       '--shadow-color': 'var(--info-rgb)',
                       color: 'color-mix(in oklab, var(--info) 30%, var(--foreground))',
@@ -2331,7 +2331,7 @@ function WorkingDirectoryBadge({
   const showReset = hasFolder && sessionFolderPath && sessionFolderPath !== workingDirectory
 
   // Styles matching todo-filter-menu.tsx for consistency
-  const MENU_CONTAINER_STYLE = 'min-w-[200px] max-w-[400px] overflow-hidden rounded-[8px] bg-background text-foreground shadow-modal-small p-0'
+  const MENU_CONTAINER_STYLE = 'min-w-[200px] max-w-[400px] overflow-hidden rounded-[8px] bg-background text-foreground border border-border p-0'
   const MENU_LIST_STYLE = 'max-h-[200px] overflow-y-auto p-1 [&_[cmdk-list-sizer]]:space-y-px'
   const MENU_ITEM_STYLE = 'flex cursor-pointer select-none items-center gap-2 rounded-[6px] px-3 py-1.5 text-[13px] outline-none'
 
@@ -2379,7 +2379,7 @@ function WorkingDirectoryBadge({
             {hasFolder && (
               <CommandPrimitive.Item
                 value={`current-${workingDirectory}`}
-                className={cn(MENU_ITEM_STYLE, 'pointer-events-none bg-foreground/5')}
+                className={cn(MENU_ITEM_STYLE, 'pointer-events-none bg-muted')}
                 disabled
               >
                 <Icon_Folder className="h-4 w-4 shrink-0 text-muted-foreground" />
@@ -2404,7 +2404,7 @@ function WorkingDirectoryBadge({
                   key={path}
                   value={`${recentFolderName} ${path}`}
                   onSelect={() => handleSelectRecent(path)}
-                  className={cn(MENU_ITEM_STYLE, 'group/item data-[selected=true]:bg-foreground/5')}
+                  className={cn(MENU_ITEM_STYLE, 'group/item data-[selected=true]:bg-muted')}
                 >
                   <Icon_Folder className="h-4 w-4 shrink-0 text-muted-foreground" />
                   <span className="flex-1 min-w-0 truncate">
@@ -2414,7 +2414,7 @@ function WorkingDirectoryBadge({
                   <button
                     type="button"
                     onClick={(e) => handleRemoveRecent(e, path)}
-                    className="shrink-0 h-3 w-3 rounded-[3px] flex items-center justify-center opacity-0 group-hover/item:opacity-100 text-muted-foreground hover:text-foreground hover:bg-foreground/10 transition-all"
+                    className="shrink-0 h-3 w-3 rounded-[3px] flex items-center justify-center opacity-0 group-hover/item:opacity-100 text-muted-foreground hover:text-foreground hover:bg-muted transition-all"
                   >
                     <X className="h-3 w-3" />
                   </button>
@@ -2435,7 +2435,7 @@ function WorkingDirectoryBadge({
             <button
               type="button"
               onClick={handleChooseFolder}
-              className={cn(MENU_ITEM_STYLE, 'w-full hover:bg-foreground/5')}
+              className={cn(MENU_ITEM_STYLE, 'w-full hover:bg-muted')}
             >
               {t('chat.chooseFolder')}
             </button>
@@ -2443,7 +2443,7 @@ function WorkingDirectoryBadge({
               <button
                 type="button"
                 onClick={handleReset}
-                className={cn(MENU_ITEM_STYLE, 'w-full hover:bg-foreground/5')}
+                className={cn(MENU_ITEM_STYLE, 'w-full hover:bg-muted')}
               >
                 {t('common.reset')}
               </button>

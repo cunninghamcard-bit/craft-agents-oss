@@ -1536,8 +1536,7 @@ export const ChatDisplay = React.forwardRef<ChatDisplayHandle, ChatDisplayProps>
             >
               <ScrollArea className="h-full min-w-0" viewportRef={scrollViewportRef}>
               <div className={cn(
-                CHAT_LAYOUT.maxWidth,
-                "mx-auto min-w-0",
+                "max-w-[1200px] ml-0 mr-auto min-w-0",
                 compactMode ? "px-3 py-4 space-y-2" : [CHAT_LAYOUT.containerPadding, CHAT_LAYOUT.messageSpacing]
               )}>
                 {/* Session-level AnimatePresence: Prevents layout jump when switching sessions */}
@@ -1620,6 +1619,7 @@ export const ChatDisplay = React.forwardRef<ChatDisplayHandle, ChatDisplayProps>
                             onOpenFile={onOpenFile}
                             onOpenUrl={onOpenUrl}
                             compactMode={compactMode}
+                            align="left"
                           />
                         </div>
                       )
@@ -2132,7 +2132,7 @@ function ErrorMessage({ message, onOpenUrl }: { message: Message; onOpenUrl?: (u
     <div className="flex justify-start mt-4">
       {/* Subtle bg (3% opacity) + tinted shadow for softer error appearance */}
       <div
-        className="max-w-[80%] shadow-tinted rounded-[8px] pl-5 pr-4 pt-2 pb-2.5 break-words"
+        className="max-w-[80%] border border-border rounded-[8px] pl-5 pr-4 pt-2 pb-2.5 break-words"
         style={{
           backgroundColor: 'oklch(from var(--destructive) l c h / 0.03)',
           '--shadow-color': 'var(--destructive-rgb)',
@@ -2225,12 +2225,12 @@ function MessageBubble({
   if (message.role === 'assistant') {
     return (
       <div className="flex justify-start group">
-        <div className="relative max-w-[90%] bg-background shadow-minimal rounded-[8px] pl-6 pr-4 py-3 break-words min-w-0 select-text">
+        <div className="relative max-w-[90%] bg-card border border-border rounded-xl pl-6 pr-4 py-3 break-words min-w-0 select-text">
           {/* Pop-out button - visible on hover */}
           {onPopOut && !message.isStreaming && (
             <button
               onClick={() => onPopOut(message)}
-              className="absolute top-2 right-2 p-1.5 rounded-md opacity-0 group-hover:opacity-100 transition-opacity hover:bg-foreground/5"
+              className="absolute top-2 right-2 p-1.5 rounded-md opacity-0 group-hover:opacity-100 transition-opacity hover:bg-muted"
               title={t("sidebarMenu.openInNewWindow")}
             >
               <ExternalLink className="w-4 h-4 text-muted-foreground hover:text-foreground" />

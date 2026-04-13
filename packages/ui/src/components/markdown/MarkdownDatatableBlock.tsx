@@ -493,7 +493,7 @@ export function MarkdownDatatableBlock({ code, className }: MarkdownDatatableBlo
     >
       <table className="w-max min-w-full text-[13px]">
         <thead>
-          <tr className="border-b border-foreground/[0.06] bg-foreground/[0.02]">
+          <tr className="border-b border-foreground/[0.06] bg-muted">
             {parsed.columns.map((col) => (
               <th
                 key={col.key}
@@ -515,7 +515,7 @@ export function MarkdownDatatableBlock({ code, className }: MarkdownDatatableBlo
                 className="cursor-pointer select-none"
                 onClick={() => toggleCollapsed(group.value)}
               >
-                <td colSpan={parsed.columns.length} className="py-2 px-3 bg-foreground/[0.03] border-b border-foreground/[0.06]">
+                <td colSpan={parsed.columns.length} className="py-2 px-3 bg-muted border-b border-foreground/[0.06]">
                   <span className="inline-flex items-center gap-2 text-[12px] font-medium text-muted-foreground">
                     <ChevronRight className={cn('w-3 h-3 transition-transform', !collapsedGroups.has(group.value) && 'rotate-90')} />
                     {groupColumnLabel}: {group.value}
@@ -543,10 +543,10 @@ export function MarkdownDatatableBlock({ code, className }: MarkdownDatatableBlo
         <button
           className={cn(
             'p-1 rounded-[6px] transition-all select-none',
-            'bg-background shadow-minimal',
+            'bg-background border border-border',
             'data-[state=open]:opacity-100',
             hasActiveControls
-              ? 'opacity-100 bg-accent/5 text-accent shadow-tinted'
+              ? 'opacity-100 bg-accent/5 text-accent border border-border/50'
               : alwaysVisible
                 ? 'opacity-70 hover:opacity-100 transition-opacity'
                 : 'opacity-0 group-hover:opacity-100 text-muted-foreground/50 hover:text-foreground',
@@ -675,7 +675,7 @@ export function MarkdownDatatableBlock({ code, className }: MarkdownDatatableBlo
           onClick={() => setIsFullscreen(true)}
           className={cn(
             "absolute top-[7px] right-2 p-1 rounded-[6px] transition-all z-10 select-none",
-            "bg-background shadow-minimal",
+            "bg-background border border-border",
             hasActiveControls ? "opacity-100" : "opacity-0 group-hover:opacity-100",
             "text-muted-foreground/50 hover:text-foreground",
             "focus:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:opacity-100"
@@ -710,7 +710,7 @@ export function MarkdownDatatableBlock({ code, className }: MarkdownDatatableBlo
         }
       >
         <div className="px-6">
-          <div className="bg-background shadow-minimal rounded-[12px] overflow-hidden">
+          <div className="bg-background border border-border rounded-[12px] overflow-hidden">
             {tableContent(false)}
           </div>
         </div>

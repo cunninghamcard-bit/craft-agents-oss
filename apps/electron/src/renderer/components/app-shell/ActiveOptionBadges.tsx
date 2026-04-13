@@ -177,7 +177,7 @@ export function ActiveOptionBadges({
           <div
             className="flex-1 min-w-0 max-w-full py-0.5 -my-0.5"
             style={{
-              // shadow-minimal replicated as drop-shadow (traces masked alpha, no clipping).
+              // border border-border replicated as drop-shadow (traces masked alpha, no clipping).
               // Ring uses higher blur+opacity for visible border feel (hard 1px ring can't be replicated exactly).
               // Blur shadows use reduced blur+opacity to stay tight (accounting for no negative spread in drop-shadow).
               filter: 'drop-shadow(0px 0px 0.5px rgba(var(--foreground-rgb), 0.3)) drop-shadow(0px 1px 0.1px rgba(0,0,0,0.04)) drop-shadow(0px 3px 0.2px rgba(0,0,0,0.03))',
@@ -405,8 +405,8 @@ function FilesPopoverButton({ sessionId, sessionFolderPath }: { sessionId?: stri
           type="button"
           className={cn(
             "h-[30px] pl-[12px] pr-[14px] text-xs font-medium rounded-[8px] flex items-center gap-1.5 shrink-0",
-            "outline-none select-none transition-colors shadow-minimal",
-            "hover:bg-foreground/5 data-[state=open]:bg-foreground/5",
+            "outline-none select-none transition-colors border border-border",
+            "hover:bg-muted data-[state=open]:bg-muted",
             "bg-[color-mix(in_srgb,var(--background)_97%,var(--foreground)_3%)]",
             "text-foreground/80",
           )}
@@ -456,18 +456,15 @@ function PermissionModeDropdown({ permissionMode, onPermissionModeChange, sessio
   // - safe (Explore): foreground at 60% opacity - subtle, read-only feel
   // - ask (Ask to Edit): info color - amber, prompts for edits
   // - allow-all (Auto): accent color - purple, full autonomy
-  const modeStyles: Record<PermissionMode, { className: string; shadowVar: string }> = {
+  const modeStyles: Record<PermissionMode, { className: string }> = {
     'safe': {
-      className: 'bg-foreground/5 text-foreground/60',
-      shadowVar: 'var(--foreground-rgb)',
+      className: 'bg-muted text-muted-foreground border border-border',
     },
     'ask': {
-      className: 'bg-info/10 text-info',
-      shadowVar: 'var(--info-rgb)',
+      className: 'bg-info/10 text-info border border-border/50',
     },
     'allow-all': {
-      className: 'bg-accent/5 text-accent',
-      shadowVar: 'var(--accent-rgb)',
+      className: 'bg-accent/5 text-accent border border-border/50',
     },
   }
   const currentStyle = modeStyles[optimisticMode]
@@ -479,10 +476,9 @@ function PermissionModeDropdown({ permissionMode, onPermissionModeChange, sessio
           type="button"
           data-tutorial="permission-mode-dropdown"
           className={cn(
-            "h-[30px] pl-2.5 pr-2 text-xs font-medium rounded-[8px] flex items-center gap-1.5 shadow-tinted outline-none select-none",
+            "h-[30px] pl-2.5 pr-2 text-xs font-medium rounded-[8px] flex items-center gap-1.5 outline-none select-none",
             currentStyle.className
           )}
-          style={{ '--shadow-color': currentStyle.shadowVar } as React.CSSProperties}
         >
           <PermissionModeIcon mode={optimisticMode} className="h-3.5 w-3.5" />
           <span>{t(`mode.${optimisticMode}`)}</span>
@@ -490,7 +486,7 @@ function PermissionModeDropdown({ permissionMode, onPermissionModeChange, sessio
         </button>
       </PopoverTrigger>
       <PopoverContent
-        className="w-auto p-0 rounded-[8px] bg-background text-foreground shadow-modal-small"
+        className="w-auto p-0 rounded-[8px] bg-background text-foreground border border-border"
         side="top"
         align="start"
         sideOffset={4}

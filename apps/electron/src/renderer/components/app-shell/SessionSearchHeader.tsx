@@ -61,7 +61,7 @@ export function SessionSearchHeader({
   return (
     <div className="shrink-0 px-2 pt-2 pb-1.5 border-b border-border/50">
       {/* Search input */}
-      <div className="relative rounded-[8px] shadow-minimal bg-muted/50 has-[:focus-visible]:bg-background">
+      <div className="relative rounded-md border border-border bg-muted/50 has-[:focus-visible]:bg-background">
         {/* Search icon - always static, never changes to spinner */}
         <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
         <input
@@ -79,7 +79,7 @@ export function SessionSearchHeader({
         {onSearchClose && (
           <button
             onClick={onSearchClose}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-0.5 hover:bg-foreground/10 rounded"
+            className="absolute right-2 top-1/2 -translate-y-1/2 p-0.5 hover:bg-muted rounded"
             title={t("session.closeSearch")}
           >
             <X className="h-3.5 w-3.5 text-muted-foreground" />

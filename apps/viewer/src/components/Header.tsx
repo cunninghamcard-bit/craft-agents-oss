@@ -61,7 +61,7 @@ export function Header({ hasSession, sessionTitle, isDark, onToggleTheme, onClea
         {hasSession && (
           <button
             onClick={onClear}
-            className="p-1.5 rounded-md bg-background shadow-minimal text-foreground/40 hover:text-foreground/70 transition-colors"
+            className="p-1.5 rounded-md bg-background border border-border text-foreground/40 hover:text-foreground/70 transition-colors"
             title={t('viewer.clearSession')}
           >
             <X className="w-4 h-4" />
@@ -71,7 +71,7 @@ export function Header({ hasSession, sessionTitle, isDark, onToggleTheme, onClea
         {/* Theme toggle */}
         <button
           onClick={onToggleTheme}
-          className="p-1.5 rounded-md bg-background shadow-minimal text-foreground/40 hover:text-foreground/70 transition-colors"
+          className="p-1.5 rounded-md bg-background border border-border text-foreground/40 hover:text-foreground/70 transition-colors"
           title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
         >
           {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}

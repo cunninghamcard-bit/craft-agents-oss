@@ -81,7 +81,7 @@ export function WorkspacePicker({ onSelectWorkspace }: WorkspacePickerProps) {
               <button
                 key={ws.id}
                 onClick={() => onSelectWorkspace(ws.id)}
-                className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-colors hover:bg-foreground/5"
+                className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-colors hover:bg-muted"
               >
                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/15 text-accent text-xs font-semibold uppercase">
                   {ws.name.charAt(0)}

@@ -79,7 +79,7 @@ function ValueBlock({ label, value }: { label: string; value: string }) {
   return (
     <div className="space-y-1">
       <div className="text-[10px] uppercase tracking-wide text-foreground/50">{label}</div>
-      <div className="rounded-[8px] bg-foreground/3 p-2 text-[11px] text-foreground/70 font-mono leading-snug break-words">
+      <div className="rounded-[8px] bg-muted-foreground/10 p-2 text-[11px] text-foreground/70 font-mono leading-snug break-words">
         {value}
       </div>
     </div>
@@ -181,7 +181,7 @@ function CustomShadowsAudit() {
           onClick={() => setShadowOnly(false)}
           className={cn(
             'h-7 px-2.5 rounded-[6px] text-xs font-medium transition-colors',
-            !shadowOnly ? 'bg-background shadow-minimal text-foreground' : 'bg-foreground/5 text-foreground/70 hover:bg-foreground/10'
+            !shadowOnly ? 'bg-background border border-border text-foreground' : 'bg-muted text-foreground/70 hover:bg-foreground/10'
           )}
         >
           All
@@ -191,7 +191,7 @@ function CustomShadowsAudit() {
           onClick={() => setShadowOnly(true)}
           className={cn(
             'h-7 px-2.5 rounded-[6px] text-xs font-medium transition-colors',
-            shadowOnly ? 'bg-background shadow-minimal text-foreground' : 'bg-foreground/5 text-foreground/70 hover:bg-foreground/10'
+            shadowOnly ? 'bg-background border border-border text-foreground' : 'bg-muted text-foreground/70 hover:bg-foreground/10'
           )}
         >
           Shadow-only (no explicit border)
@@ -213,13 +213,13 @@ interface AllowedShadowVariant {
 const allowedShadowVariants: AllowedShadowVariant[] = [
   { className: 'shadow-none', note: 'No shadow — explicit opt-out.' },
   { className: 'shadow-xs', note: 'Very subtle elevation from base Tailwind token.' },
-  { className: 'shadow-minimal', note: 'Design-system default panel elevation.' },
+  { className: 'border border-border', note: 'Design-system default panel elevation.' },
   { className: 'shadow-tinted', note: 'Tinted elevation using --shadow-color (semantic/accent contexts).' },
   { className: 'shadow-thin', note: 'Thin border + light blur stack.' },
-  { className: 'shadow-middle', note: 'Mid-depth layered elevation for larger surfaces.' },
+  { className: 'border border-border', note: 'Mid-depth layered elevation for larger surfaces.' },
   { className: 'shadow-strong', note: 'High-elevation layered shadow.' },
   { className: 'shadow-panel-focused', note: 'Focus-like elevated treatment with emphasis ring.' },
-  { className: 'shadow-modal-small', note: 'Modal/dropdown depth profile.' },
+  { className: 'border border-border', note: 'Modal/dropdown depth profile.' },
   { className: 'shadow-bottom-border', note: 'Inset bottom separator (1.5px).' },
   { className: 'shadow-bottom-border-thin', note: 'Inset bottom separator (1px).' },
 ]

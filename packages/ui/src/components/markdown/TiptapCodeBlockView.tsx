@@ -233,7 +233,7 @@ function TiptapCodeBlockView({ node, updateAttributes }: TiptapCodeBlockViewProp
               className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground placeholder:select-none"
             />
           </div>
-          <div className="h-px bg-foreground/5 -mx-1" />
+          <div className="h-px bg-muted -mx-1" />
 
           <div className="max-h-[240px] overflow-y-auto p-1">
             {filteredLanguageOptions.length === 0 ? (

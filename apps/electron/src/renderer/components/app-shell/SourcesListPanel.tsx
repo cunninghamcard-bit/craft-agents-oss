@@ -23,8 +23,8 @@ const SOURCE_STATUS_CONFIG: Record<string, { labelKey: string; colorClass: strin
   connected: null,
   needs_auth: { labelKey: 'sourcesList.statusAuthRequired', colorClass: 'bg-warning/10 text-warning' },
   failed: { labelKey: 'sourcesList.statusDisconnected', colorClass: 'bg-destructive/10 text-destructive' },
-  untested: { labelKey: 'sourcesList.statusNotTested', colorClass: 'bg-foreground/10 text-foreground/50' },
-  local_disabled: { labelKey: 'sourcesList.statusDisabled', colorClass: 'bg-foreground/10 text-foreground/50' },
+  untested: { labelKey: 'sourcesList.statusNotTested', colorClass: 'bg-muted text-muted-foreground' },
+  local_disabled: { labelKey: 'sourcesList.statusDisabled', colorClass: 'bg-muted text-muted-foreground' },
 }
 
 const SOURCE_TYPE_FILTER_LABEL_KEYS: Record<string, string> = {
@@ -97,7 +97,7 @@ export function SourcesListPanel({
             <EditPopover
               align="center"
               trigger={
-                <button className="inline-flex items-center h-7 px-3 text-xs font-medium rounded-[8px] bg-background shadow-minimal hover:bg-foreground/[0.03] transition-colors">
+                <button className="inline-flex items-center h-7 px-3 text-xs font-medium rounded-[8px] bg-muted border border-border hover:bg-muted-foreground/10 transition-colors">
                   {t('sourcesList.addSource')}
                 </button>
               }

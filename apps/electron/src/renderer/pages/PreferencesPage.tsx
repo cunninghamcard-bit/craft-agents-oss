@@ -188,7 +188,7 @@ export default function PreferencesPage() {
     <div className="flex items-center gap-1.5">
       <button
         onClick={() => window.electronAPI.showInFolder('~/.craft-agent/preferences.json')}
-        className="flex items-center gap-1 text-xs h-7 px-2 rounded-md bg-foreground/5 hover:bg-foreground/10 text-muted-foreground"
+        className="flex items-center gap-1 text-xs h-7 px-2 rounded-md bg-muted hover:bg-foreground/10 text-muted-foreground"
         title={`Show in ${getFileManagerName()}`}
       >
         <ExternalLink className="h-3 w-3" />
@@ -196,7 +196,7 @@ export default function PreferencesPage() {
       <div className={`flex items-center gap-1.5 transition-opacity ${isDirty ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
         <button
           onClick={handleRevert}
-          className="flex items-center gap-1 text-xs h-7 px-2 rounded-md bg-foreground/5 hover:bg-foreground/10 text-muted-foreground"
+          className="flex items-center gap-1 text-xs h-7 px-2 rounded-md bg-muted hover:bg-foreground/10 text-muted-foreground"
         >
           <RotateCcw className="h-3 w-3" />
           Revert

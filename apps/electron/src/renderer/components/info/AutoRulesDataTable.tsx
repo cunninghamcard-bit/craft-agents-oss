@@ -95,7 +95,9 @@ function getColumns(t: TFunction): ColumnDef<AutoRuleRow>[] {
       accessorFn: (row) => row.label.name,
       cell: ({ row }) => (
         <div className="p-1.5 pl-2.5 flex items-center gap-1.5">
-          <LabelIcon label={row.original.label} size="xs" />
+          <div className="inline-flex items-center justify-center rounded-full border border-border/60 p-0.5 bg-background">
+            <LabelIcon label={row.original.label} size="sm" />
+          </div>
           <span className="text-sm truncate">{row.original.label.name}</span>
         </div>
       ),
@@ -205,7 +207,7 @@ export function AutoRulesDataTable({
       className={cn(
         'p-1 rounded-[6px] transition-all',
         'opacity-0 group-hover:opacity-100',
-        'bg-background/80 backdrop-blur-sm shadow-minimal',
+        'bg-background/80 backdrop-blur-sm border border-border',
         'text-muted-foreground/50 hover:text-foreground',
         'focus:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:opacity-100'
       )}

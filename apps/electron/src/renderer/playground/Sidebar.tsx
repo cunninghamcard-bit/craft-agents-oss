@@ -83,7 +83,7 @@ export function Sidebar({ categories, selectedId, onSelect }: SidebarProps) {
                         'w-full text-left px-3 py-1.5 rounded-md text-sm transition-colors',
                         selectedId === component.id
                           ? 'bg-foreground/10 text-foreground font-medium'
-                          : 'text-muted-foreground hover:bg-foreground/5 hover:text-foreground'
+                          : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                       )}
                     >
                       {component.name}

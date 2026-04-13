@@ -118,7 +118,7 @@ export function AutomationInfoPage({
             </Info_Table.Row>
             {automation.matcher && (
               <Info_Table.Row label={t('automations.labelOnlyWhenMatching')}>
-                <code className="text-xs font-mono bg-foreground/5 px-1.5 py-0.5 rounded">
+                <code className="text-xs font-mono bg-muted px-1.5 py-0.5 rounded">
                   {automation.matcher}
                 </code>
               </Info_Table.Row>
@@ -127,7 +127,7 @@ export function AutomationInfoPage({
               <>
                 <Info_Table.Row label={t('automations.labelRepeats')} value={describeCron(automation.cron)} />
                 <Info_Table.Row label={t('automations.labelScheduleExpression')}>
-                  <code className="text-xs font-mono bg-foreground/5 px-1.5 py-0.5 rounded">
+                  <code className="text-xs font-mono bg-muted px-1.5 py-0.5 rounded">
                     {automation.cron}
                   </code>
                 </Info_Table.Row>
@@ -220,7 +220,7 @@ export function AutomationInfoPage({
 
         {/* Section: Raw config (JSON) */}
         <Info_Section title={t('automations.sectionRawConfig')}>
-          <div className="rounded-[8px] shadow-minimal overflow-hidden [&_pre]:!bg-transparent [&_.relative]:!bg-transparent [&_.relative]:!border-0 [&_.relative>div:first-child]:!bg-transparent [&_.relative>div:first-child]:!border-0">
+          <div className="rounded-[8px] border border-border overflow-hidden [&_pre]:!bg-transparent [&_.relative]:!bg-transparent [&_.relative]:!border-0 [&_.relative>div:first-child]:!bg-transparent [&_.relative>div:first-child]:!border-0">
             <Info_Markdown maxHeight={300} fullscreen>
               {`\`\`\`json\n${JSON.stringify({
                 event: automation.event,

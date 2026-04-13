@@ -92,7 +92,7 @@ function SettingsItemRow({ item, isSelected, isFirst, onSelect }: SettingsItemRo
             // Fast hover transition (75ms vs default 150ms)
             'transition-[background-color] duration-75',
             isSelected
-              ? 'bg-foreground/5 hover:bg-foreground/7'
+              ? 'bg-muted hover:bg-foreground/7'
               : 'hover:bg-foreground/2'
           )}
         >

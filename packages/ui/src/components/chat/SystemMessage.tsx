@@ -5,7 +5,7 @@
  * info notices, and general system messages. Supports different visual
  * styles based on the message type.
  *
- * Error and warning types use shadow-tinted for a softer, more polished appearance.
+ * Error and warning types use subtle border + tinted background for warm theme consistency.
  * System and info types use a simple bordered style.
  */
 
@@ -25,34 +25,26 @@ export interface SystemMessageProps {
 }
 
 // Style configuration for each message type
-// Error and warning use shadow-tinted with subtle bg, others use bordered style
+// All types use bordered style for warm theme consistency
 const MESSAGE_STYLES: Record<SystemMessageType, {
   className: string
-  useTintedShadow: boolean
-  shadowColor?: string
   bgStyle?: CSSProperties
 }> = {
   error: {
     // Uses -text variant (mixed with foreground) for better text contrast
-    className: 'text-[var(--destructive-text)] shadow-tinted',
-    useTintedShadow: true,
-    shadowColor: 'var(--destructive-rgb)',
+    className: 'text-[var(--destructive-text)] border border-destructive/20',
     bgStyle: { backgroundColor: 'oklch(from var(--destructive) l c h / 0.03)' },
   },
   warning: {
     // Uses -text variant (mixed with foreground) for better text contrast
-    className: 'text-[var(--info-text)] shadow-tinted',
-    useTintedShadow: true,
-    shadowColor: 'var(--info-rgb)',
+    className: 'text-[var(--info-text)] border border-info/20',
     bgStyle: { backgroundColor: 'oklch(from var(--info) l c h / 0.03)' },
   },
   info: {
     className: 'text-muted-foreground border border-muted bg-muted/30',
-    useTintedShadow: false,
   },
   system: {
     className: 'text-muted-foreground border border-muted bg-muted/30',
-    useTintedShadow: false,
   },
 }
 
@@ -70,12 +62,7 @@ export function SystemMessage({
     <div className={cn("px-4 py-2", className)}>
       <div
         className={cn("text-sm px-3 py-2 rounded-md", style.className)}
-        style={{
-          ...style.bgStyle,
-          ...(style.useTintedShadow && style.shadowColor
-            ? { '--shadow-color': style.shadowColor } as CSSProperties
-            : {}),
-        }}
+        style={style.bgStyle}
       >
         <Markdown mode="minimal">{content}</Markdown>
       </div>

@@ -3,22 +3,22 @@ import { mirrorHoverToOpenStateClasses } from '../StyledDropdown'
 
 describe('mirrorHoverToOpenStateClasses', () => {
   it('mirrors supported hover utility classes to open state', () => {
-    const result = mirrorHoverToOpenStateClasses('hover:bg-foreground/5 hover:text-foreground')
+    const result = mirrorHoverToOpenStateClasses('hover:bg-muted hover:text-foreground')
 
-    expect(result).toContain('hover:bg-foreground/5')
+    expect(result).toContain('hover:bg-muted')
     expect(result).toContain('hover:text-foreground')
-    expect(result).toContain('data-[state=open]:bg-foreground/5')
+    expect(result).toContain('data-[state=open]:bg-muted')
     expect(result).toContain('data-[state=open]:text-foreground')
   })
 
   it('preserves explicit open-state overrides from the original className', () => {
     const result = mirrorHoverToOpenStateClasses(
-      'hover:bg-foreground/5 data-[state=open]:bg-accent'
+      'hover:bg-muted data-[state=open]:bg-accent'
     )
 
     // twMerge should keep the explicit open class from input as winner
     expect(result).toContain('data-[state=open]:bg-accent')
-    expect(result).not.toContain('data-[state=open]:bg-foreground/5')
+    expect(result).not.toContain('data-[state=open]:bg-muted')
   })
 
   it('does not mirror unsupported hover utilities', () => {

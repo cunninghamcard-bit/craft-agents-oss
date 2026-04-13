@@ -59,7 +59,7 @@ export function Info_Markdown({
             className={cn(
               'absolute top-2 right-2 p-1 rounded-[6px] transition-all z-10',
               'opacity-0 group-hover:opacity-100',
-              'bg-background shadow-minimal',
+              'bg-background border border-border',
               'text-muted-foreground/50 hover:text-foreground',
               'focus:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:opacity-100'
             )}

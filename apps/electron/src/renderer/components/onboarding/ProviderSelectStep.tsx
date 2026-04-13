@@ -96,7 +96,7 @@ export function ProviderSelectStep({ onSelect, onSkip }: ProviderSelectStepProps
             className={cn(
               "flex w-full items-start gap-4 rounded-xl bg-foreground-2 p-4 text-left transition-all",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-              "hover:bg-foreground/[0.02] shadow-minimal",
+              "hover:bg-muted border border-border",
             )}
           >
             {/* Icon */}

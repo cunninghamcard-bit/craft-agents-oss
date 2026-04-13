@@ -62,7 +62,14 @@ export function LabelIcon({ label, size = 'sm', hasChildren, className }: LabelI
       className={cn('shrink-0', className)}
       style={{ opacity: resolvedColor ? 1 : 0.4 }}
     >
-      <circle cx={center} cy={center} r={outerRadius} fill={fillColor} />
+      <circle
+        cx={center}
+        cy={center}
+        r={outerRadius}
+        fill={fillColor}
+        stroke="var(--border)"
+        strokeWidth="0.5"
+      />
       {/* Inner dot signals this label has nested children (radio-button style).
           Color is 85% background + 15% label color via color-mix. */}
       {hasChildren && (

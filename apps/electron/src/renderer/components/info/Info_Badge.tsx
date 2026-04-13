@@ -26,31 +26,31 @@ const colorConfig: Record<
   success: {
     bg: 'bg-[oklch(from_var(--success)_l_c_h_/_0.08)]',
     text: 'text-[var(--success-text)]',
-    shadow: 'shadow-tinted',
-    shadowColor: 'var(--success-rgb)',
+    shadow: 'border border-border/50',
+    shadowColor: undefined,
   },
   warning: {
     bg: 'bg-[oklch(from_var(--info)_l_c_h_/_0.08)]',
     text: 'text-[var(--info-text)]',
-    shadow: 'shadow-tinted',
-    shadowColor: 'var(--info-rgb)',
+    shadow: 'border border-border/50',
+    shadowColor: undefined,
   },
   destructive: {
     bg: 'bg-[oklch(from_var(--destructive)_l_c_h_/_0.08)]',
     text: 'text-[var(--destructive-text)]',
-    shadow: 'shadow-tinted',
-    shadowColor: 'var(--destructive-rgb)',
+    shadow: 'border border-border/50',
+    shadowColor: undefined,
   },
   default: {
     bg: 'bg-foreground/10',
     text: 'text-foreground/70',
-    shadow: 'shadow-tinted',
-    shadowColor: 'var(--foreground-rgb)',
+    shadow: 'border border-border/50',
+    shadowColor: undefined,
   },
   muted: {
     bg: 'bg-background',
     text: 'text-foreground/70',
-    shadow: 'shadow-minimal',
+    shadow: 'border border-border',
   },
 }
 

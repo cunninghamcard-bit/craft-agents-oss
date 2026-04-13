@@ -43,7 +43,7 @@ export function PermissionRequest({ request, onResponse, unstyled = false }: Per
         'overflow-hidden h-full flex flex-col bg-info/5',
         unstyled
           ? 'border-0'
-          : 'border border-info/30 rounded-[8px] shadow-middle'
+          : 'border border-info/30 rounded-[8px]'
       )}
       data-tutorial="permission-banner"
     >
@@ -63,7 +63,7 @@ export function PermissionRequest({ request, onResponse, unstyled = false }: Per
 
         {/* Command preview */}
         {request.command && (
-          <div className="bg-foreground/5 rounded-md p-3 font-mono text-xs text-foreground/90 whitespace-pre-wrap break-all max-h-24 overflow-y-auto">
+          <div className="bg-muted rounded-md p-3 font-mono text-xs text-foreground/90 whitespace-pre-wrap break-all max-h-24 overflow-y-auto">
             {request.command}
           </div>
         )}
@@ -84,7 +84,7 @@ export function PermissionRequest({ request, onResponse, unstyled = false }: Per
         <Button
           size="sm"
           variant="ghost"
-          className="h-7 gap-1.5 border border-foreground/10 hover:bg-foreground/5 active:bg-foreground/10"
+          className="h-7 gap-1.5 border border-border hover:bg-muted active:bg-muted-foreground/10"
           onClick={handleAlwaysAllow}
         >
           <RefreshCw className="h-3.5 w-3.5" />

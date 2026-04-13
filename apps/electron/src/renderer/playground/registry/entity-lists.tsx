@@ -290,7 +290,7 @@ function SessionEntityListPreview({
                     style={{ maskImage: 'linear-gradient(to right, black calc(100% - 16px), transparent 100%)', WebkitMaskImage: 'linear-gradient(to right, black calc(100% - 16px), transparent 100%)' }}
                   >
                     {session.isFlagged && (
-                      <span className="shrink-0 h-[18px] w-[18px] flex items-center justify-center rounded bg-foreground/5">
+                      <span className="shrink-0 h-[18px] w-[18px] flex items-center justify-center rounded bg-muted">
                         <Flag className="h-[10px] w-[10px] text-info fill-info" />
                       </span>
                     )}
@@ -502,7 +502,7 @@ function MixedEntityListPreview({
               <>
                 {session.hasUnread && <span className="shrink-0 px-1.5 py-0.5 text-[10px] font-medium rounded bg-accent text-white">New</span>}
                 {session.isFlagged && (
-                  <span className="shrink-0 h-[18px] w-[18px] flex items-center justify-center rounded bg-foreground/5">
+                  <span className="shrink-0 h-[18px] w-[18px] flex items-center justify-center rounded bg-muted">
                     <Flag className="h-[10px] w-[10px] text-info fill-info" />
                   </span>
                 )}
@@ -682,7 +682,7 @@ function InteractiveEntityListPreview({
               <>
                 {item.hasUnread && <span className="shrink-0 px-1.5 py-0.5 text-[10px] font-medium rounded bg-accent text-white">New</span>}
                 {item.isFlagged && (
-                  <span className="shrink-0 h-[18px] w-[18px] flex items-center justify-center rounded bg-foreground/5">
+                  <span className="shrink-0 h-[18px] w-[18px] flex items-center justify-center rounded bg-muted">
                     <Flag className="h-[10px] w-[10px] text-info fill-info" />
                   </span>
                 )}
@@ -773,7 +773,7 @@ function InteractiveEntityListPreview({
               <div className="relative">
                 <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-foreground/40" />
                 <input
-                  className="w-full h-8 pl-8 pr-3 text-sm bg-foreground/3 rounded-md border border-transparent focus:border-border focus:outline-none placeholder:text-foreground/30"
+                  className="w-full h-8 pl-8 pr-3 text-sm bg-muted-foreground/10 rounded-md border border-transparent focus:border-border focus:outline-none placeholder:text-foreground/30"
                   placeholder="Search entities..."
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}

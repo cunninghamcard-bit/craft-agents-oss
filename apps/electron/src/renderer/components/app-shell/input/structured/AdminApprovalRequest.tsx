@@ -49,7 +49,7 @@ export function AdminApprovalRequest({
         'overflow-hidden h-full flex flex-col bg-info/5',
         unstyled
           ? 'border-0'
-          : 'border border-info/30 rounded-[8px] shadow-middle'
+          : 'border border-info/30 rounded-[8px]'
       )}
     >
       <div className="p-4 space-y-3 flex-1 min-h-0 flex flex-col">
@@ -72,7 +72,7 @@ export function AdminApprovalRequest({
           </div>
         </div>
 
-        <div className="bg-foreground/5 rounded-md p-3 font-mono text-xs text-foreground/90 whitespace-pre-wrap break-all max-h-24 overflow-y-auto">
+        <div className="bg-muted rounded-md p-3 font-mono text-xs text-foreground/90 whitespace-pre-wrap break-all max-h-24 overflow-y-auto">
           {request.command}
         </div>
       </div>

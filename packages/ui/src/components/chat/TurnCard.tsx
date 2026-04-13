@@ -1033,8 +1033,8 @@ function ActivityRow({ activity, onOpenDetails, isLastChild, sessionFolderPath, 
               <Tooltip>
                 <TooltipTrigger asChild>
                   <span
-                    className="px-1.5 py-0.5 bg-[color-mix(in_oklab,var(--destructive)_4%,var(--background))] shadow-tinted rounded-[4px] text-[10px] text-destructive font-medium cursor-default shrink-0"
-                    style={{ '--shadow-color': 'var(--destructive-rgb)' } as React.CSSProperties}
+                    className="px-1.5 py-0.5 bg-[color-mix(in_oklab,var(--destructive)_4%,var(--background))] border border-border rounded-[4px] text-[10px] text-destructive font-medium cursor-default shrink-0"
+                    
                   >
                     Error
                   </span>
@@ -1046,7 +1046,7 @@ function ActivityRow({ activity, onOpenDetails, isLastChild, sessionFolderPath, 
             )}
             {/* Model badge for LLM Query */}
             {activity.toolName === 'mcp__session__call_llm' && activity.toolInput?.model && (
-              <span className="px-1.5 py-0.5 bg-background shadow-minimal rounded-[4px] text-[10px] text-foreground/60 shrink-0">
+              <span className="px-1.5 py-0.5 bg-background border border-border rounded-[4px] text-[10px] text-foreground/60 shrink-0">
                 {String(activity.toolInput.model)}
               </span>
             )}
@@ -1083,14 +1083,14 @@ function ActivityRow({ activity, onOpenDetails, isLastChild, sessionFolderPath, 
           <span className="flex items-center gap-1.5 text-[10px] shrink-0">
             {diffStats.deletions > 0 && (
               <span
-                className="px-1.5 py-0.5 bg-[color-mix(in_oklab,var(--destructive)_5%,var(--background))] shadow-tinted rounded-[4px] text-destructive"
-                style={{ '--shadow-color': 'var(--destructive-rgb)' } as React.CSSProperties}
+                className="px-1.5 py-0.5 bg-[color-mix(in_oklab,var(--destructive)_5%,var(--background))] border border-border rounded-[4px] text-destructive"
+                
               >{diffStats.deletions}</span>
             )}
             {diffStats.additions > 0 && (
               <span
-                className="px-1.5 py-0.5 bg-[color-mix(in_oklab,var(--success)_5%,var(--background))] shadow-tinted rounded-[4px] text-success"
-                style={{ '--shadow-color': 'var(--success-rgb)' } as React.CSSProperties}
+                className="px-1.5 py-0.5 bg-[color-mix(in_oklab,var(--success)_5%,var(--background))] border border-border rounded-[4px] text-success"
+                
               >{diffStats.additions}</span>
             )}
             {/* Filename badge - supports both Claude Code and Codex formats */}
@@ -1098,7 +1098,7 @@ function ActivityRow({ activity, onOpenDetails, isLastChild, sessionFolderPath, 
               // Claude Code format: file_path
               if (typeof activity.toolInput?.file_path === 'string') {
                 return (
-                  <span className="px-1.5 py-0.5 bg-background shadow-minimal rounded-[4px] text-[11px] text-foreground/70">
+                  <span className="px-1.5 py-0.5 bg-background border border-border rounded-[4px] text-[11px] text-foreground/70">
                     {normalizePath(activity.toolInput.file_path).split('/').pop()}
                   </span>
                 )
@@ -1108,7 +1108,7 @@ function ActivityRow({ activity, onOpenDetails, isLastChild, sessionFolderPath, 
                 const firstChange = activity.toolInput.changes[0] as { path?: string } | undefined
                 if (firstChange?.path) {
                   return (
-                    <span className="px-1.5 py-0.5 bg-background shadow-minimal rounded-[4px] text-[11px] text-foreground/70">
+                    <span className="px-1.5 py-0.5 bg-background border border-border rounded-[4px] text-[11px] text-foreground/70">
                       {normalizePath(firstChange.path).split('/').pop()}
                     </span>
                   )
@@ -1121,7 +1121,7 @@ function ActivityRow({ activity, onOpenDetails, isLastChild, sessionFolderPath, 
         {/* Filename badge for Read tool (no diff stats) */}
         {!isMcpOrApiTool && !isBackgrounded && !diffStats && activity.toolName === 'Read' && typeof activity.toolInput?.file_path === 'string' && (
           <span className="flex items-center gap-1.5 text-[10px] shrink-0">
-            <span className="px-1.5 py-0.5 bg-background shadow-minimal rounded-[4px] text-[11px] text-foreground/70">
+            <span className="px-1.5 py-0.5 bg-background border border-border rounded-[4px] text-[11px] text-foreground/70">
               {normalizePath(activity.toolInput.file_path).split('/').pop()}
             </span>
           </span>
@@ -1131,8 +1131,8 @@ function ActivityRow({ activity, onOpenDetails, isLastChild, sessionFolderPath, 
           <Tooltip>
             <TooltipTrigger asChild>
               <span
-                className="px-1.5 py-0.5 bg-[color-mix(in_oklab,var(--destructive)_4%,var(--background))] shadow-tinted rounded-[4px] text-[10px] text-destructive font-medium cursor-default shrink-0"
-                style={{ '--shadow-color': 'var(--destructive-rgb)' } as React.CSSProperties}
+                className="px-1.5 py-0.5 bg-[color-mix(in_oklab,var(--destructive)_4%,var(--background))] border border-border rounded-[4px] text-[10px] text-destructive font-medium cursor-default shrink-0"
+                
               >
                 Error
               </span>
@@ -1274,7 +1274,7 @@ function ActivityGroupRow({ group, expandedGroups: externalExpandedGroups, onExp
         <ActivityStatusIcon status={group.parent.status} toolName={group.parent.toolName} />
 
         {/* Subagent type badge */}
-        <span className="shrink-0 px-1.5 py-0.5 rounded-[4px] bg-background shadow-minimal text-[10px] font-medium">
+        <span className="shrink-0 px-1.5 py-0.5 rounded-[4px] bg-background border border-border text-[10px] font-medium">
           {subagentType || 'Task'}
         </span>
 
@@ -1345,7 +1345,7 @@ function ActivityGroupRow({ group, expandedGroups: externalExpandedGroups, onExp
             }}
             className="overflow-hidden"
           >
-            <div className="pl-0 space-y-0.5 border-l-2 border-muted ml-[5px]">
+            <div className="pl-0 space-y-0.5 border-l-2 border-border ml-[5px]">
               {group.children.map((child, idx) => (
                 <motion.div
                   key={child.id}
@@ -1445,8 +1445,8 @@ function BranchDropdown({ onBranch }: BranchDropdownProps) {
           title={t('chat.branch')}
           className={cn(
             "p-1 rounded-[4px] transition-colors select-none",
-            "text-muted-foreground hover:text-foreground hover:bg-foreground/5",
-            "data-[state=open]:text-foreground data-[state=open]:bg-foreground/5",
+            "text-muted-foreground hover:text-foreground hover:bg-muted",
+            "data-[state=open]:text-foreground data-[state=open]:bg-muted",
             "focus:outline-none focus-visible:ring-1 focus-visible:ring-ring"
           )}
         >
@@ -1508,8 +1508,8 @@ function createAnnotationIndexBadge(index: number): HTMLSpanElement {
   chip.style.fontWeight = '600'
   chip.style.lineHeight = '15px'
   chip.style.textAlign = 'center'
-  chip.classList.add('shadow-tinted')
-  chip.style.setProperty('--shadow-color', 'var(--info-rgb)')
+  chip.classList.add('border', 'border-border')
+  // chip border replaced above
   chip.style.pointerEvents = 'none'
   chip.style.userSelect = 'none'
   return chip
@@ -2416,7 +2416,7 @@ export function ResponseCard({
 
     return (
       <>
-        <div className="bg-background shadow-minimal rounded-[8px] overflow-hidden relative group">
+        <div className="bg-background border border-border rounded-[8px] overflow-hidden relative group">
           {/* Fullscreen button - desktop only; compact mode keeps message chrome minimal */}
           {!compactMode && (
           <button
@@ -2424,7 +2424,7 @@ export function ResponseCard({
             className={cn(
               "absolute top-2 right-2 p-1 rounded-[6px] transition-all z-10 select-none",
               "opacity-0 group-hover:opacity-100",
-              "bg-background shadow-minimal",
+              "bg-background border border-border",
               "text-muted-foreground/50 hover:text-foreground",
               "focus:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:opacity-100"
             )}
@@ -2570,7 +2570,7 @@ export function ResponseCard({
   // Streaming response - show throttled content with spinner
   return (
     <>
-      <div className="bg-background shadow-minimal rounded-[8px] overflow-hidden group">
+      <div className="bg-background border border-border rounded-[8px] overflow-hidden group">
         {/* Content area - uses displayedText (throttled) for performance */}
         {/* Subtle fade at top and bottom edges (dark mode only) */}
         <div
@@ -2672,7 +2672,7 @@ function TodoList({ todos }: TodoListProps) {
   if (todos.length === 0) return null
 
   return (
-    <div className="pl-4 pr-2 pt-2.5 pb-1.5 space-y-0.5 border-l-2 border-muted ml-[13px]">
+    <div className="pl-4 pr-2 pt-2.5 pb-1.5 space-y-0.5 border-l-2 border-border ml-[13px]">
       {/* Header */}
       <div className={cn("text-muted-foreground pb-1", SIZE_CONFIG.fontSize)}>
         Todo List
@@ -2926,7 +2926,7 @@ export const TurnCard = React.memo(function TurnCard({
             </motion.div>
 
             {/* Step count badge */}
-            <span className="-ml-0.5 shrink-0 px-1.5 py-0.5 rounded-[4px] bg-background shadow-minimal text-[10px] font-medium tabular-nums">
+            <span className="-ml-0.5 shrink-0 px-1.5 py-0.5 rounded-[4px] bg-background border border-border text-[10px] font-medium tabular-nums">
               {activities.length}
             </span>
 
@@ -2974,7 +2974,7 @@ export const TurnCard = React.memo(function TurnCard({
                 <div
                   ref={activitiesContainerRef}
                   className={cn(
-                    "pl-4 pr-2 py-0 space-y-0.5 border-l-2 border-muted ml-[13px]",
+                    "pl-4 pr-2 py-0 space-y-0.5 border-l-2 border-border ml-[13px]",
                     sortedActivities.length > SIZE_CONFIG.maxVisibleActivities && "rounded-r-md overflow-y-auto scrollbar-hover py-1.5"
                   )}
                   style={{

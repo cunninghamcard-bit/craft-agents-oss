@@ -95,7 +95,7 @@ function OptionButton({
       className={cn(
         "flex w-full items-start gap-4 rounded-xl p-4 text-left transition-all",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-        "hover:bg-foreground/[0.02] shadow-minimal",
+        "hover:bg-muted border border-border",
         isSelected
           ? "bg-background"
           : "bg-foreground-2"
@@ -151,7 +151,7 @@ function ProviderSegmentedControl({
   const segments: ProviderSegment[] = ['anthropic', 'pi']
 
   return (
-    <div className="flex rounded-xl bg-foreground/[0.03] p-1 mb-4">
+    <div className="flex rounded-xl bg-muted p-1 mb-4 border border-border">
       {segments.map((segment) => (
         <button
           key={segment}
@@ -159,7 +159,7 @@ function ProviderSegmentedControl({
           className={cn(
             "flex-1 px-4 py-2 text-sm font-medium rounded-lg transition-all",
             activeSegment === segment
-              ? "bg-background shadow-minimal text-foreground"
+              ? "bg-background border border-border text-foreground"
               : "text-muted-foreground hover:text-foreground"
           )}
         >

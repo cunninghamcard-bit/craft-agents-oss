@@ -35,10 +35,10 @@ export interface InlineLabelMenuProps {
 // Shared Styles (matching slash-command-menu and mention-menu)
 // ============================================================================
 
-const MENU_CONTAINER_STYLE = 'overflow-hidden rounded-[8px] bg-background text-foreground shadow-modal-small'
+const MENU_CONTAINER_STYLE = 'overflow-hidden rounded-[8px] bg-background text-foreground border border-border'
 const MENU_LIST_STYLE = 'max-h-[240px] overflow-y-auto py-1'
 const MENU_ITEM_STYLE = 'flex cursor-pointer select-none items-center gap-2.5 rounded-[6px] mx-1 px-2 py-1.5 text-[13px]'
-const MENU_ITEM_SELECTED = 'bg-foreground/5'
+const MENU_ITEM_SELECTED = 'bg-muted'
 
 // ============================================================================
 // Filter utilities
@@ -240,7 +240,7 @@ export function InlineLabelMenu({
                       className={cn(
                         MENU_ITEM_STYLE,
                         isSelected && MENU_ITEM_SELECTED,
-                        isActive && 'bg-foreground/7',
+                        isActive && 'bg-muted',
                       )}
                     >
                       {/* State icon with resolved color */}
@@ -293,7 +293,9 @@ export function InlineLabelMenu({
                       )}
                     >
                       {/* Label icon */}
-                      <LabelIcon label={item.config} size="lg" />
+                      <div className="inline-flex items-center justify-center rounded-full border border-border/60 p-0.5 bg-background">
+                        <LabelIcon label={item.config} size="md" />
+                      </div>
                       {/* Label name with optional parent path */}
                       <div className="flex-1 min-w-0 truncate">
                         {item.parentPath && (

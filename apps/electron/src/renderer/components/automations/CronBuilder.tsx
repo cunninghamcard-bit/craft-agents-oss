@@ -189,7 +189,7 @@ export function CronBuilder({
                 'px-3 py-1.5 text-xs font-medium rounded-md transition-colors',
                 rawInput === preset.cron
                   ? 'bg-foreground/10 text-foreground ring-1 ring-border/50'
-                  : 'bg-foreground/[0.03] text-foreground/70 hover:bg-foreground/[0.06] shadow-minimal'
+                  : 'bg-muted text-muted-foreground hover:bg-muted-foreground/10 border border-border'
               )}
             >
               {preset.label}
@@ -242,7 +242,7 @@ export function CronBuilder({
       </div>
 
       {/* Summary */}
-      <div className="bg-background shadow-minimal rounded-[8px] p-4 space-y-3">
+      <div className="bg-background border border-border rounded-[8px] p-4 space-y-3">
         {/* Human-readable description */}
         <div className="flex items-center gap-2">
           <Clock className="h-4 w-4 text-muted-foreground" />

@@ -129,8 +129,8 @@ export function EntityRow({
           "entity-row-btn flex w-full items-start gap-2 pl-2 pr-4 py-3 text-left text-sm outline-none rounded-[8px]",
           "transition-[background-color] duration-75",
           (isSelected || isInMultiSelect)
-            ? "bg-foreground/3"
-            : "hover:bg-foreground/2",
+            ? "bg-muted-foreground/10"
+            : "hover:bg-muted",
           (buttonProps as Record<string, unknown>)?.className as string | undefined,
         )}
         onMouseDown={onMouseDown}

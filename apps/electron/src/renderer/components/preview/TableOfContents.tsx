@@ -116,9 +116,9 @@ export function TableOfContents({
                 onClick={() => onHeadingClick(heading.line)}
                 className={cn(
                   'block w-full text-left text-[13px] py-1.5 px-3 rounded-md transition-colors',
-                  'hover:bg-foreground/5',
+                  'hover:bg-muted',
                   isActive
-                    ? 'text-foreground font-medium bg-foreground/5'
+                    ? 'text-foreground font-medium bg-muted'
                     : 'text-muted-foreground'
                 )}
                 style={{ paddingLeft: `${12 + indent}px` }}

@@ -41,7 +41,7 @@ function ErrorScreen({ message, onRetry }: { message: string; onRetry: () => voi
       <div className="flex gap-2 mt-2">
         <button
           onClick={onRetry}
-          className="px-4 py-1.5 rounded-md bg-background shadow-minimal text-[13px] text-foreground/70 cursor-pointer"
+          className="px-4 py-1.5 rounded-md bg-background border border-border text-[13px] text-foreground/70 cursor-pointer"
         >
           {t("common.retry")}
         </button>
@@ -51,7 +51,7 @@ function ErrorScreen({ message, onRetry }: { message: string; onRetry: () => voi
               window.location.href = '/login'
             })
           }}
-          className="px-4 py-1.5 rounded-md bg-background shadow-minimal text-[13px] text-foreground/70 cursor-pointer"
+          className="px-4 py-1.5 rounded-md bg-background border border-border text-[13px] text-foreground/70 cursor-pointer"
         >
           {t("webui.logOut")}
         </button>

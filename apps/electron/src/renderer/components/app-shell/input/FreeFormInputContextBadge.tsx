@@ -37,8 +37,8 @@ export interface FreeFormInputContextBadgeProps {
  * Visual States:
  * - Expanded: Icon + Label + Chevron, no background, hover shows background
  * - Collapsed (no selection): Icon only, no background, hover shows background
- * - Collapsed (has selection): Icon + Label (fading), bg-background + shadow-minimal
- * - Open: bg-foreground/5 (like hover)
+ * - Collapsed (has selection): Icon + Label (fading), bg-background + border border-border
+ * - Open: bg-muted (like hover)
  */
 export const FreeFormInputContextBadge = React.forwardRef<HTMLButtonElement, FreeFormInputContextBadgeProps>(
   function FreeFormInputContextBadge(
@@ -79,11 +79,11 @@ export const FreeFormInputContextBadge = React.forwardRef<HTMLButtonElement, Fre
           // Padding: more padding when showing label
           showLabel ? "px-2" : "px-1.5",
           // Collapsed with selection: visible background + thin 1px border + margin
-          !isExpanded && hasSelection && "bg-background border border-foreground/5 mx-0.5",
+          !isExpanded && hasSelection && "bg-background border border-border mx-0.5",
           // Hover state (when not already showing background from selection)
-          !(!isExpanded && hasSelection) && "hover:bg-foreground/5",
+          !(!isExpanded && hasSelection) && "hover:bg-muted",
           // Open state (dropdown shown)
-          isOpen && "bg-foreground/5",
+          isOpen && "bg-muted",
           className
         )}
       >

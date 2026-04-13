@@ -18,10 +18,10 @@ type AuthCardVariant = 'default' | 'success' | 'error' | 'muted'
 
 // Variant styles - bg colors are animated via Framer Motion, text via CSS transition
 const VARIANT_STYLES: Record<AuthCardVariant, { bg: string; textClass: string; shadowColor?: string }> = {
-  default: { bg: 'var(--background)', textClass: 'text-foreground shadow-minimal' },
-  success: { bg: 'oklch(from var(--success) l c h / 0.03)', textClass: 'text-[var(--success-text)] shadow-tinted', shadowColor: 'var(--success-rgb)' },
-  error: { bg: 'oklch(from var(--destructive) l c h / 0.03)', textClass: 'text-[var(--destructive-text)] shadow-tinted', shadowColor: 'var(--destructive-rgb)' },
-  muted: { bg: 'var(--foreground-3)', textClass: 'text-foreground/70 shadow-minimal' },
+  default: { bg: 'var(--background)', textClass: 'text-foreground border border-border' },
+  success: { bg: 'oklch(from var(--success) l c h / 0.03)', textClass: 'text-[var(--success-text)] border border-border', shadowColor: undefined },
+  error: { bg: 'oklch(from var(--destructive) l c h / 0.03)', textClass: 'text-[var(--destructive-text)] border border-border', shadowColor: undefined },
+  muted: { bg: 'var(--foreground-3)', textClass: 'text-foreground/70 border border-border' },
 }
 
 interface AuthCardHeaderProps {
@@ -344,7 +344,7 @@ export function AuthRequestCard({ message, onRespondToCredential, sessionId, isI
 
     return (
       <div
-        className={cn('rounded-[8px] overflow-hidden w-fit select-none', variantTextClass)}
+        className={cn('rounded-[5px] overflow-hidden w-fit select-none', variantTextClass)}
         style={{
           backgroundColor: variantBg,
           ...(shadowColor ? { '--shadow-color': shadowColor } as React.CSSProperties : {})
@@ -639,7 +639,7 @@ export function AuthRequestCard({ message, onRespondToCredential, sessionId, isI
 
   return (
     <div
-      className={cn('rounded-[8px] overflow-hidden', variantTextClass)}
+      className={cn('rounded-[5px] overflow-hidden', variantTextClass)}
       style={{
         backgroundColor: variantBg,
         ...(shadowColor ? { '--shadow-color': shadowColor } as React.CSSProperties : {})

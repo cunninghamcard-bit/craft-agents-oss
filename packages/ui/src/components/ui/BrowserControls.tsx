@@ -21,7 +21,7 @@ const NavButton = forwardRef<HTMLButtonElement, NavButtonProps>(
       disabled={disabled}
       className={cn(
         'h-7 w-7 flex items-center justify-center rounded-[6px]',
-        'hover:bg-foreground/5 focus:outline-none focus-visible:ring-0',
+        'hover:bg-muted focus:outline-none focus-visible:ring-0',
         'disabled:opacity-30 disabled:pointer-events-none',
         'transition-colors duration-100',
         className,
@@ -254,7 +254,7 @@ export function BrowserControls({
             'w-full rounded-[8px] bg-transparent px-3 pl-8 text-[13px] text-foreground/70 outline-none transition-all',
             compact ? 'h-[28px]' : 'h-[30px]',
             !safeThemeColor && (isFocused
-              ? 'bg-background border border-transparent shadow-minimal'
+              ? 'bg-background border border-border'
               : 'border border-foreground/5'),
             safeThemeColor && 'border border-transparent',
           )}

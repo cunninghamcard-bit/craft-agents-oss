@@ -188,8 +188,8 @@ function FilterModeBadge({ mode }: { mode: FilterMode }) {
       className={cn(
         "flex items-center justify-center h-5 w-5 rounded-[4px] -mr-1",
         mode === 'include'
-          ? "bg-background text-foreground shadow-minimal"
-          : "bg-destructive/10 text-destructive shadow-tinted",
+          ? "bg-background text-foreground border border-border"
+          : "bg-destructive/10 text-destructive border border-destructive/30",
       )}
       style={mode === 'exclude' ? { '--shadow-color': 'var(--destructive-rgb)' } as React.CSSProperties : undefined}
     >
@@ -217,14 +217,14 @@ function FilterModeSubMenuItems({
     <>
       <StyledDropdownMenuItem
         onClick={(e) => { e.preventDefault(); onChangeMode('include') }}
-        className={cn(mode === 'include' && "bg-foreground/[0.03]")}
+        className={cn(mode === 'include' && "bg-muted")}
       >
         <Check className="h-3.5 w-3.5 shrink-0" />
         <span className="flex-1">Include</span>
       </StyledDropdownMenuItem>
       <StyledDropdownMenuItem
         onClick={(e) => { e.preventDefault(); onChangeMode('exclude') }}
-        className={cn(mode === 'exclude' && "bg-foreground/[0.03]")}
+        className={cn(mode === 'exclude' && "bg-muted")}
       >
         <X className="h-3.5 w-3.5 shrink-0" />
         <span className="flex-1">Exclude</span>
@@ -2224,7 +2224,7 @@ function AppShellContent({
                             <Button
                               variant="ghost"
                               onClick={(e) => handleNewChat(e.metaKey || e.ctrlKey)}
-                              className="w-full justify-start gap-2 py-[7px] px-2 text-[13px] font-normal rounded-[6px] shadow-minimal bg-background"
+                              className="w-full justify-start gap-2 py-[7px] px-2 text-[13px] font-normal rounded-md border border-border bg-background"
                               data-tutorial="new-chat-button"
                             >
                               <SquarePenRounded className="h-3.5 w-3.5 shrink-0" />
@@ -2520,8 +2520,7 @@ function AppShellContent({
                       <DropdownMenuTrigger asChild>
                         <HeaderIconButton
                           icon={<ListFilter className="h-4 w-4" />}
-                          className={(listFilter.size > 0 || labelFilter.size > 0) ? "bg-accent/5 text-accent rounded-[8px] shadow-tinted" : "rounded-[8px]"}
-                          style={(listFilter.size > 0 || labelFilter.size > 0) ? { '--shadow-color': 'var(--accent-rgb)' } as React.CSSProperties : undefined}
+                          className={(listFilter.size > 0 || labelFilter.size > 0) ? "bg-accent/5 text-accent rounded-[8px] border border-border/50" : "rounded-[8px]"}
                         />
                       </DropdownMenuTrigger>
                       <StyledDropdownMenuContent
@@ -2564,8 +2563,8 @@ function AppShellContent({
 
                         {/* Search input — typing switches from hierarchical submenus to a flat filtered list.
                             stopPropagation prevents Radix from intercepting keys. Arrow/Enter handled for navigation. */}
-                        <div className="px-1 pb-3 border-b border-foreground/5">
-                          <div className="bg-background rounded-[6px] shadow-minimal px-2 py-1.5">
+                        <div className="px-1 pb-3 border-b border-border/50">
+                          <div className="bg-background rounded-md border border-border px-2 py-1.5">
                             <input
                               ref={filterDropdownInputRef}
                               type="text"
@@ -2914,7 +2913,7 @@ function AppShellContent({
                                             <StyledDropdownMenuSubTrigger
                                               data-filter-selected={isHighlighted}
                                               onMouseEnter={() => setFilterDropdownSelectedIdx(index)}
-                                              className={cn("mx-1", isHighlighted && "bg-foreground/5")}
+                                              className={cn("mx-1", isHighlighted && "bg-muted")}
                                               onClick={(e) => { e.preventDefault(); setListFilter(prev => { const next = new Map(prev); next.delete(state.id); return next }) }}
                                             >
                                               <FilterMenuRow
@@ -2962,7 +2961,7 @@ function AppShellContent({
                                             className={cn(
                                               // SVG sizing matches StyledDropdownMenuSubTrigger so icons render at the same size
                                               "flex cursor-pointer select-none items-center gap-2 rounded-[4px] mx-1 px-2 py-1.5 text-sm [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0",
-                                              isHighlighted && "bg-foreground/5",
+                                              isHighlighted && "bg-muted",
                                               isPinned && "opacity-50 pointer-events-none",
                                             )}
                                           >
@@ -3006,7 +3005,7 @@ function AppShellContent({
                                             <StyledDropdownMenuSubTrigger
                                               data-filter-selected={isHighlighted}
                                               onMouseEnter={() => setFilterDropdownSelectedIdx(flatIndex)}
-                                              className={cn("mx-1", isHighlighted && "bg-foreground/5")}
+                                              className={cn("mx-1", isHighlighted && "bg-muted")}
                                               onClick={(e) => { e.preventDefault(); setLabelFilter(prev => { const next = new Map(prev); next.delete(item.id); return next }) }}
                                             >
                                               <FilterMenuRow
@@ -3052,7 +3051,7 @@ function AppShellContent({
                                             className={cn(
                                               // SVG sizing matches StyledDropdownMenuSubTrigger so icons render at the same size
                                               "flex cursor-pointer select-none items-center gap-2 rounded-[4px] mx-1 px-2 py-1.5 text-sm [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0",
-                                              isHighlighted && "bg-foreground/5",
+                                              isHighlighted && "bg-muted",
                                               isPinned && "opacity-50 pointer-events-none",
                                             )}
                                           >

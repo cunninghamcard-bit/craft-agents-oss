@@ -13,36 +13,37 @@
  * 6-Color System:
  * - background: Light/dark surface
  * - foreground: Text and icons
- * - accent: Brand purple (highlights, Auto mode)
+ * - accent: Brand terracotta (highlights, Auto mode)
  * - info: Amber (warnings, Ask mode)
- * - success: Green (connected, checkmarks)
- * - destructive: Red (errors, failed)
+ * - success: Sage green (connected, checkmarks)
+ * - destructive: Brick red (errors, failed)
  *
  * Variants:
  * - /50 = 50% alpha (transparency) - for borders, hovers, overlays
  * - -50 = 50% mix toward background (solid) - for Explore mode
  */
 
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
 /* =============================================================================
-   LIGHT MODE (default)
+   LIGHT MODE (default) — warm cream-paper palette
 ============================================================================= */
 
 :root {
   /* === 6 BASE COLORS === */
-  --background: oklch(0.98 0.003 265);
-  --foreground: oklch(0.185 0.01 270);
-  --foreground-rgb: 38, 36, 42;             /* RGB for shadow borders */
-  --accent: oklch(0.58 0.22 293);           /* purple - brand, Auto mode */
-  --accent-rgb: 104, 78, 133;               /* darkened RGB for shadow-tinted (70% of accent) */
-  --info: oklch(0.75 0.16 70);              /* amber - warnings, Ask mode */
-  --success: oklch(0.55 0.17 145);          /* green - connected, checkmarks */
-  --destructive: oklch(0.58 0.24 28);       /* red - errors, failed */
-  --destructive-rgb: 180, 60, 50;           /* RGB for shadow-tinted */
-  --info-rgb: 180, 120, 40;                 /* RGB for shadow-tinted */
-  --success-rgb: 34, 120, 60;               /* RGB for shadow-tinted */
+  --background: #faf9f5;                     /* warm cream paper */
+  --foreground: oklch(0.18 0.01 95);          /* deep warm charcoal */
+  --foreground-rgb: 42, 40, 36;               /* RGB for shadow borders */
+  --accent: oklch(0.62 0.18 45);              /* terracotta - brand, Auto mode */
+  --accent-rgb: 140, 90, 65;                  /* darkened RGB for shadow-tinted */
+  --info: oklch(0.72 0.14 75);                /* amber - warnings, Ask mode */
+  --success: oklch(0.60 0.14 135);            /* sage green - connected */
+  --destructive: oklch(0.58 0.22 25);         /* brick red - errors, failed */
+  --destructive-rgb: 165, 70, 55;             /* RGB for shadow-tinted */
+  --info-rgb: 175, 130, 70;                   /* RGB for shadow-tinted */
+  --success-rgb: 90, 115, 65;                 /* RGB for shadow-tinted */
 
   /* === TEXT VARIANTS (mixed toward foreground for better contrast) === */
   --success-text: color-mix(in oklab, var(--success) 50%, var(--foreground));
@@ -50,8 +51,8 @@
   --info-text: color-mix(in oklab, var(--info) 50%, var(--foreground));
 
   /* === SHADOW OPACITY (light mode = subtle, dark mode = stronger) === */
-  --shadow-border-opacity: 0.08;            /* Border ring opacity */
-  --shadow-blur-opacity: 0.06;              /* Blur layers opacity */
+  --shadow-border-opacity: 0.08;              /* Border ring opacity */
+  --shadow-blur-opacity: 0.06;                /* Blur layers opacity */
 
   /* === SHADOW VALUES (reusable across utility classes and component overrides) === */
   --shadow-minimal:
@@ -67,14 +68,7 @@
     rgba(var(--foreground-rgb), 0.06) 0px 0px 0px 1px;
 
   --shadow-modal-small:
-    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
-    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
-    rgba(var(--foreground-rgb), 0.06) 0px 0px 0px 1px,
-    rgba(0, 0, 0, calc(var(--shadow-blur-opacity) * 0.67)) 0px 1px 1px -0.5px,
-    rgba(0, 0, 0, calc(var(--shadow-blur-opacity) * 0.67)) 0px 3px 3px 0px,
-    rgba(0, 0, 0, calc(var(--shadow-blur-opacity) * 0.33)) 0px 6px 6px 0px,
-    rgba(0, 0, 0, calc(var(--shadow-blur-opacity) * 0.33)) 0px 12px 12px 0px,
-    rgba(0, 0, 0, calc(var(--shadow-blur-opacity) * 0.33)) 0px 24px 24px 0px;
+    rgba(var(--foreground-rgb), 0.15) 0px 0px 0px 1px;
 
   /* === Z-INDEX SCALE === */
   --z-base: 0;
@@ -110,57 +104,58 @@
   --foreground-95: color-mix(in oklch, var(--foreground) 95%, var(--background));
 
   /* === SHADCN COMPATIBILITY (derived from 6 base colors) === */
-  --secondary: oklch(from var(--foreground) l c h / 0.05);
+  --secondary: #e8e6dc;
   --secondary-foreground: var(--foreground);
-  --muted: oklch(from var(--foreground) l c h / 0.05);
+  --muted: #e8e6dc;
   --muted-foreground: var(--foreground-50);
-  --card: var(--background);
+  --card: #f5f3eb;
   --card-foreground: var(--foreground);
-  --popover: var(--background);
+  --popover: #f5f3eb;
   --popover-foreground: var(--foreground);
-  --border: oklch(from var(--foreground) l c h / 0.05);
-  --input: oklch(from var(--foreground) l c h / 0.1);
-  --ring: oklch(from var(--foreground) l c h / 0.25);
+  --border: #c9c6bc;
+  --input: #c9c6bc;
+  --ring: oklch(0.62 0.18 45);
   --ring-width: 1px;
   --ring-offset: 0px;
 
   /* === COMPONENT TOKENS === */
-  --user-message-bubble: oklch(from var(--foreground) l c h / 0.05);
+  --user-message-bubble: #f5f3eb;
+  --paper: var(--foreground-5);
 
   /* Markdown list markers */
   --md-bullets: var(--foreground-50);
   --md-counters: var(--foreground-50);
 
-  /* Fonts - System fonts for UI, JetBrains Mono for code */
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-serif: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  /* Fonts - Poppins for UI, Lora for body text, JetBrains Mono for code */
+  --font-sans: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Lora", "Georgia", serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
-  --font-default: var(--font-sans);
+  --font-default: var(--font-serif);
 
   /* Layout */
   --font-size-base: 15px;
-  --radius: 0rem;
+  --radius: 0.5rem;
   --spacing: 0.25rem;
   --tracking-normal: 0em;
 }
 
 /* =============================================================================
-   DARK MODE
+   DARK MODE — warm espresso palette
 ============================================================================= */
 
 .dark {
   /* === 6 BASE COLORS === */
-  --background: oklch(0.2 0.005 270);
-  --foreground: oklch(0.92 0.005 270);
-  --foreground-rgb: 227, 226, 229;           /* RGB for shadow borders */
-  --accent: oklch(0.65 0.20 293);            /* brighter purple in dark */
-  --accent-rgb: 118, 92, 147;                /* darkened RGB for shadow-tinted (70% of accent) */
-  --info: oklch(0.70 0.16 70);               /* amber */
-  --success: oklch(0.60 0.17 145);           /* green */
-  --destructive: oklch(0.70 0.19 22);        /* brighter red in dark */
-  --destructive-rgb: 200, 80, 70;            /* RGB for shadow-tinted */
-  --info-rgb: 200, 140, 60;                  /* RGB for shadow-tinted */
-  --success-rgb: 50, 140, 80;                /* RGB for shadow-tinted */
+  --background: #262521;           /* warm espresso black */
+  --foreground: oklch(0.91 0.005 95);          /* aged cream white */
+  --foreground-rgb: 232, 230, 220;             /* RGB for shadow borders */
+  --accent: oklch(0.68 0.16 45);               /* brighter terracotta in dark */
+  --accent-rgb: 155, 105, 75;                  /* darkened RGB for shadow-tinted */
+  --info: oklch(0.70 0.14 75);                 /* amber */
+  --success: oklch(0.62 0.12 135);             /* sage green */
+  --destructive: oklch(0.68 0.18 25);          /* brighter brick red in dark */
+  --destructive-rgb: 180, 90, 70;              /* RGB for shadow-tinted */
+  --info-rgb: 185, 140, 75;                    /* RGB for shadow-tinted */
+  --success-rgb: 105, 125, 80;                 /* RGB for shadow-tinted */
 
   /* === TEXT VARIANTS (mixed toward foreground for better contrast) === */
   --success-text: color-mix(in oklab, var(--success) 50%, var(--foreground));
@@ -187,20 +182,21 @@
   --foreground-95: color-mix(in oklch, var(--foreground) 95%, var(--background));
 
   /* === SHADCN COMPATIBILITY (derived from 6 base colors) === */
-  --secondary: oklch(from var(--foreground) l c h / 0.05);
+  --secondary: #2a2822;
   --secondary-foreground: var(--foreground);
-  --muted: oklch(from var(--foreground) l c h / 0.05);
+  --muted: #2a2822;
   --muted-foreground: var(--foreground-50);
-  --card: var(--background);
+  --card: #2e2c26;
   --card-foreground: var(--foreground);
-  --popover: var(--background);
+  --popover: #2e2c26;
   --popover-foreground: var(--foreground);
-  --border: oklch(from var(--foreground) l c h / 0.05);
-  --input: oklch(from var(--foreground) l c h / 0.1);
-  --ring: oklch(from var(--foreground) l c h / 0.25);
+  --border: #3a362e;
+  --input: #3a362e;
+  --ring: oklch(0.68 0.16 45);
 
   /* === COMPONENT TOKENS === */
-  --user-message-bubble: oklch(from var(--foreground) l c h / 0.05);
+  --user-message-bubble: #3a362e;
+  --paper: var(--foreground-5);
 
   /* Markdown list markers */
   --md-bullets: var(--foreground-50);
@@ -260,6 +256,7 @@ html[data-font="inter"] {
   --color-md-bullets: var(--md-bullets);
   --color-md-counters: var(--md-counters);
   --color-user-message-bubble: var(--user-message-bubble);
+  --color-paper: var(--paper);
 
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
@@ -358,8 +355,9 @@ html[data-font="inter"] {
   }
 
   /* Custom shadow utilities */
-  .shadow-minimal {
-    box-shadow: var(--shadow-minimal);
+    .shadow-minimal {
+    border: 1px solid var(--border);
+    box-shadow: none;
   }
 
   .shadow-middle {
@@ -432,8 +430,9 @@ html[data-font="inter"] {
       rgba(0, 0, 0, 0.04) 0px 24px 24px -12px;
   }
 
-  .shadow-modal-small {
-    box-shadow: var(--shadow-modal-small);
+    .shadow-modal-small {
+    border: 1px solid var(--border);
+    box-shadow: none;
   }
 
   /* Smooth corners (iOS-style superellipse)

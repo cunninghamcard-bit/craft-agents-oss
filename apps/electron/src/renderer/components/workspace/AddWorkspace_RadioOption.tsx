@@ -30,11 +30,11 @@ export function AddWorkspace_RadioOption({
   return (
     <label className={cn(
       "flex items-center gap-3 p-3 rounded-lg cursor-pointer",
-      "bg-background shadow-minimal",
+      "bg-background border border-border",
       "transition-all duration-150",
       checked
         ? "hover:bg-accent/5"
-        : "hover:bg-foreground/5",
+        : "hover:bg-muted",
       disabled && "opacity-50 cursor-not-allowed"
     )}>
       <input
