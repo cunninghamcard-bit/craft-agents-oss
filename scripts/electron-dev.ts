@@ -192,17 +192,13 @@ async function runRolldown(
   entryPoint: string,
   outfile: string,
   defines: Record<string, string> = {},
-  options: { packagesExternal?: boolean; codeSplitting?: boolean } = {}
+  options: { codeSplitting?: boolean } = {}
 ): Promise<{ success: boolean; error?: string }> {
   try {
-    const external: (string | RegExp | ((id: string) => boolean))[] = ["electron"];
-    if (options.packagesExternal) {
-      external.push((id) => !id.startsWith(".") && !id.startsWith("/"));
-    }
     const bundle = await rolldown({
       input: join(ROOT_DIR, entryPoint),
       platform: "node",
-      external,
+      external: ["electron"],
       define: defines,
     });
     const outPath = join(ROOT_DIR, outfile);
@@ -300,18 +296,33 @@ async function buildMcpServers(): Promise<void> {
   if (!existsSync(sessionDistDir)) mkdirSync(sessionDistDir, { recursive: true });
   if (!existsSync(piDistDir)) mkdirSync(piDistDir, { recursive: true });
 
-  // Build session MCP server (Rolldown, packages external — deps resolve from root node_modules)
-  const sessionResult = await runRolldown(
-    "packages/session-mcp-server/src/index.ts",
-    "packages/session-mcp-server/dist/index.js",
-    {},
-    { packagesExternal: true }
-  );
+  // Build session MCP server with bun build (not Rolldown) because Rolldown's
+  // native binding doesn't support function external resolvers or define options.
+  const sessionProc = spawn({
+    cmd: [
+      "bun", "build",
+      join(SESSION_SERVER_DIR, "src/index.ts"),
+      "--outfile", SESSION_SERVER_OUTPUT,
+      "--target", "node",
+      "--format", "cjs",
+    ],
+    cwd: ROOT_DIR,
+    stdout: "inherit",
+    stderr: "inherit",
+  });
 
-  if (!sessionResult.success) {
-    console.error("❌ Session MCP server build failed:", sessionResult.error);
+  const sessionExitCode = await sessionProc.exited;
+
+  if (sessionExitCode !== 0) {
+    console.error("❌ Session MCP server build failed with exit code", sessionExitCode);
     process.exit(1);
   }
+
+  if (!existsSync(SESSION_SERVER_OUTPUT)) {
+    console.error("❌ Session MCP server output not found at", SESSION_SERVER_OUTPUT);
+    process.exit(1);
+  }
+
   console.log("✅ Session MCP server built");
 
   // Build Pi agent server with bun (not Rolldown) because its Pi SDK deps are ESM-only.
