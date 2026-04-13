@@ -125,7 +125,8 @@
   --ring-offset: 0px;
 
   /* === COMPONENT TOKENS === */
-  --user-message-bubble: oklch(from var(--foreground) l c h / 0.05);
+  --user-message-bubble: oklch(0.95 0.01 95);
+  --paper: var(--foreground-5);
 
   /* Markdown list markers */
   --md-bullets: var(--foreground-50);
@@ -200,7 +201,8 @@
   --ring: oklch(from var(--foreground) l c h / 0.25);
 
   /* === COMPONENT TOKENS === */
-  --user-message-bubble: oklch(from var(--foreground) l c h / 0.05);
+  --user-message-bubble: oklch(0.3 0.01 95);
+  --paper: var(--foreground-5);
 
   /* Markdown list markers */
   --md-bullets: var(--foreground-50);
@@ -260,6 +262,7 @@ html[data-font="inter"] {
   --color-md-bullets: var(--md-bullets);
   --color-md-counters: var(--md-counters);
   --color-user-message-bubble: var(--user-message-bubble);
+  --color-paper: var(--paper);
 
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
