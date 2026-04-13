@@ -265,7 +265,7 @@ export function WorkspaceSwitcher({
                 }}
                 className={cn(
                   "justify-between group",
-                  activeWorkspaceId === workspace.id && "bg-foreground/10",
+                  activeWorkspaceId === workspace.id && "bg-muted",
                   disconnected && "opacity-60",
                 )}
               >
@@ -301,7 +301,7 @@ export function WorkspaceSwitcher({
                   )}
                   {activeWorkspaceId !== workspace.id && !disconnected && (
                     <button
-                      className="opacity-0 group-hover:opacity-100 p-0.5 rounded hover:bg-foreground/10 transition-opacity"
+                      className="opacity-0 group-hover:opacity-100 p-0.5 rounded hover:bg-muted transition-opacity"
                       onClick={(e) => {
                         e.stopPropagation()
                         onSelect(workspace.id, true)

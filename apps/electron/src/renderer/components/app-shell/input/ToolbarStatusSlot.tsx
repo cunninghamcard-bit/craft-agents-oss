@@ -68,12 +68,11 @@ export function ToolbarStatusSlot({
           className={cn(
             "absolute inset-0 z-10",
             "rounded-b-[12px]",
-            "shadow-tinted",
+            "border border-border/50",
             "flex items-center justify-center",
             "pointer-events-auto",
           )}
           style={{
-            '--shadow-color': 'var(--info-rgb)',
             backgroundColor: 'color-mix(in srgb, var(--info) 10%, var(--background))',
             color: 'color-mix(in oklab, var(--info) 30%, var(--foreground))',
           } as React.CSSProperties}

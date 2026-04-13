@@ -456,18 +456,15 @@ function PermissionModeDropdown({ permissionMode, onPermissionModeChange, sessio
   // - safe (Explore): foreground at 60% opacity - subtle, read-only feel
   // - ask (Ask to Edit): info color - amber, prompts for edits
   // - allow-all (Auto): accent color - purple, full autonomy
-  const modeStyles: Record<PermissionMode, { className: string; shadowVar: string }> = {
+  const modeStyles: Record<PermissionMode, { className: string }> = {
     'safe': {
       className: 'bg-muted text-muted-foreground border border-border',
-      shadowVar: 'var(--foreground-rgb)',
     },
     'ask': {
-      className: 'bg-info/10 text-info',
-      shadowVar: 'var(--info-rgb)',
+      className: 'bg-info/10 text-info border border-border/50',
     },
     'allow-all': {
-      className: 'bg-accent/5 text-accent',
-      shadowVar: 'var(--accent-rgb)',
+      className: 'bg-accent/5 text-accent border border-border/50',
     },
   }
   const currentStyle = modeStyles[optimisticMode]
@@ -479,10 +476,9 @@ function PermissionModeDropdown({ permissionMode, onPermissionModeChange, sessio
           type="button"
           data-tutorial="permission-mode-dropdown"
           className={cn(
-            "h-[30px] pl-2.5 pr-2 text-xs font-medium rounded-[8px] flex items-center gap-1.5 shadow-tinted outline-none select-none",
+            "h-[30px] pl-2.5 pr-2 text-xs font-medium rounded-[8px] flex items-center gap-1.5 outline-none select-none",
             currentStyle.className
           )}
-          style={{ '--shadow-color': currentStyle.shadowVar } as React.CSSProperties}
         >
           <PermissionModeIcon mode={optimisticMode} className="h-3.5 w-3.5" />
           <span>{t(`mode.${optimisticMode}`)}</span>

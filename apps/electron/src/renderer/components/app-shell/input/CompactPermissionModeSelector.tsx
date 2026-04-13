@@ -40,18 +40,15 @@ function ModeIcon({ mode, className }: { mode: PermissionMode; className?: strin
 // Trigger chip styling per mode (matches desktop PermissionModeDropdown)
 // ============================================================================
 
-const MODE_STYLES: Record<PermissionMode, { className: string; shadowVar: string }> = {
+const MODE_STYLES: Record<PermissionMode, { className: string }> = {
   safe: {
     className: 'bg-muted text-muted-foreground border border-border',
-    shadowVar: 'var(--foreground-rgb)',
   },
   ask: {
-    className: 'bg-info/10 text-info',
-    shadowVar: 'var(--info-rgb)',
+    className: 'bg-info/10 text-info border border-border/50',
   },
   'allow-all': {
-    className: 'bg-accent/5 text-accent',
-    shadowVar: 'var(--accent-rgb)',
+    className: 'bg-accent/5 text-accent border border-border/50',
   },
 }
 
@@ -92,10 +89,9 @@ export function CompactPermissionModeSelector({
           type="button"
           aria-label={`Permission mode: ${config.displayName}`}
           className={cn(
-            "h-7 pl-2 pr-2.5 text-xs font-medium rounded-[6px] flex items-center gap-1.5 shadow-tinted outline-none select-none shrink-0",
+            "h-7 pl-2 pr-2.5 text-xs font-medium rounded-[6px] flex items-center gap-1.5 outline-none select-none shrink-0",
             style.className,
           )}
-          style={{ '--shadow-color': style.shadowVar } as React.CSSProperties}
         >
           <ModeIcon mode={optimisticMode} className="h-3.5 w-3.5" />
           <span>{config.shortName}</span>

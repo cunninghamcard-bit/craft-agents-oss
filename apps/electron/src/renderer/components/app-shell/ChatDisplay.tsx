@@ -2132,7 +2132,7 @@ function ErrorMessage({ message, onOpenUrl }: { message: Message; onOpenUrl?: (u
     <div className="flex justify-start mt-4">
       {/* Subtle bg (3% opacity) + tinted shadow for softer error appearance */}
       <div
-        className="max-w-[80%] shadow-tinted rounded-[8px] pl-5 pr-4 pt-2 pb-2.5 break-words"
+        className="max-w-[80%] border border-border rounded-[8px] pl-5 pr-4 pt-2 pb-2.5 break-words"
         style={{
           backgroundColor: 'oklch(from var(--destructive) l c h / 0.03)',
           '--shadow-color': 'var(--destructive-rgb)',

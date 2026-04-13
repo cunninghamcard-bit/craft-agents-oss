@@ -1033,8 +1033,8 @@ function ActivityRow({ activity, onOpenDetails, isLastChild, sessionFolderPath, 
               <Tooltip>
                 <TooltipTrigger asChild>
                   <span
-                    className="px-1.5 py-0.5 bg-[color-mix(in_oklab,var(--destructive)_4%,var(--background))] shadow-tinted rounded-[4px] text-[10px] text-destructive font-medium cursor-default shrink-0"
-                    style={{ '--shadow-color': 'var(--destructive-rgb)' } as React.CSSProperties}
+                    className="px-1.5 py-0.5 bg-[color-mix(in_oklab,var(--destructive)_4%,var(--background))] border border-border rounded-[4px] text-[10px] text-destructive font-medium cursor-default shrink-0"
+                    
                   >
                     Error
                   </span>
@@ -1083,14 +1083,14 @@ function ActivityRow({ activity, onOpenDetails, isLastChild, sessionFolderPath, 
           <span className="flex items-center gap-1.5 text-[10px] shrink-0">
             {diffStats.deletions > 0 && (
               <span
-                className="px-1.5 py-0.5 bg-[color-mix(in_oklab,var(--destructive)_5%,var(--background))] shadow-tinted rounded-[4px] text-destructive"
-                style={{ '--shadow-color': 'var(--destructive-rgb)' } as React.CSSProperties}
+                className="px-1.5 py-0.5 bg-[color-mix(in_oklab,var(--destructive)_5%,var(--background))] border border-border rounded-[4px] text-destructive"
+                
               >{diffStats.deletions}</span>
             )}
             {diffStats.additions > 0 && (
               <span
-                className="px-1.5 py-0.5 bg-[color-mix(in_oklab,var(--success)_5%,var(--background))] shadow-tinted rounded-[4px] text-success"
-                style={{ '--shadow-color': 'var(--success-rgb)' } as React.CSSProperties}
+                className="px-1.5 py-0.5 bg-[color-mix(in_oklab,var(--success)_5%,var(--background))] border border-border rounded-[4px] text-success"
+                
               >{diffStats.additions}</span>
             )}
             {/* Filename badge - supports both Claude Code and Codex formats */}
@@ -1131,8 +1131,8 @@ function ActivityRow({ activity, onOpenDetails, isLastChild, sessionFolderPath, 
           <Tooltip>
             <TooltipTrigger asChild>
               <span
-                className="px-1.5 py-0.5 bg-[color-mix(in_oklab,var(--destructive)_4%,var(--background))] shadow-tinted rounded-[4px] text-[10px] text-destructive font-medium cursor-default shrink-0"
-                style={{ '--shadow-color': 'var(--destructive-rgb)' } as React.CSSProperties}
+                className="px-1.5 py-0.5 bg-[color-mix(in_oklab,var(--destructive)_4%,var(--background))] border border-border rounded-[4px] text-[10px] text-destructive font-medium cursor-default shrink-0"
+                
               >
                 Error
               </span>
@@ -1508,8 +1508,8 @@ function createAnnotationIndexBadge(index: number): HTMLSpanElement {
   chip.style.fontWeight = '600'
   chip.style.lineHeight = '15px'
   chip.style.textAlign = 'center'
-  chip.classList.add('shadow-tinted')
-  chip.style.setProperty('--shadow-color', 'var(--info-rgb)')
+  chip.classList.add('border', 'border-border')
+  // chip border replaced above
   chip.style.pointerEvents = 'none'
   chip.style.userSelect = 'none'
   return chip

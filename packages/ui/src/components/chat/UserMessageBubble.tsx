@@ -229,7 +229,7 @@ function renderContentWithBadges(
         mode="minimal"
         onUrlClick={onUrlClick}
         onFileClick={onFileClick}
-        className="text-sm [&_a]:underline [&_code]:bg-foreground/10 [&_p]:whitespace-pre-wrap"
+        className="text-sm [&_a]:underline [&_code]:bg-muted [&_p]:whitespace-pre-wrap"
       >
         {content}
       </Markdown>
@@ -253,7 +253,7 @@ function renderContentWithBadges(
             mode="minimal"
             onUrlClick={onUrlClick}
             onFileClick={onFileClick}
-            className="inline text-sm [&_a]:underline [&_code]:bg-foreground/10 [&_p]:whitespace-pre-wrap [&_p]:inline"
+            className="inline text-sm [&_a]:underline [&_code]:bg-muted [&_p]:whitespace-pre-wrap [&_p]:inline"
           >
             {textBefore}
           </Markdown>
@@ -289,7 +289,7 @@ function renderContentWithBadges(
           mode="minimal"
           onUrlClick={onUrlClick}
           onFileClick={onFileClick}
-          className="inline text-sm [&_a]:underline [&_code]:bg-foreground/10 [&_p]:whitespace-pre-wrap [&_p]:inline"
+          className="inline text-sm [&_a]:underline [&_code]:bg-muted [&_p]:whitespace-pre-wrap [&_p]:inline"
         >
           {textAfter}
         </Markdown>
@@ -439,7 +439,7 @@ export function UserMessageBubble({
               mode="minimal"
               onUrlClick={onUrlClick}
               onFileClick={onFileClick}
-              className="text-sm [&_a]:underline [&_code]:bg-foreground/10 [&_p]:whitespace-pre-wrap"
+              className="text-sm [&_a]:underline [&_code]:bg-muted [&_p]:whitespace-pre-wrap"
             >
               {displayContent}
             </Markdown>
