@@ -8,6 +8,7 @@
 import { execSync } from 'child_process';
 import { existsSync, mkdirSync, rmSync, readdirSync, statSync, cpSync } from 'fs';
 import { join } from 'path';
+import { rolldown } from 'rolldown';
 import type { BuildConfig } from './common';
 
 /**
@@ -112,21 +113,13 @@ async function safeRmDir(dir: string, maxRetries = 5): Promise<void> {
 /**
  * Build main process with OAuth defines (Windows-specific inline build)
  */
-function buildMainProcess(config: BuildConfig): void {
+async function buildMainProcess(config: BuildConfig): Promise<void> {
   const { rootDir } = config;
 
   console.log('  Building main process...');
 
-  const mainArgs = [
-    'apps/electron/src/main/index.ts',
-    '--bundle',
-    '--platform=node',
-    '--format=cjs',
-    '--outfile=apps/electron/dist/main.cjs',
-    '--external:electron',
-  ];
-
   // Add OAuth defines if env vars are set
+  const defines: Record<string, string> = {};
   const oauthDefines = [
     ['GOOGLE_OAUTH_CLIENT_ID', process.env.GOOGLE_OAUTH_CLIENT_ID],
     ['GOOGLE_OAUTH_CLIENT_SECRET', process.env.GOOGLE_OAUTH_CLIENT_SECRET],
@@ -137,12 +130,22 @@ function buildMainProcess(config: BuildConfig): void {
 
   for (const [key, value] of oauthDefines) {
     if (value) {
-      mainArgs.push(`--define:process.env.${key}="'${value}'"`);
+      defines[`process.env.${key}`] = JSON.stringify(value as string);
     }
   }
 
-  // Use node to run esbuild directly
-  run(`node ./node_modules/esbuild/bin/esbuild ${mainArgs.join(' ')}`, rootDir);
+  const bundle = await rolldown({
+    input: join(rootDir, 'apps/electron/src/main/index.ts'),
+    platform: 'node',
+    external: ['electron'],
+    define: defines,
+  });
+  await bundle.write({
+    dir: join(rootDir, 'apps/electron/dist'),
+    entryFileNames: 'main.cjs',
+    format: 'cjs',
+    codeSplitting: false,
+  });
 }
 
 /**
@@ -154,21 +157,32 @@ export async function buildElectronAppWindows(config: BuildConfig): Promise<void
   console.log('Building Electron app...');
 
   // Build main process with OAuth defines
-  buildMainProcess(config);
+  await buildMainProcess(config);
 
   // Build unified network interceptor (--require hook for tool metadata)
   console.log('  Building interceptor...');
-  run(
-    'node ./node_modules/esbuild/bin/esbuild packages/shared/src/unified-network-interceptor.ts --bundle --platform=node --format=cjs --outfile=apps/electron/dist/interceptor.cjs',
-    rootDir
-  );
+  const interceptorBundle = await rolldown({
+    input: join(rootDir, 'packages/shared/src/unified-network-interceptor.ts'),
+    platform: 'node',
+  });
+  await interceptorBundle.write({
+    dir: join(rootDir, 'apps/electron/dist'),
+    entryFileNames: 'interceptor.cjs',
+    format: 'cjs',
+  });
 
-  // Build preload - invoke esbuild directly via node
+  // Build preload - using Rolldown
   console.log('  Building preload...');
-  run(
-    'node ./node_modules/esbuild/bin/esbuild apps/electron/src/preload/bootstrap.ts --bundle --platform=node --format=cjs --outfile=apps/electron/dist/bootstrap-preload.cjs --external:electron',
-    rootDir
-  );
+  const preloadBundle = await rolldown({
+    input: join(rootDir, 'apps/electron/src/preload/bootstrap.ts'),
+    platform: 'node',
+    external: ['electron'],
+  });
+  await preloadBundle.write({
+    dir: join(rootDir, 'apps/electron/dist'),
+    entryFileNames: 'bootstrap-preload.cjs',
+    format: 'cjs',
+  });
 
   // Build renderer - invoke vite directly via node
   console.log('  Building renderer...');

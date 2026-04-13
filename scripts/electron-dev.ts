@@ -5,8 +5,9 @@
 
 import { spawn, type Subprocess } from "bun";
 import { existsSync, rmSync, cpSync, readFileSync, statSync, mkdirSync } from "fs";
-import { join, basename } from "path";
-import * as esbuild from "esbuild";
+import { join, basename, dirname } from "path";
+import { rolldown, watch } from "rolldown";
+import type { RollupWatcher } from "rolldown";
 import { downloadUv, type Platform, type Arch } from "./build/common";
 
 const ROOT_DIR = join(import.meta.dir, "..");
@@ -186,100 +187,26 @@ function copyResources(): void {
   }
 }
 
-// Build MCP servers for Codex sessions and Pi agent server (one-time, no watch needed)
-async function buildMcpServers(): Promise<void> {
-  console.log("🌉 Building MCP servers and Pi agent server...");
-
-  // Ensure dist directories exist
-  const sessionDistDir = join(SESSION_SERVER_DIR, "dist");
-  const piDistDir = join(PI_AGENT_SERVER_DIR, "dist");
-  if (!existsSync(sessionDistDir)) mkdirSync(sessionDistDir, { recursive: true });
-  if (!existsSync(piDistDir)) mkdirSync(piDistDir, { recursive: true });
-
-  // Build session MCP server (esbuild, packages external — deps resolve from root node_modules)
-  const sessionResult = await runEsbuild(
-    "packages/session-mcp-server/src/index.ts",
-    "packages/session-mcp-server/dist/index.js",
-    {},
-    { packagesExternal: true }
-  );
-
-  if (!sessionResult.success) {
-    console.error("❌ Session MCP server build failed:", sessionResult.error);
-    process.exit(1);
-  }
-  console.log("✅ Session MCP server built");
-
-  // Build Pi agent server with bun (not esbuild) because its Pi SDK deps are ESM-only.
-  // esbuild with packages:external leaves them as require() calls which fail at runtime.
-  // Optional: skip if package directory is missing (e.g., not synced to OSS).
-  if (existsSync(join(PI_AGENT_SERVER_DIR, "src"))) {
-    const piResult = await buildPiAgentServer();
-    if (!piResult.success) {
-      console.error("❌ Pi agent server build failed:", piResult.error);
-      process.exit(1);
-    }
-    console.log("✅ Pi agent server built");
-  } else {
-    console.log("⏭️  Pi agent server skipped (package not found)");
-  }
-}
-
-// Get OAuth defines for esbuild API
-function getOAuthDefines(): Record<string, string> {
-  const oauthVars = [
-    "GOOGLE_OAUTH_CLIENT_ID",
-    "GOOGLE_OAUTH_CLIENT_SECRET",
-    "SLACK_OAUTH_CLIENT_ID",
-    "SLACK_OAUTH_CLIENT_SECRET",
-    "MICROSOFT_OAUTH_CLIENT_ID",
-    "MICROSOFT_OAUTH_CLIENT_SECRET",
-  ];
-
-  const defines: Record<string, string> = {};
-  for (const varName of oauthVars) {
-    const value = process.env[varName] || "";
-    defines[`process.env.${varName}`] = JSON.stringify(value);
-  }
-  return defines;
-}
-
-// Get environment variables for electron process
-function getElectronEnv(): Record<string, string> {
-  const vitePort = process.env.CRAFT_VITE_PORT || "5173";
-
-  // Codex binary path is resolved at runtime by the binary-resolver module.
-  // It checks: CODEX_PATH env var > bundled binary > local dev fork > system PATH.
-  // You can override with CODEX_PATH env var if needed for debugging.
-
-  return {
-    ...process.env as Record<string, string>,
-    VITE_DEV_SERVER_URL: `http://localhost:${vitePort}`,
-    CRAFT_CONFIG_DIR: process.env.CRAFT_CONFIG_DIR || "",
-    CRAFT_APP_NAME: process.env.CRAFT_APP_NAME || "Craft Agents",
-    CRAFT_DEEPLINK_SCHEME: process.env.CRAFT_DEEPLINK_SCHEME || "craftagents",
-    CRAFT_INSTANCE_NUMBER: process.env.CRAFT_INSTANCE_NUMBER || "",
-  };
-}
-
-// Run a one-shot esbuild using the JavaScript API
-async function runEsbuild(
+// Run a one-shot Rolldown build
+async function runRolldown(
   entryPoint: string,
   outfile: string,
   defines: Record<string, string> = {},
-  options: { packagesExternal?: boolean } = {}
+  options: { codeSplitting?: boolean } = {}
 ): Promise<{ success: boolean; error?: string }> {
   try {
-    await esbuild.build({
-      entryPoints: [join(ROOT_DIR, entryPoint)],
-      bundle: true,
+    const bundle = await rolldown({
+      input: join(ROOT_DIR, entryPoint),
       platform: "node",
-      format: "cjs",
-      outfile: join(ROOT_DIR, outfile),
       external: ["electron"],
-      ...(options.packagesExternal ? { packages: "external" as const } : {}),
       define: defines,
-      logLevel: "warning",
+    });
+    const outPath = join(ROOT_DIR, outfile);
+    await bundle.write({
+      dir: dirname(outPath),
+      entryFileNames: basename(outPath),
+      format: "cjs",
+      ...(options.codeSplitting === false ? { codeSplitting: false } : {}),
     });
     return { success: true };
   } catch (err) {
@@ -287,9 +214,9 @@ async function runEsbuild(
   }
 }
 
-// Build Pi agent server using bun instead of esbuild.
-// The Pi SDK (@mariozechner/pi-coding-agent) is ESM-only, and esbuild with
-// packages:external leaves ESM imports as require() calls that fail at runtime.
+// Build Pi agent server using bun instead of Rolldown.
+// The Pi SDK (@mariozechner/pi-coding-agent) is ESM-only, and bundling with
+// CJS target leaves ESM imports as require() calls that fail at runtime.
 // Bun's bundler handles ESM→ESM bundling correctly.
 async function buildPiAgentServer(): Promise<{ success: boolean; error?: string }> {
   try {
@@ -313,7 +240,7 @@ async function buildPiAgentServer(): Promise<{ success: boolean; error?: string 
 // Verify a JavaScript file exists and has content.
 // Note: We don't use `node --check` because it evaluates module-level code,
 // which fails for Electron-specific packages like @sentry/electron that
-// require Electron's runtime. esbuild's successful build already guarantees
+// require Electron's runtime. Rolldown's successful build already guarantees
 // valid JavaScript syntax.
 async function verifyJsFile(filePath: string): Promise<{ valid: boolean; error?: string }> {
   if (!existsSync(filePath)) {
@@ -359,6 +286,96 @@ async function waitForFileStable(filePath: string, timeoutMs = 10000): Promise<b
   return false;
 }
 
+// Build MCP servers for Codex sessions and Pi agent server (one-time, no watch needed)
+async function buildMcpServers(): Promise<void> {
+  console.log("🌉 Building MCP servers and Pi agent server...");
+
+  // Ensure dist directories exist
+  const sessionDistDir = join(SESSION_SERVER_DIR, "dist");
+  const piDistDir = join(PI_AGENT_SERVER_DIR, "dist");
+  if (!existsSync(sessionDistDir)) mkdirSync(sessionDistDir, { recursive: true });
+  if (!existsSync(piDistDir)) mkdirSync(piDistDir, { recursive: true });
+
+  // Build session MCP server with bun build (not Rolldown) because Rolldown's
+  // native binding doesn't support function external resolvers or define options.
+  const sessionProc = spawn({
+    cmd: [
+      "bun", "build",
+      join(SESSION_SERVER_DIR, "src/index.ts"),
+      "--outfile", SESSION_SERVER_OUTPUT,
+      "--target", "node",
+      "--format", "cjs",
+    ],
+    cwd: ROOT_DIR,
+    stdout: "inherit",
+    stderr: "inherit",
+  });
+
+  const sessionExitCode = await sessionProc.exited;
+
+  if (sessionExitCode !== 0) {
+    console.error("❌ Session MCP server build failed with exit code", sessionExitCode);
+    process.exit(1);
+  }
+
+  if (!existsSync(SESSION_SERVER_OUTPUT)) {
+    console.error("❌ Session MCP server output not found at", SESSION_SERVER_OUTPUT);
+    process.exit(1);
+  }
+
+  console.log("✅ Session MCP server built");
+
+  // Build Pi agent server with bun (not Rolldown) because its Pi SDK deps are ESM-only.
+  // Optional: skip if package directory is missing (e.g., not synced to OSS).
+  if (existsSync(join(PI_AGENT_SERVER_DIR, "src"))) {
+    const piResult = await buildPiAgentServer();
+    if (!piResult.success) {
+      console.error("❌ Pi agent server build failed:", piResult.error);
+      process.exit(1);
+    }
+    console.log("✅ Pi agent server built");
+  } else {
+    console.log("⏭️  Pi agent server skipped (package not found)");
+  }
+}
+
+// Get OAuth defines for Rolldown API
+function getOAuthDefines(): Record<string, string> {
+  const oauthVars = [
+    "GOOGLE_OAUTH_CLIENT_ID",
+    "GOOGLE_OAUTH_CLIENT_SECRET",
+    "SLACK_OAUTH_CLIENT_ID",
+    "SLACK_OAUTH_CLIENT_SECRET",
+    "MICROSOFT_OAUTH_CLIENT_ID",
+    "MICROSOFT_OAUTH_CLIENT_SECRET",
+  ];
+
+  const defines: Record<string, string> = {};
+  for (const varName of oauthVars) {
+    const value = process.env[varName] || "";
+    defines[`process.env.${varName}`] = JSON.stringify(value);
+  }
+  return defines;
+}
+
+// Get environment variables for electron process
+function getElectronEnv(): Record<string, string> {
+  const vitePort = process.env.CRAFT_VITE_PORT || "5173";
+
+  // Codex binary path is resolved at runtime by the binary-resolver module.
+  // It checks: CODEX_PATH env var > bundled binary > local dev fork > system PATH.
+  // You can override with CODEX_PATH env var if needed for debugging.
+
+  return {
+    ...process.env as Record<string, string>,
+    VITE_DEV_SERVER_URL: `http://localhost:${vitePort}`,
+    CRAFT_CONFIG_DIR: process.env.CRAFT_CONFIG_DIR || "",
+    CRAFT_APP_NAME: process.env.CRAFT_APP_NAME || "Craft Agents",
+    CRAFT_DEEPLINK_SCHEME: process.env.CRAFT_DEEPLINK_SCHEME || "craftagents",
+    CRAFT_INSTANCE_NUMBER: process.env.CRAFT_INSTANCE_NUMBER || "",
+  };
+}
+
 async function main(): Promise<void> {
   console.log("🚀 Starting Electron dev environment...\n");
 
@@ -401,16 +418,17 @@ async function main(): Promise<void> {
 
   // Build main and preload entries in parallel
   const [mainResult, preloadResult, toolbarPreloadResult] = await Promise.all([
-    runEsbuild(
+    runRolldown(
       "apps/electron/src/main/index.ts",
       "apps/electron/dist/main.cjs",
-      oauthDefines
+      oauthDefines,
+      { codeSplitting: false }
     ),
-    runEsbuild(
+    runRolldown(
       "apps/electron/src/preload/bootstrap.ts",
       "apps/electron/dist/bootstrap-preload.cjs"
     ),
-    runEsbuild(
+    runRolldown(
       "apps/electron/src/preload/browser-toolbar.ts",
       "apps/electron/dist/browser-toolbar-preload.cjs"
     ),
@@ -475,7 +493,7 @@ async function main(): Promise<void> {
   console.log("📡 Starting dev servers...\n");
 
   const processes: Subprocess[] = [];
-  const esbuildContexts: esbuild.BuildContext[] = [];
+  const rolldownWatchers: RollupWatcher[] = [];
 
   // 1. Vite dev server (strictPort ensures we don't silently switch ports)
   const viteProc = spawn({
@@ -488,47 +506,69 @@ async function main(): Promise<void> {
   });
   processes.push(viteProc);
 
-  // 2. Main process watcher (using esbuild watch API)
-  const mainContext = await esbuild.context({
-    entryPoints: [join(ROOT_DIR, "apps/electron/src/main/index.ts")],
-    bundle: true,
+  // 2. Main process watcher (using Rolldown watch API)
+  const mainWatcher = watch({
+    input: join(ROOT_DIR, "apps/electron/src/main/index.ts"),
     platform: "node",
-    format: "cjs",
-    outfile: join(ROOT_DIR, "apps/electron/dist/main.cjs"),
     external: ["electron"],
     define: oauthDefines,
-    logLevel: "info",
+    output: {
+      dir: join(ROOT_DIR, "apps/electron/dist"),
+      entryFileNames: "main.cjs",
+      format: "cjs",
+      codeSplitting: false,
+    },
   });
-  await mainContext.watch();
-  esbuildContexts.push(mainContext);
+  mainWatcher.on("event", (event) => {
+    if (event.code === "ERROR") {
+      console.error("❌ Main process build error:", event.error);
+    } else if (event.code === "BUNDLE_END") {
+      console.log("🔄 Main process rebuilt");
+    }
+  });
+  rolldownWatchers.push(mainWatcher);
   console.log("👀 Watching main process...");
 
-  // 3. Preload watcher (using esbuild watch API)
-  const preloadContext = await esbuild.context({
-    entryPoints: [join(ROOT_DIR, "apps/electron/src/preload/bootstrap.ts")],
-    bundle: true,
+  // 3. Preload watcher (using Rolldown watch API)
+  const preloadWatcher = watch({
+    input: join(ROOT_DIR, "apps/electron/src/preload/bootstrap.ts"),
     platform: "node",
-    format: "cjs",
-    outfile: join(ROOT_DIR, "apps/electron/dist/bootstrap-preload.cjs"),
     external: ["electron"],
-    logLevel: "info",
+    output: {
+      dir: join(ROOT_DIR, "apps/electron/dist"),
+      entryFileNames: "bootstrap-preload.cjs",
+      format: "cjs",
+    },
   });
-  await preloadContext.watch();
-  esbuildContexts.push(preloadContext);
+  preloadWatcher.on("event", (event) => {
+    if (event.code === "ERROR") {
+      console.error("❌ Preload build error:", event.error);
+    } else if (event.code === "BUNDLE_END") {
+      console.log("🔄 Preload rebuilt");
+    }
+  });
+  rolldownWatchers.push(preloadWatcher);
   console.log("👀 Watching preload...");
 
   // 4. Browser toolbar preload watcher (dedicated browser window bridge)
-  const toolbarPreloadContext = await esbuild.context({
-    entryPoints: [join(ROOT_DIR, "apps/electron/src/preload/browser-toolbar.ts")],
-    bundle: true,
+  const toolbarPreloadWatcher = watch({
+    input: join(ROOT_DIR, "apps/electron/src/preload/browser-toolbar.ts"),
     platform: "node",
-    format: "cjs",
-    outfile: join(ROOT_DIR, "apps/electron/dist/browser-toolbar-preload.cjs"),
     external: ["electron"],
-    logLevel: "info",
+    output: {
+      dir: join(ROOT_DIR, "apps/electron/dist"),
+      entryFileNames: "browser-toolbar-preload.cjs",
+      format: "cjs",
+    },
   });
-  await toolbarPreloadContext.watch();
-  esbuildContexts.push(toolbarPreloadContext);
+  toolbarPreloadWatcher.on("event", (event) => {
+    if (event.code === "ERROR") {
+      console.error("❌ Browser toolbar preload build error:", event.error);
+    } else if (event.code === "BUNDLE_END") {
+      console.log("🔄 Browser toolbar preload rebuilt");
+    }
+  });
+  rolldownWatchers.push(toolbarPreloadWatcher);
   console.log("👀 Watching browser toolbar preload...");
 
   // 5. Start Electron (build already verified)
@@ -547,12 +587,12 @@ async function main(): Promise<void> {
   // Handle cleanup on exit
   const cleanup = async () => {
     console.log("\n🛑 Shutting down...");
-    // Dispose esbuild contexts
-    for (const ctx of esbuildContexts) {
+    // Close Rolldown watchers
+    for (const w of rolldownWatchers) {
       try {
-        await ctx.dispose();
+        await w.close();
       } catch {
-        // Context may already be disposed
+        // Watcher may already be closed
       }
     }
     // Kill subprocesses

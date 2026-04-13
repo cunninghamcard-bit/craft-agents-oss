@@ -1,0 +1,19 @@
+{
+  "plugins": ["import", "typescript", "react", "react-hooks", "unicorn", "node", "promise"],
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2024": true
+  },
+  "rules": {
+    "no-debugger": "error",
+    "no-var": "error",
+    "prefer-const": "warn"
+  },
+  "ignorePatterns": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/.vite/**",
+    "apps/electron/resources/scripts/**"
+  ]
+}
