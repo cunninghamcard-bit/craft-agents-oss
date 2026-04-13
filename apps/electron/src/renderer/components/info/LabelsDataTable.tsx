@@ -56,7 +56,7 @@ function ExpandableNameCell({ row }: { row: Row<LabelConfig> }) {
             e.stopPropagation()
             row.toggleExpanded()
           }}
-          className="p-0.5 rounded hover:bg-foreground/5 transition-colors"
+          className="p-0.5 rounded hover:bg-muted transition-colors"
         >
           <ChevronRight
             className={cn(
@@ -82,11 +82,13 @@ function getColumns(t: TFunction): ColumnDef<LabelConfig>[] {
       header: () => <span className="p-1.5 pl-2.5">{t("common.color")}</span>,
       cell: ({ row }) => (
         <div className="p-1.5 pl-2.5">
-          <LabelIcon
-            label={row.original}
-            size="sm"
-            hasChildren={!!row.original.children?.length}
-          />
+          <div className="inline-flex items-center justify-center rounded-full border border-border/60 p-0.5 bg-background">
+            <LabelIcon
+              label={row.original}
+              size="md"
+              hasChildren={!!row.original.children?.length}
+            />
+          </div>
         </div>
       ),
       minSize: 60,
@@ -146,7 +148,7 @@ export function LabelsDataTable({
       className={cn(
         'p-1 rounded-[6px] transition-all',
         'opacity-0 group-hover:opacity-100',
-        'bg-background/80 backdrop-blur-sm shadow-minimal',
+        'bg-background/80 backdrop-blur-sm border border-border',
         'text-muted-foreground/50 hover:text-foreground',
         'focus:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:opacity-100'
       )}
