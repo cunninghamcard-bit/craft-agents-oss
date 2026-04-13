@@ -1597,7 +1597,7 @@ export const ChatDisplay = React.forwardRef<ChatDisplayHandle, ChatDisplayProps>
                   )}
                   {/* Timeline connector between conversation turns */}
                   <div className="relative">
-                    <div className="absolute right-[9px] top-3 bottom-3 w-px bg-border" />
+                    <div className="absolute right-[12px] top-0 bottom-0 w-[2px] bg-border" />
                     {turns.map((turn, index) => {
                       // Compute turn key and check if it's a search match
                       const turnKey = getTurnKey(turn)
@@ -1613,12 +1613,12 @@ export const ChatDisplay = React.forwardRef<ChatDisplayHandle, ChatDisplayProps>
                             ref={el => { if (el) turnRefs.current.set(turnKey, el); else turnRefs.current.delete(turnKey) }}
                             className={cn(
                               compactMode ? "pt-2 pb-1" : CHAT_LAYOUT.userMessagePadding,
-                              "relative pr-5 rounded-lg transition-all duration-200",
+                              "relative pr-8 rounded-[5px] transition-all duration-200",
                               isCurrentMatch && "ring-2 ring-info ring-offset-2 ring-offset-background",
                               isAnyMatch && !isCurrentMatch && "ring-1 ring-info/30"
                             )}
                           >
-                            <div className="absolute right-[7px] top-3 h-[5px] w-[5px] rounded-full bg-border" />
+                            <div className="absolute right-[7px] top-4 h-3 w-3 rounded-full bg-background border-2 border-border" />
                             <MemoizedMessageBubble
                             message={turn.message}
                             onOpenFile={onOpenFile}
@@ -1636,12 +1636,12 @@ export const ChatDisplay = React.forwardRef<ChatDisplayHandle, ChatDisplayProps>
                           key={turnKey}
                           ref={el => { if (el) turnRefs.current.set(turnKey, el); else turnRefs.current.delete(turnKey) }}
                           className={cn(
-                            "relative pr-5 rounded-lg transition-all duration-200",
+                            "relative pr-8 rounded-[5px] transition-all duration-200",
                             isCurrentMatch && "ring-2 ring-info ring-offset-2 ring-offset-background",
                             isAnyMatch && !isCurrentMatch && "ring-1 ring-info/30"
                           )}
                         >
-                          <div className="absolute right-[7px] top-3 h-[5px] w-[5px] rounded-full bg-border" />
+                          <div className="absolute right-[7px] top-3 h-3 w-3 rounded-full bg-background border-2 border-border" />
                           <MemoizedMessageBubble
                             message={turn.message}
                             onOpenFile={onOpenFile}
@@ -1661,12 +1661,12 @@ export const ChatDisplay = React.forwardRef<ChatDisplayHandle, ChatDisplayProps>
                           key={turnKey}
                           ref={el => { if (el) turnRefs.current.set(turnKey, el); else turnRefs.current.delete(turnKey) }}
                           className={cn(
-                            "relative pr-5 mt-2 rounded-lg transition-all duration-200",
+                            "relative pr-8 mt-2 rounded-[5px] transition-all duration-200",
                             isCurrentMatch && "ring-2 ring-info ring-offset-2 ring-offset-background",
                             isAnyMatch && !isCurrentMatch && "ring-1 ring-info/30"
                           )}
                         >
-                          <div className="absolute right-[7px] top-3 h-[5px] w-[5px] rounded-full bg-border" />
+                          <div className="absolute right-[7px] top-3 h-3 w-3 rounded-full bg-background border-2 border-border" />
                           <MemoizedAuthRequestCard
                             message={turn.message}
                             sessionId={session.id}
@@ -1687,12 +1687,13 @@ export const ChatDisplay = React.forwardRef<ChatDisplayHandle, ChatDisplayProps>
                         key={turnKey}
                         ref={el => { if (el) turnRefs.current.set(turnKey, el); else turnRefs.current.delete(turnKey) }}
                         className={cn(
-                          "relative pr-5 pt-2",
-                          "rounded-lg transition-all duration-200",
+                          "relative pr-8 pt-2",
+                          "rounded-[5px] transition-all duration-200",
                           isCurrentMatch && "ring-2 ring-info ring-offset-2 ring-offset-background",
                           isAnyMatch && !isCurrentMatch && "ring-1 ring-info/30"
                         )}
                       >
+                        <div className="absolute right-[7px] top-3 h-3 w-3 rounded-full bg-background border-2 border-border" />
                         <div className="absolute right-[7px] top-3 h-[5px] w-[5px] rounded-full bg-border" />
                       <TurnCard
                         sessionId={session.id}
@@ -2140,7 +2141,7 @@ function ErrorMessage({ message, onOpenUrl }: { message: Message; onOpenUrl?: (u
     <div className="flex justify-start mt-4">
       {/* Subtle bg (3% opacity) + tinted shadow for softer error appearance */}
       <div
-        className="max-w-[80%] border border-border rounded-[8px] pl-5 pr-4 pt-2 pb-2.5 break-words"
+        className="max-w-[80%] border border-border rounded-[5px] pl-5 pr-4 pt-2 pb-2.5 break-words"
         style={{
           backgroundColor: 'oklch(from var(--destructive) l c h / 0.03)',
           '--shadow-color': 'var(--destructive-rgb)',
@@ -2233,7 +2234,7 @@ function MessageBubble({
   if (message.role === 'assistant') {
     return (
       <div className="flex justify-start group">
-        <div className="relative max-w-[90%] bg-card border border-border rounded-xl pl-6 pr-4 py-3 break-words min-w-0 select-text">
+        <div className="relative max-w-[90%] bg-card border border-border rounded-[5px] pl-6 pr-4 py-3 break-words min-w-0 select-text">
           {/* Pop-out button - visible on hover */}
           {onPopOut && !message.isStreaming && (
             <button
@@ -2329,7 +2330,7 @@ function MessageBubble({
   if (message.role === 'warning') {
     return (
       <div className="flex justify-start">
-        <div className="max-w-[80%] bg-info/10 rounded-[8px] pl-5 pr-4 pt-2 pb-2.5 break-words select-none">
+        <div className="max-w-[80%] bg-info/10 rounded-[5px] pl-5 pr-4 pt-2 pb-2.5 break-words select-none">
           <div className="text-xs text-info/50 mb-0.5 font-semibold">
             Warning
           </div>
