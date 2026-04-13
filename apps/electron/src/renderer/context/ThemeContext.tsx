@@ -76,6 +76,8 @@ interface StoredTheme {
   colorTheme: string
   font?: string
   fontPreset?: FontPreset
+  /** Separate storage for custom font so switching presets doesn't lose it */
+  customFont?: string
   /** True when user explicitly changed theme in UI (not auto-saved on startup) */
   isUserOverride?: boolean
 }
@@ -478,6 +480,7 @@ export function ThemeProvider({
       colorTheme,
       font,
       fontPreset,
+      customFont: existing?.customFont,
       isUserOverride: existing?.isUserOverride,
       ...updates,
     }
@@ -504,15 +507,15 @@ export function ThemeProvider({
 
   const setFont = useCallback((newFont: string) => {
     setFontState(newFont)
-    persistAndBroadcast({ font: newFont })
-  }, [persistAndBroadcast])
+    persistAndBroadcast({ font: newFont, ...(fontPreset === 'custom' ? { customFont: newFont } : {}) })
+  }, [fontPreset, persistAndBroadcast])
 
   const setFontPreset = useCallback((newPreset: FontPreset) => {
     setFontPresetState(newPreset)
+    const stored = loadStoredTheme()
     let newFont = font
     if (newPreset === 'custom') {
-      const isPresetValue = Object.values(FONT_PRESET_MAP).includes(font)
-      newFont = isPresetValue ? '' : font
+      newFont = stored?.customFont ?? (Object.values(FONT_PRESET_MAP).includes(font) ? '' : font)
     } else {
       newFont = FONT_PRESET_MAP[newPreset] ?? font
     }
