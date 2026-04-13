@@ -9,6 +9,9 @@ import { resolve } from 'path'
 // import { sentryVitePlugin } from '@sentry/vite-plugin'
 
 export default defineConfig({
+  experimental: {
+    rolldownBundler: true,
+  },
   plugins: [
     react({
       babel: {
@@ -45,25 +48,36 @@ export default defineConfig({
         playground: resolve(__dirname, 'src/renderer/playground.html'),
         'browser-toolbar': resolve(__dirname, 'src/renderer/browser-toolbar.html'),
         'browser-empty-state': resolve(__dirname, 'src/renderer/browser-empty-state.html'),
-      }
+      },
+      external: ['electron', /^electron\//, 'electron-log'],
+      onwarn(warning, warn) {
+        // Suppress Node.js builtin externalization warnings for dependencies that
+        // resolve to Node-only codepaths (electron-log main entry, etc.).
+        // These are safe in Electron renderer but Rolldown still warns during resolution.
+        if (warning.message?.includes('has been externalized for browser compatibility')) return
+        // Suppress direct-eval warnings from third-party dependencies
+        if (warning.code === 'EVAL') return
+        warn(warning)
+      },
     }
   },
   resolve: {
-    alias: {
-      '@': resolve(__dirname, 'src/renderer'),
-      '@config': resolve(__dirname, '../../packages/shared/src/config'),
+    alias: [
+      { find: '@', replacement: resolve(__dirname, 'src/renderer') },
+      { find: '@config', replacement: resolve(__dirname, '../../packages/shared/src/config') },
       // Force all React imports to use the root node_modules React
       // Bun hoists deps to root. This prevents "multiple React copies" error from @craft-agent/ui
-      'react': resolve(__dirname, '../../node_modules/react'),
-      'react-dom': resolve(__dirname, '../../node_modules/react-dom'),
-    },
+      { find: 'react', replacement: resolve(__dirname, '../../node_modules/react') },
+      { find: 'react-dom', replacement: resolve(__dirname, '../../node_modules/react-dom') },
+      // Redirect electron-log main entry to renderer entry to avoid Node builtin warnings
+      { find: /^electron-log$/, replacement: resolve(__dirname, '../../node_modules/electron-log/src/renderer/index.js') },
+    ],
     dedupe: ['react', 'react-dom']
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'jotai', 'pdfjs-dist'],
     exclude: ['@craft-agent/ui'],
-    esbuildOptions: {
-      supported: { 'top-level-await': true },
+    rolldownOptions: {
       target: 'esnext'
     }
   },

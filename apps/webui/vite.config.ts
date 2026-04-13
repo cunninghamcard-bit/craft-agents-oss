@@ -4,6 +4,9 @@ import tailwindcss from '@tailwindcss/vite'
 import { resolve } from 'path'
 
 export default defineConfig({
+  experimental: {
+    rolldownBundler: true,
+  },
   plugins: [
     react({
       babel: {
@@ -79,8 +82,7 @@ export default defineConfig({
   optimizeDeps: {
     include: ['react', 'react-dom', 'jotai'],
     exclude: ['@craft-agent/ui'],
-    esbuildOptions: {
-      supported: { 'top-level-await': true },
+    rolldownOptions: {
       target: 'esnext',
     },
   },

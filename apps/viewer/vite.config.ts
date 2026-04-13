@@ -5,6 +5,9 @@ import { resolve } from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  experimental: {
+    rolldownBundler: true,
+  },
   plugins: [react(), tailwindcss()],
   root: __dirname,
   // Base path for production - assets go to /s/assets/* to avoid conflict with marketing site

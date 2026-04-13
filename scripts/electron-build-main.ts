@@ -1,11 +1,12 @@
 /**
  * Cross-platform main process build script
- * Loads .env and passes OAuth defines to esbuild
+ * Loads .env and passes OAuth defines to Rolldown
  */
 
 import { spawn } from "bun";
 import { existsSync, readFileSync, statSync, mkdirSync } from "fs";
 import { join } from "path";
+import { rolldown } from "rolldown";
 
 const ROOT_DIR = join(import.meta.dir, "..");
 const DIST_DIR = join(ROOT_DIR, "apps/electron/dist");
@@ -41,12 +42,12 @@ function loadEnvFile(): void {
   }
 }
 
-// Get build-time defines for esbuild (OAuth, Sentry DSN, etc.)
+// Get build-time defines for Rolldown (OAuth, Sentry DSN, etc.)
 // NOTE: Sentry source map upload is intentionally disabled for the main process.
 // To enable in the future, add @sentry/esbuild-plugin. See apps/electron/CLAUDE.md.
 // NOTE: Google OAuth credentials are NOT baked into the build - users provide their own
 // via source config. See README_FOR_OSS.md for setup instructions.
-function getBuildDefines(): string[] {
+function getBuildDefines(): Record<string, string> {
   const definedVars = [
     "SLACK_OAUTH_CLIENT_ID",
     "SLACK_OAUTH_CLIENT_SECRET",
@@ -56,10 +57,12 @@ function getBuildDefines(): string[] {
     "CRAFT_DEV_RUNTIME",
   ];
 
-  return definedVars.map((varName) => {
+  const defines: Record<string, string> = {};
+  for (const varName of definedVars) {
     const value = process.env[varName] || "";
-    return `--define:process.env.${varName}="${value}"`;
-  });
+    defines[`process.env.${varName}`] = JSON.stringify(value);
+  }
+  return defines;
 }
 
 // Wait for file to stabilize (no size changes)
@@ -137,26 +140,16 @@ function verifySessionToolsCore(): void {
 async function buildInterceptor(): Promise<void> {
   console.log("🔌 Building unified network interceptor...");
 
-  const proc = spawn({
-    cmd: [
-      "bun", "run", "esbuild",
-      INTERCEPTOR_SOURCE,
-      "--bundle",
-      "--platform=node",
-      "--format=cjs",
-      `--outfile=${INTERCEPTOR_OUTPUT}`,
-    ],
-    cwd: ROOT_DIR,
-    stdout: "inherit",
-    stderr: "inherit",
+  const bundle = await rolldown({
+    input: INTERCEPTOR_SOURCE,
+    platform: "node",
   });
 
-  const exitCode = await proc.exited;
-
-  if (exitCode !== 0) {
-    console.error("❌ Interceptor build failed with exit code", exitCode);
-    process.exit(exitCode);
-  }
+  await bundle.write({
+    dir: DIST_DIR,
+    entryFileNames: "interceptor.cjs",
+    format: "cjs",
+  });
 
   if (!existsSync(INTERCEPTOR_OUTPUT)) {
     console.error("❌ Interceptor output not found at", INTERCEPTOR_OUTPUT);
@@ -279,28 +272,19 @@ async function main(): Promise<void> {
 
   console.log("🔨 Building main process...");
 
-  const proc = spawn({
-    cmd: [
-      "bun", "run", "esbuild",
-      "apps/electron/src/main/index.ts",
-      "--bundle",
-      "--platform=node",
-      "--format=cjs",
-      "--outfile=apps/electron/dist/main.cjs",
-      "--external:electron",
-      ...buildDefines,
-    ],
-    cwd: ROOT_DIR,
-    stdout: "inherit",
-    stderr: "inherit",
+  const bundle = await rolldown({
+    input: join(ROOT_DIR, "apps/electron/src/main/index.ts"),
+    platform: "node",
+    external: ["electron"],
+    define: buildDefines,
   });
 
-  const exitCode = await proc.exited;
-
-  if (exitCode !== 0) {
-    console.error("❌ esbuild failed with exit code", exitCode);
-    process.exit(exitCode);
-  }
+  await bundle.write({
+    dir: DIST_DIR,
+    entryFileNames: "main.cjs",
+    format: "cjs",
+    codeSplitting: false,
+  });
 
   // Wait for file to stabilize
   console.log("⏳ Waiting for file to stabilize...");
