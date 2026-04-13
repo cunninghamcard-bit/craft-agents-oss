@@ -38,6 +38,7 @@ export default defineConfig({
   build: {
     outDir: resolve(__dirname, 'dist/renderer'),
     emptyDirBeforeWrite: true,
+    emptyOutDir: true,
     sourcemap: true,  // Source maps generated for debugging. Not uploaded to Sentry (see CLAUDE.md).
     rollupOptions: {
       input: {

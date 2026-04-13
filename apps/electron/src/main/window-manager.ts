@@ -48,6 +48,8 @@ export interface CreateWindowOptions {
   initialDeepLink?: string
   /** Full URL to restore from saved state (preserves route/query params) */
   restoreUrl?: string
+  /** Zoom factor to restore (e.g. 1.0 for 100%, 1.2 for 120%) */
+  zoomFactor?: number
 }
 
 export class WindowManager {
@@ -102,7 +104,7 @@ export class WindowManager {
    * @param options - Window creation options
    */
   createWindow(options: CreateWindowOptions): BrowserWindow {
-    const { workspaceId, focused = false, initialDeepLink, restoreUrl } = options
+    const { workspaceId, focused = false, initialDeepLink, restoreUrl, zoomFactor } = options
 
     // Load platform-specific app icon
     // In packaged app, resources are at dist/resources/ (same level as __dirname)
@@ -174,6 +176,9 @@ export class WindowManager {
     // Show window when first paint is ready (faster perceived startup)
     window.once('ready-to-show', () => {
       window.show()
+      if (typeof zoomFactor === 'number' && zoomFactor > 0) {
+        window.webContents.setZoomFactor(zoomFactor)
+      }
     })
 
     // Open external links in default browser
@@ -576,11 +581,13 @@ export class WindowManager {
       const webContentsId = managed.window.webContents.id
       const isFocused = this.focusedModeWindows.has(webContentsId)
       const url = managed.window.webContents.getURL()
+      const zoomFactor = managed.window.webContents.getZoomFactor()
       return {
         type: 'main' as const,
         workspaceId: managed.workspaceId,
         bounds: managed.window.getBounds(),
         ...(isFocused && { focused: true }),
+        ...(zoomFactor !== 1 && { zoomFactor }),
         ...(url && { url }),
       }
     })

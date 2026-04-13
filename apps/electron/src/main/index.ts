@@ -332,6 +332,7 @@ async function createInitialWindows(): Promise<void> {
         workspaceId: saved.workspaceId,
         focused: saved.focused,
         restoreUrl: saved.url,
+        zoomFactor: saved.zoomFactor,
       })
       win.setBounds(saved.bounds)
 

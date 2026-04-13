@@ -3,6 +3,7 @@ import { join } from 'path'
 import { homedir } from 'os'
 import { execSync } from 'child_process'
 import { RPC_CHANNELS } from '@craft-agent/shared/protocol'
+import { persistZoomForWindow } from '../window-state'
 import { getGitBashPath, setGitBashPath, clearGitBashPath } from '@craft-agent/shared/config'
 import { isUsableGitBashPath, validateGitBashPath } from '@craft-agent/server-core/services'
 import { validateFilePath } from '@craft-agent/server-core/handlers'
@@ -326,7 +327,10 @@ export function registerSystemGuiHandlers(server: RpcServer, deps: HandlerDeps):
     const win = windowManager.getWindowByWebContentsId(ctx.webContentsId!)
     if (win) {
       const currentZoom = win.webContents.getZoomFactor()
-      win.webContents.setZoomFactor(Math.min(currentZoom + 0.1, 3.0))
+      const nextZoom = Math.min(currentZoom + 0.05, 3.0)
+      win.webContents.setZoomFactor(nextZoom)
+      const workspaceId = windowManager.getWorkspaceForWindow(win.webContents.id)
+      if (workspaceId) persistZoomForWindow(workspaceId, nextZoom)
     }
   })
 
@@ -335,14 +339,38 @@ export function registerSystemGuiHandlers(server: RpcServer, deps: HandlerDeps):
     const win = windowManager.getWindowByWebContentsId(ctx.webContentsId!)
     if (win) {
       const currentZoom = win.webContents.getZoomFactor()
-      win.webContents.setZoomFactor(Math.max(currentZoom - 0.1, 0.5))
+      const nextZoom = Math.max(currentZoom - 0.05, 0.5)
+      win.webContents.setZoomFactor(nextZoom)
+      const workspaceId = windowManager.getWorkspaceForWindow(win.webContents.id)
+      if (workspaceId) persistZoomForWindow(workspaceId, nextZoom)
     }
   })
 
   server.handle(RPC_CHANNELS.menu.ZOOM_RESET, async (ctx) => {
     if (!windowManager) return
     const win = windowManager.getWindowByWebContentsId(ctx.webContentsId!)
-    win?.webContents.setZoomFactor(1.0)
+    if (win) {
+      win.webContents.setZoomFactor(1.0)
+      const workspaceId = windowManager.getWorkspaceForWindow(win.webContents.id)
+      if (workspaceId) persistZoomForWindow(workspaceId, 1.0)
+    }
+  })
+
+  server.handle(RPC_CHANNELS.menu.GET_ZOOM, async (ctx) => {
+    if (!windowManager) return 1.0
+    const win = windowManager.getWindowByWebContentsId(ctx.webContentsId!)
+    return win ? win.webContents.getZoomFactor() : 1.0
+  })
+
+  server.handle(RPC_CHANNELS.menu.SET_ZOOM, async (ctx, zoom: number) => {
+    if (!windowManager) return
+    const win = windowManager.getWindowByWebContentsId(ctx.webContentsId!)
+    if (win) {
+      const clamped = Math.min(Math.max(zoom, 0.5), 3.0)
+      win.webContents.setZoomFactor(clamped)
+      const workspaceId = windowManager.getWorkspaceForWindow(win.webContents.id)
+      if (workspaceId) persistZoomForWindow(workspaceId, clamped)
+    }
   })
 
   server.handle(RPC_CHANNELS.menu.TOGGLE_DEV_TOOLS, async (ctx) => {

@@ -143,6 +143,8 @@ export const RPC_CHANNELS = {
     ZOOM_IN: 'menu:zoomIn',
     ZOOM_OUT: 'menu:zoomOut',
     ZOOM_RESET: 'menu:zoomReset',
+    GET_ZOOM: 'menu:getZoom',
+    SET_ZOOM: 'menu:setZoom',
     TOGGLE_DEV_TOOLS: 'menu:toggleDevTools',
     UNDO: 'menu:undo',
     REDO: 'menu:redo',

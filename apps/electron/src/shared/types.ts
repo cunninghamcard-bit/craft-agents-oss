@@ -562,8 +562,8 @@ export interface ElectronAPI {
   onNotificationNavigate(callback: (data: { workspaceId: string; sessionId: string }) => void): () => void
 
   // Theme preferences sync across windows
-  broadcastThemePreferences(preferences: { mode: string; colorTheme: string; font: string }): Promise<void>
-  onThemePreferencesChange(callback: (preferences: { mode: string; colorTheme: string; font: string }) => void): () => void
+  broadcastThemePreferences(preferences: { mode: string; colorTheme: string; font: string; fontPreset?: string; customFont?: string }): Promise<void>
+  onThemePreferencesChange(callback: (preferences: { mode: string; colorTheme: string; font: string; fontPreset?: string; customFont?: string }) => void): () => void
 
   // Workspace theme sync across windows
   broadcastWorkspaceThemeChange(workspaceId: string, themeId: string | null): Promise<void>
@@ -585,6 +585,8 @@ export interface ElectronAPI {
   menuZoomIn(): Promise<void>
   menuZoomOut(): Promise<void>
   menuZoomReset(): Promise<void>
+  getZoomFactor(): Promise<number>
+  setZoomFactor(zoom: number): Promise<void>
   menuToggleDevTools(): Promise<void>
   menuUndo(): Promise<void>
   menuRedo(): Promise<void>

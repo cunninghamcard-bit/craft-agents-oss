@@ -12,18 +12,25 @@ import {
 } from '@config/theme'
 
 export type ThemeMode = 'light' | 'dark' | 'system'
-export type FontFamily = 'inter' | 'system'
+export type FontPreset = 'inter' | 'system' | 'custom'
+
+const FONT_PRESET_MAP: Record<Exclude<FontPreset, 'custom'>, string> = {
+  inter: '"Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+  system: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+}
 
 interface ThemeContextType {
   // Preferences (persisted at app level)
   mode: ThemeMode
   /** App-level default color theme (used when workspace has no override) */
   colorTheme: string
-  font: FontFamily
+  font: string
+  fontPreset: FontPreset
   setMode: (mode: ThemeMode) => void
   /** Set app-level default color theme */
   setColorTheme: (theme: string) => void
-  setFont: (font: FontFamily) => void
+  setFont: (font: string) => void
+  setFontPreset: (preset: FontPreset) => void
 
   // Workspace-level theme override
   /** Active workspace ID (null if no workspace context) */
@@ -67,7 +74,10 @@ interface ThemeContextType {
 interface StoredTheme {
   mode: ThemeMode
   colorTheme: string
-  font?: FontFamily
+  font?: string
+  fontPreset?: FontPreset
+  /** Separate storage for custom font so switching presets doesn't lose it */
+  customFont?: string
   /** True when user explicitly changed theme in UI (not auto-saved on startup) */
   isUserOverride?: boolean
 }
@@ -91,7 +101,8 @@ interface ThemeProviderProps {
   children: ReactNode
   defaultMode?: ThemeMode
   defaultColorTheme?: string
-  defaultFont?: FontFamily
+  defaultFont?: string
+  defaultFontPreset?: FontPreset
   /** Active workspace ID for workspace-level theme overrides */
   activeWorkspaceId?: string | null
 }
@@ -112,11 +123,18 @@ function saveTheme(theme: StoredTheme): void {
   storage.set(storage.KEYS.theme, theme)
 }
 
+function inferFontPreset(font: string): FontPreset {
+  if (font === FONT_PRESET_MAP.inter) return 'inter'
+  if (font === FONT_PRESET_MAP.system) return 'system'
+  return 'custom'
+}
+
 export function ThemeProvider({
   children,
   defaultMode = 'system',
   defaultColorTheme = 'default',
-  defaultFont = 'system',
+  defaultFont = FONT_PRESET_MAP.system,
+  defaultFontPreset = 'system',
   activeWorkspaceId = null
 }: ThemeProviderProps) {
   const stored = loadStoredTheme()
@@ -130,7 +148,10 @@ export function ThemeProvider({
     }
     return defaultColorTheme // Will be updated by config.json effect
   })
-  const [font, setFontState] = useState<FontFamily>(stored?.font ?? defaultFont)
+  const initialFont = stored?.font ?? defaultFont
+  const initialFontPreset = stored?.fontPreset ?? inferFontPreset(initialFont)
+  const [font, setFontState] = useState<string>(initialFont)
+  const [fontPreset, setFontPresetState] = useState<FontPreset>(initialFontPreset)
   const [systemPreference, setSystemPreference] = useState<'light' | 'dark'>(getSystemPreference)
   const [previewColorTheme, setPreviewColorTheme] = useState<string | null>(null)
 
@@ -139,6 +160,7 @@ export function ThemeProvider({
 
   // Track if we're receiving an external update to prevent echo broadcasts
   const isExternalUpdate = useRef(false)
+  const externalUpdateTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   // Load app-level colorTheme from config.json on mount (only if user hasn't overridden)
   useEffect(() => {
@@ -287,8 +309,14 @@ export function ThemeProvider({
   useEffect(() => {
     const root = document.documentElement
 
-    // Apply font
-    if (font === 'inter') {
+    // Apply font via CSS variable (presets or custom string)
+    const effectiveFont = fontPreset === 'custom'
+      ? (font ? `${font}, ${FONT_PRESET_MAP.system}` : FONT_PRESET_MAP.system)
+      : (FONT_PRESET_MAP[fontPreset] ?? FONT_PRESET_MAP.system)
+    root.style.setProperty('--font-default', effectiveFont)
+
+    // Keep data-font attribute so CSS can apply Inter-specific features
+    if (fontPreset === 'inter') {
       root.dataset.font = 'inter'
     } else {
       delete root.dataset.font
@@ -303,7 +331,7 @@ export function ThemeProvider({
 
     // Always set theme override for semi-transparent background (vibrancy effect)
     root.dataset.themeOverride = 'true'
-  }, [effectiveColorTheme, font])
+  }, [effectiveColorTheme, font, fontPreset])
 
   // Apply dark/light class and theme-specific DOM attributes
   // This runs when preset loads or mode changes
@@ -415,53 +443,87 @@ export function ThemeProvider({
 
     const cleanup = window.electronAPI.onThemePreferencesChange((preferences) => {
       isExternalUpdate.current = true
+      const syncedPreset = preferences.fontPreset
+        ? (preferences.fontPreset as FontPreset)
+        : inferFontPreset(preferences.font)
       setModeState(preferences.mode as ThemeMode)
       setColorThemeState(preferences.colorTheme)
-      setFontState(preferences.font as FontFamily)
+      setFontState(preferences.font)
+      setFontPresetState(syncedPreset)
       // When syncing from another window, mark as user override since user explicitly changed theme
       saveTheme({
         mode: preferences.mode as ThemeMode,
         colorTheme: preferences.colorTheme,
-        font: preferences.font as FontFamily,
+        font: preferences.font,
+        fontPreset: syncedPreset,
+        customFont: preferences.customFont,
         isUserOverride: true
       })
-      setTimeout(() => {
+      externalUpdateTimeout.current = setTimeout(() => {
         isExternalUpdate.current = false
       }, 0)
     })
 
-    return cleanup
+    return () => {
+      if (externalUpdateTimeout.current) {
+        clearTimeout(externalUpdateTimeout.current)
+        externalUpdateTimeout.current = null
+      }
+      cleanup()
+    }
   }, [])
 
   // === Setters with persistence and broadcast ===
+  const persistAndBroadcast = useCallback((updates: Partial<StoredTheme>) => {
+    const existing = loadStoredTheme()
+    const next: StoredTheme = {
+      mode,
+      colorTheme,
+      font,
+      fontPreset,
+      customFont: existing?.customFont,
+      isUserOverride: existing?.isUserOverride,
+      ...updates,
+    }
+    saveTheme(next)
+    if (!isExternalUpdate.current && window.electronAPI?.broadcastThemePreferences) {
+      window.electronAPI.broadcastThemePreferences({
+        mode: next.mode,
+        colorTheme: next.colorTheme,
+        font: next.font ?? font,
+        fontPreset: next.fontPreset ?? fontPreset,
+        customFont: next.customFont ?? existing?.customFont,
+      })
+    }
+  }, [mode, colorTheme, font, fontPreset])
+
   const setMode = useCallback((newMode: ThemeMode) => {
     setModeState(newMode)
-    // Preserve existing isUserOverride flag
-    const existing = loadStoredTheme()
-    saveTheme({ mode: newMode, colorTheme, font, isUserOverride: existing?.isUserOverride })
-    if (!isExternalUpdate.current && window.electronAPI?.broadcastThemePreferences) {
-      window.electronAPI.broadcastThemePreferences({ mode: newMode, colorTheme, font })
-    }
-  }, [colorTheme, font])
+    persistAndBroadcast({ mode: newMode })
+  }, [persistAndBroadcast])
 
   const setColorTheme = useCallback((newTheme: string) => {
     setColorThemeState(newTheme)
-    // Mark as user override - user explicitly changed theme via UI
-    saveTheme({ mode, colorTheme: newTheme, font, isUserOverride: true })
-    if (!isExternalUpdate.current && window.electronAPI?.broadcastThemePreferences) {
-      window.electronAPI.broadcastThemePreferences({ mode, colorTheme: newTheme, font })
-    }
-  }, [mode, font])
+    persistAndBroadcast({ colorTheme: newTheme, isUserOverride: true })
+  }, [persistAndBroadcast])
 
-  const setFont = useCallback((newFont: FontFamily) => {
+  const setFont = useCallback((newFont: string) => {
     setFontState(newFont)
-    // Preserve existing isUserOverride flag
-    const existing = loadStoredTheme()
-    saveTheme({ mode, colorTheme, font: newFont, isUserOverride: existing?.isUserOverride })
-    if (!isExternalUpdate.current && window.electronAPI?.broadcastThemePreferences) {
-      window.electronAPI.broadcastThemePreferences({ mode, colorTheme, font: newFont })
+    persistAndBroadcast({ font: newFont, ...(fontPreset === 'custom' ? { customFont: newFont } : {}) })
+  }, [fontPreset, persistAndBroadcast])
+
+  const setFontPreset = useCallback((newPreset: FontPreset) => {
+    setFontPresetState(newPreset)
+    const stored = loadStoredTheme()
+    let newFont = font
+    if (newPreset === 'custom') {
+      newFont = stored?.customFont ?? (Object.values(FONT_PRESET_MAP).includes(font) ? '' : font)
+    } else {
+      newFont = FONT_PRESET_MAP[newPreset] ?? font
     }
-  }, [mode, colorTheme])
+    setFontState(newFont)
+    persistAndBroadcast({ font: newFont, fontPreset: newPreset })
+  }, [font, persistAndBroadcast])
 
   // Set workspace-specific color theme override
   const setWorkspaceColorTheme = useCallback((newTheme: string | null) => {
@@ -493,9 +555,11 @@ export function ThemeProvider({
         mode,
         colorTheme,
         font,
+        fontPreset,
         setMode,
         setColorTheme,
         setFont,
+        setFontPreset,
 
         // Workspace-level theme override
         activeWorkspaceId,
