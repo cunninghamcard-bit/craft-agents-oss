@@ -1345,7 +1345,7 @@ function ActivityGroupRow({ group, expandedGroups: externalExpandedGroups, onExp
             }}
             className="overflow-hidden"
           >
-            <div className="pl-0 space-y-0.5 border-l-2 border-muted ml-[5px]">
+            <div className="pl-0 space-y-0.5 border-l-2 border-border ml-[5px]">
               {group.children.map((child, idx) => (
                 <motion.div
                   key={child.id}
@@ -2672,7 +2672,7 @@ function TodoList({ todos }: TodoListProps) {
   if (todos.length === 0) return null
 
   return (
-    <div className="pl-4 pr-2 pt-2.5 pb-1.5 space-y-0.5 border-l-2 border-muted ml-[13px]">
+    <div className="pl-4 pr-2 pt-2.5 pb-1.5 space-y-0.5 border-l-2 border-border ml-[13px]">
       {/* Header */}
       <div className={cn("text-muted-foreground pb-1", SIZE_CONFIG.fontSize)}>
         Todo List
@@ -2974,7 +2974,7 @@ export const TurnCard = React.memo(function TurnCard({
                 <div
                   ref={activitiesContainerRef}
                   className={cn(
-                    "pl-4 pr-2 py-0 space-y-0.5 border-l-2 border-muted ml-[13px]",
+                    "pl-4 pr-2 py-0 space-y-0.5 border-l-2 border-border ml-[13px]",
                     sortedActivities.length > SIZE_CONFIG.maxVisibleActivities && "rounded-r-md overflow-y-auto scrollbar-hover py-1.5"
                   )}
                   style={{

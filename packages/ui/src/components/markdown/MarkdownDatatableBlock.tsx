@@ -546,7 +546,7 @@ export function MarkdownDatatableBlock({ code, className }: MarkdownDatatableBlo
             'bg-background border border-border',
             'data-[state=open]:opacity-100',
             hasActiveControls
-              ? 'opacity-100 bg-accent/5 text-accent shadow-tinted'
+              ? 'opacity-100 bg-accent/5 text-accent border border-border/50'
               : alwaysVisible
                 ? 'opacity-70 hover:opacity-100 transition-opacity'
                 : 'opacity-0 group-hover:opacity-100 text-muted-foreground/50 hover:text-foreground',

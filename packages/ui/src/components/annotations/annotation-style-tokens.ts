@@ -20,7 +20,7 @@ export function getAnnotationRectVisual(rect: { pendingFollowUp?: boolean; sentF
   const isPendingFollowUp = !!rect.pendingFollowUp
 
   return {
-    className: cn('absolute', isPendingFollowUp ? 'shadow-tinted' : undefined),
+    className: cn('absolute', isPendingFollowUp ? 'border border-border/50' : undefined),
     style: {
       opacity: rect.sentFollowUp ? 0.58 : 1,
       ['--shadow-color' as string]: 'var(--info-rgb)',
@@ -37,7 +37,7 @@ export function getAnnotationChipVisual(chip: { pendingFollowUp?: boolean; sentF
   return {
     className: cn(
       'absolute pointer-events-auto focus:outline-none focus-visible:ring-1 focus-visible:ring-ring',
-      pending ? 'shadow-tinted cursor-pointer hover:bg-foreground/10' : undefined,
+      pending ? 'border border-border/50 cursor-pointer hover:bg-foreground/10' : undefined,
       sent ? 'cursor-default hover:bg-muted' : undefined,
       !pending && !sent ? 'cursor-pointer hover:bg-foreground/6' : undefined,
     ),
