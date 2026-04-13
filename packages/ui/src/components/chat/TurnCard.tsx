@@ -1445,8 +1445,8 @@ function BranchDropdown({ onBranch }: BranchDropdownProps) {
           title={t('chat.branch')}
           className={cn(
             "p-1 rounded-[4px] transition-colors select-none",
-            "text-muted-foreground hover:text-foreground hover:bg-foreground/5",
-            "data-[state=open]:text-foreground data-[state=open]:bg-foreground/5",
+            "text-muted-foreground hover:text-foreground hover:bg-muted",
+            "data-[state=open]:text-foreground data-[state=open]:bg-muted",
             "focus:outline-none focus-visible:ring-1 focus-visible:ring-ring"
           )}
         >

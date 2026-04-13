@@ -2230,7 +2230,7 @@ function MessageBubble({
           {onPopOut && !message.isStreaming && (
             <button
               onClick={() => onPopOut(message)}
-              className="absolute top-2 right-2 p-1.5 rounded-md opacity-0 group-hover:opacity-100 transition-opacity hover:bg-foreground/5"
+              className="absolute top-2 right-2 p-1.5 rounded-md opacity-0 group-hover:opacity-100 transition-opacity hover:bg-muted"
               title={t("sidebarMenu.openInNewWindow")}
             >
               <ExternalLink className="w-4 h-4 text-muted-foreground hover:text-foreground" />

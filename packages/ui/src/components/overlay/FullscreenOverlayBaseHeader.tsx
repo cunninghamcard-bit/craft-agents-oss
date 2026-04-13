@@ -77,7 +77,7 @@ const contextMenuContentClasses = cn(
 const contextMenuItemClasses = cn(
   'relative flex cursor-default items-center gap-2 px-2 py-1.5 text-sm outline-hidden select-none',
   '[&_svg]:pointer-events-none [&_svg]:shrink-0',
-  'pr-4 rounded-[4px] hover:bg-foreground/[0.03] focus:bg-foreground/[0.03]',
+  'pr-4 rounded-[4px] hover:bg-muted focus:bg-muted',
   '[&>svg]:h-3.5 [&>svg]:w-3.5 [&>svg]:shrink-0'
 )
 

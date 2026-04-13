@@ -38,7 +38,7 @@ export function getAnnotationChipVisual(chip: { pendingFollowUp?: boolean; sentF
     className: cn(
       'absolute pointer-events-auto focus:outline-none focus-visible:ring-1 focus-visible:ring-ring',
       pending ? 'shadow-tinted cursor-pointer hover:bg-foreground/10' : undefined,
-      sent ? 'cursor-default hover:bg-foreground/5' : undefined,
+      sent ? 'cursor-default hover:bg-muted' : undefined,
       !pending && !sent ? 'cursor-pointer hover:bg-foreground/6' : undefined,
     ),
     style: {

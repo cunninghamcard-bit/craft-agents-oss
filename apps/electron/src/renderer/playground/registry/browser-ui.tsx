@@ -284,9 +284,9 @@ function BrowserMockPageSurface({
     <div className={className ?? 'absolute inset-0 p-6 z-10'}>
       <div className="h-10 rounded-lg border border-foreground/10 bg-background/80 backdrop-blur-sm" />
       <div className="mt-4 grid grid-cols-3 gap-3">
-        <div className="h-24 rounded-lg bg-foreground/5" />
-        <div className="h-24 rounded-lg bg-foreground/5" />
-        <div className="h-24 rounded-lg bg-foreground/5" />
+        <div className="h-24 rounded-lg bg-muted" />
+        <div className="h-24 rounded-lg bg-muted" />
+        <div className="h-24 rounded-lg bg-muted" />
       </div>
       <div className="mt-4 space-y-2">
         <div className="h-4 w-[70%] rounded bg-foreground/10" />

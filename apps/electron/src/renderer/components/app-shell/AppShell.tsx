@@ -217,14 +217,14 @@ function FilterModeSubMenuItems({
     <>
       <StyledDropdownMenuItem
         onClick={(e) => { e.preventDefault(); onChangeMode('include') }}
-        className={cn(mode === 'include' && "bg-foreground/[0.03]")}
+        className={cn(mode === 'include' && "bg-muted")}
       >
         <Check className="h-3.5 w-3.5 shrink-0" />
         <span className="flex-1">Include</span>
       </StyledDropdownMenuItem>
       <StyledDropdownMenuItem
         onClick={(e) => { e.preventDefault(); onChangeMode('exclude') }}
-        className={cn(mode === 'exclude' && "bg-foreground/[0.03]")}
+        className={cn(mode === 'exclude' && "bg-muted")}
       >
         <X className="h-3.5 w-3.5 shrink-0" />
         <span className="flex-1">Exclude</span>
@@ -2914,7 +2914,7 @@ function AppShellContent({
                                             <StyledDropdownMenuSubTrigger
                                               data-filter-selected={isHighlighted}
                                               onMouseEnter={() => setFilterDropdownSelectedIdx(index)}
-                                              className={cn("mx-1", isHighlighted && "bg-foreground/5")}
+                                              className={cn("mx-1", isHighlighted && "bg-muted")}
                                               onClick={(e) => { e.preventDefault(); setListFilter(prev => { const next = new Map(prev); next.delete(state.id); return next }) }}
                                             >
                                               <FilterMenuRow
@@ -2962,7 +2962,7 @@ function AppShellContent({
                                             className={cn(
                                               // SVG sizing matches StyledDropdownMenuSubTrigger so icons render at the same size
                                               "flex cursor-pointer select-none items-center gap-2 rounded-[4px] mx-1 px-2 py-1.5 text-sm [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0",
-                                              isHighlighted && "bg-foreground/5",
+                                              isHighlighted && "bg-muted",
                                               isPinned && "opacity-50 pointer-events-none",
                                             )}
                                           >
@@ -3006,7 +3006,7 @@ function AppShellContent({
                                             <StyledDropdownMenuSubTrigger
                                               data-filter-selected={isHighlighted}
                                               onMouseEnter={() => setFilterDropdownSelectedIdx(flatIndex)}
-                                              className={cn("mx-1", isHighlighted && "bg-foreground/5")}
+                                              className={cn("mx-1", isHighlighted && "bg-muted")}
                                               onClick={(e) => { e.preventDefault(); setLabelFilter(prev => { const next = new Map(prev); next.delete(item.id); return next }) }}
                                             >
                                               <FilterMenuRow
@@ -3052,7 +3052,7 @@ function AppShellContent({
                                             className={cn(
                                               // SVG sizing matches StyledDropdownMenuSubTrigger so icons render at the same size
                                               "flex cursor-pointer select-none items-center gap-2 rounded-[4px] mx-1 px-2 py-1.5 text-sm [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0",
-                                              isHighlighted && "bg-foreground/5",
+                                              isHighlighted && "bg-muted",
                                               isPinned && "opacity-50 pointer-events-none",
                                             )}
                                           >

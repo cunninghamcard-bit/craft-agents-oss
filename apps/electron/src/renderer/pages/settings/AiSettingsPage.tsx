@@ -266,7 +266,7 @@ function ConnectionRow({ connection, isLastConnection, onRenameClick, onDelete, 
           <ConnectionIcon connection={connection} size={14} />
           <span>{connection.name}</span>
           {connection.isDefault && (
-            <span className="inline-flex items-center h-5 px-2 text-[11px] font-medium rounded-[4px] bg-background shadow-minimal text-foreground/60">
+            <span className="inline-flex items-center h-5 px-2 text-[11px] font-medium rounded-[4px] bg-background border border-border text-foreground/60">
               {t("common.default")}
             </span>
           )}
@@ -450,12 +450,12 @@ function WorkspaceOverrideCard({ workspace, llmConnections, onSettingsChange }: 
       <button
         type="button"
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full flex items-center justify-between py-3 px-4 hover:bg-foreground/[0.02] transition-colors"
+        className="w-full flex items-center justify-between py-3 px-4 hover:bg-muted transition-colors"
       >
         <div className="flex items-center gap-3">
           <div
             className={cn(
-              'w-6 h-6 rounded-full overflow-hidden bg-foreground/5 flex items-center justify-center',
+              'w-6 h-6 rounded-full overflow-hidden bg-muted flex items-center justify-center',
               'ring-1 ring-border/50'
             )}
           >
@@ -996,7 +996,7 @@ export default function AiSettingsPage() {
                 <div className="pt-0">
                   <button
                     onClick={() => openApiSetup()}
-                    className="inline-flex items-center h-8 px-3 text-sm rounded-lg bg-background shadow-minimal hover:bg-foreground/[0.02] transition-colors"
+                    className="inline-flex items-center h-8 px-3 text-sm rounded-lg bg-background border border-border hover:bg-muted transition-colors"
                   >
                     {t("settings.ai.addConnection")}
                   </button>
@@ -1050,7 +1050,7 @@ export default function AiSettingsPage() {
                 >
                   <button
                     onClick={handleCloseApiSetup}
-                    className="p-1.5 rounded-[6px] transition-all bg-background shadow-minimal text-muted-foreground/50 hover:text-foreground focus:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                    className="p-1.5 rounded-[6px] transition-all bg-background border border-border text-muted-foreground/50 hover:text-foreground focus:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                     title={t("common.closeEsc")}
                   >
                     <X className="w-3.5 h-3.5" />

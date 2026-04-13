@@ -204,7 +204,7 @@ export function PlaygroundApp() {
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <Select value={effectiveColorTheme ?? 'default'} onValueChange={handleThemeChange}>
-            <SelectTrigger className="h-8 w-[170px] bg-foreground/5 border-border/50 text-xs">
+            <SelectTrigger className="h-8 w-[170px] bg-muted border-border/50 text-xs">
               <SelectValue placeholder="Theme" />
             </SelectTrigger>
             <SelectContent>
@@ -221,7 +221,7 @@ export function PlaygroundApp() {
               'p-2 rounded-md transition-colors',
               variantsSidebarOpen
                 ? 'bg-foreground/10 text-foreground'
-                : 'text-muted-foreground hover:text-foreground hover:bg-foreground/5'
+                : 'text-muted-foreground hover:text-foreground hover:bg-muted'
             )}
             title={variantsSidebarOpen ? 'Hide variants' : 'Show variants'}
           >

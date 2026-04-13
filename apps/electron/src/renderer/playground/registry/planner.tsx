@@ -788,7 +788,7 @@ function PlannerBoard() {
                   'w-full rounded-[10px] px-2.5 py-2 text-left transition-colors',
                   p.id === project.id
                     ? 'bg-foreground/10 text-foreground'
-                    : 'text-foreground/65 hover:bg-foreground/5 hover:text-foreground'
+                    : 'text-foreground/65 hover:bg-muted hover:text-foreground'
                 )}
               >
                 <div className="text-sm font-medium">{p.name}</div>
@@ -799,7 +799,7 @@ function PlannerBoard() {
       </aside>
 
       <section
-        className="bg-background shadow-middle rounded-[10px] overflow-hidden shrink-0 flex flex-col"
+        className="bg-background border border-border rounded-[10px] overflow-hidden shrink-0 flex flex-col"
         style={{ width: navigatorWidth }}
       >
           <div className="border-b border-border/60 px-5 py-3">
@@ -862,7 +862,7 @@ function PlannerBoard() {
                                 data-no-dnd="true"
                                 onPointerDown={(e) => e.stopPropagation()}
                                 onClick={(e) => e.stopPropagation()}
-                                className="h-6 w-6 inline-flex items-center justify-center rounded-[6px] hover:bg-foreground/5 data-[state=open]:bg-foreground/5"
+                                className="h-6 w-6 inline-flex items-center justify-center rounded-[6px] hover:bg-muted data-[state=open]:bg-muted"
                                 aria-label={`Open ${heading.title} menu`}
                               >
                                 <MoreHorizontal className="h-4 w-4 text-foreground/45" />
@@ -924,7 +924,7 @@ function PlannerBoard() {
           </ScrollArea>
       </section>
 
-      <aside className="bg-foreground-2 shadow-middle rounded-[10px] overflow-hidden flex-1 min-w-0 flex flex-col">
+      <aside className="bg-foreground-2 border border-border rounded-[10px] overflow-hidden flex-1 min-w-0 flex flex-col">
           {!selectedTask ? (
             <div className="p-5 text-sm text-foreground/50">Select a task to inspect details.</div>
           ) : (

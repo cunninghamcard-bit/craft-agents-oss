@@ -22,7 +22,7 @@ const SUPPORTED_HOVER_PREFIXES = ['bg-', 'text-', 'border-', 'ring-', 'opacity-'
  * Mirror hover styles to open-state styles for Radix triggers.
  *
  * Example:
- * - hover:bg-foreground/5 -> data-[state=open]:bg-foreground/5
+ * - hover:bg-muted -> data-[state=open]:bg-muted
  *
  * Consumers can still provide explicit data-[state=open]:* classes to override.
  */
@@ -151,7 +151,7 @@ export const StyledDropdownMenuItem = React.forwardRef<
       '[&_svg]:pointer-events-none [&_svg]:shrink-0',
       'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
       // styled additions
-      'pr-4 rounded-[4px] hover:bg-foreground/[0.03] focus:bg-foreground/[0.03]',
+      'pr-4 rounded-[4px] hover:bg-muted focus:bg-muted',
       '[&>svg]:h-3.5 [&>svg]:w-3.5 [&>svg]:shrink-0',
       variant === 'destructive' && 'text-destructive focus:text-destructive hover:text-destructive [&_svg]:!text-destructive',
       className,

@@ -45,7 +45,7 @@ export function VariantsSidebar({
                   'w-full text-left px-3 py-2 rounded-md text-sm transition-colors',
                   selectedVariant === variant.name
                     ? 'bg-foreground/10 text-foreground font-medium'
-                    : 'text-muted-foreground hover:bg-foreground/5 hover:text-foreground'
+                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                 )}
               >
                 <div>{variant.name}</div>
@@ -122,7 +122,7 @@ function PropControl({ definition, value, onChange }: PropControlProps) {
             'px-3 py-1.5 rounded-md text-xs font-mono transition-colors',
             value
               ? 'bg-green-500/20 text-green-600 dark:text-green-400'
-              : 'bg-foreground/5 text-muted-foreground'
+              : 'bg-muted text-muted-foreground'
           )}
         >
           {String(value)}
@@ -135,7 +135,7 @@ function PropControl({ definition, value, onChange }: PropControlProps) {
           value={String(value ?? '')}
           onChange={e => onChange(e.target.value)}
           placeholder={control.placeholder}
-          className="w-full px-3 py-1.5 rounded-md bg-foreground/5 border border-border text-sm focus:outline-none focus:ring-1 focus:ring-ring"
+          className="w-full px-3 py-1.5 rounded-md bg-muted border border-border text-sm focus:outline-none focus:ring-1 focus:ring-ring"
         />
       )}
 
@@ -145,7 +145,7 @@ function PropControl({ definition, value, onChange }: PropControlProps) {
           onChange={e => onChange(e.target.value)}
           placeholder={control.placeholder}
           rows={control.rows ?? 3}
-          className="w-full px-3 py-1.5 rounded-md bg-foreground/5 border border-border text-sm font-mono resize-y focus:outline-none focus:ring-1 focus:ring-ring"
+          className="w-full px-3 py-1.5 rounded-md bg-muted border border-border text-sm font-mono resize-y focus:outline-none focus:ring-1 focus:ring-ring"
         />
       )}
 
@@ -157,7 +157,7 @@ function PropControl({ definition, value, onChange }: PropControlProps) {
           min={control.min}
           max={control.max}
           step={control.step}
-          className="w-24 px-3 py-1.5 rounded-md bg-foreground/5 border border-border text-sm focus:outline-none focus:ring-1 focus:ring-ring"
+          className="w-24 px-3 py-1.5 rounded-md bg-muted border border-border text-sm focus:outline-none focus:ring-1 focus:ring-ring"
         />
       )}
 
@@ -165,7 +165,7 @@ function PropControl({ definition, value, onChange }: PropControlProps) {
         <select
           value={String(value ?? '')}
           onChange={e => onChange(e.target.value)}
-          className="w-full px-3 py-1.5 rounded-md bg-foreground/5 border border-border text-sm focus:outline-none focus:ring-1 focus:ring-ring"
+          className="w-full px-3 py-1.5 rounded-md bg-muted border border-border text-sm focus:outline-none focus:ring-1 focus:ring-ring"
         >
           {control.options.map(opt => (
             <option key={opt.value} value={opt.value}>

@@ -64,7 +64,7 @@ function InlineBadge({ badge }: { badge: ContentBadge }) {
           className="h-[12px] w-[12px] rounded-[2px] shrink-0"
         />
       ) : (
-        <span className="h-[12px] w-[12px] rounded-[2px] bg-foreground/5 flex items-center justify-center text-foreground/50 shrink-0 text-[8px]">
+        <span className="h-[12px] w-[12px] rounded-[2px] bg-muted flex items-center justify-center text-foreground/50 shrink-0 text-[8px]">
           {badge.type === 'skill' ? SKILL_ICON_TEXT : badge.type === 'context' ? CONTEXT_ICON_TEXT : SOURCE_ICON_TEXT}
         </span>
       )}
@@ -83,7 +83,7 @@ function CommandBadge({ badge }: { badge: ContentBadge }) {
       className="inline-flex items-center gap-1 h-[22px] px-1.5 mx-0.5 rounded-md bg-background border border-border text-[12px] align-middle"
       style={{ verticalAlign: 'middle', transform: 'translateY(-1px)' }}
     >
-      <span className="h-[12px] w-[12px] rounded-[2px] bg-foreground/5 flex items-center justify-center text-foreground/50 shrink-0 text-[10px] font-medium">
+      <span className="h-[12px] w-[12px] rounded-[2px] bg-muted flex items-center justify-center text-foreground/50 shrink-0 text-[10px] font-medium">
         {COMMAND_ICON_TEXT}
       </span>
       <span className="truncate max-w-[200px]">{badge.label}</span>
@@ -106,7 +106,7 @@ function ContextBadge({ badge }: { badge: ContentBadge }) {
       style={{ verticalAlign: 'middle', transform: 'translateY(-1px)' }}
       title={t('chat.contextBadge')}
     >
-      <span className="h-[12px] w-[12px] rounded-[2px] bg-foreground/5 flex items-center justify-center text-foreground/50 shrink-0 text-[8px]">
+      <span className="h-[12px] w-[12px] rounded-[2px] bg-muted flex items-center justify-center text-foreground/50 shrink-0 text-[8px]">
         {CONTEXT_ICON_TEXT}
       </span>
       <span className="truncate max-w-[200px] text-muted-foreground">{displayLabel}</span>
@@ -181,7 +181,7 @@ function InlineFileBadge({
       onClick={() => isClickable && onFileClick!(badge.filePath!)}
       className={cn(
         "inline-flex items-center gap-1 h-[22px] px-1.5 mx-0.5 rounded-md bg-background border border-border text-[12px] align-middle",
-        isClickable && "hover:bg-foreground/5 transition-colors cursor-pointer"
+        isClickable && "hover:bg-muted transition-colors cursor-pointer"
       )}
       style={{ verticalAlign: 'middle', transform: 'translateY(-1px)' }}
     >
@@ -449,7 +449,7 @@ export function UserMessageBubble({
 
       {/* Queued badge */}
       {isQueued && (
-        <span className="text-[10px] text-muted-foreground bg-foreground/5 px-2 py-0.5 rounded-full">
+        <span className="text-[10px] text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
           queued
         </span>
       )}

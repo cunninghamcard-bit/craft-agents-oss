@@ -94,7 +94,7 @@ export function StatusMenuItems({
           <MenuItem
             key={state.id}
             onClick={() => onSelect(state.id)}
-            className={activeStateId === state.id ? 'bg-foreground/5' : ''}
+            className={activeStateId === state.id ? 'bg-muted' : ''}
           >
             <span style={getStatusIconStyle(state)}>
               {bareIcon}

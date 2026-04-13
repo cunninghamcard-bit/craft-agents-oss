@@ -57,13 +57,13 @@ const STATUS_CONFIG: Record<SourceConnectionStatus, {
   },
   untested: {
     color: 'bg-foreground/40',
-    pulseColor: 'bg-foreground/30',
+    pulseColor: 'bg-muted-foreground/100',
     label: 'Not Tested',
     description: 'Connection has not been tested',
   },
   local_disabled: {
-    color: 'bg-foreground/30',
-    pulseColor: 'bg-foreground/20',
+    color: 'bg-muted-foreground/100',
+    pulseColor: 'bg-muted0',
     label: 'Disabled',
     description: 'Local MCP servers are disabled in Settings',
   },

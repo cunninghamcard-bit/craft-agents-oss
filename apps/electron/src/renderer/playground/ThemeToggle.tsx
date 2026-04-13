@@ -14,7 +14,7 @@ export function ThemeToggle() {
   const { mode, setMode } = useTheme()
 
   return (
-    <div className="flex items-center gap-1 p-1 rounded-lg bg-foreground/5">
+    <div className="flex items-center gap-1 p-1 rounded-lg bg-muted">
       {modes.map(({ mode: m, icon: Icon, label }) => (
         <button
           key={m}

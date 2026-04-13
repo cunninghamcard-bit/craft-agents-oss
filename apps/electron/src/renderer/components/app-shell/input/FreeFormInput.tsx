@@ -1470,7 +1470,7 @@ export function FreeFormInput({
           // Container styling - only when not wrapped by InputContainer
           !unstyled && 'rounded-2xl border border-border',
           !unstyled && 'bg-card',
-          isDraggingOver && 'ring-2 ring-foreground ring-offset-2 ring-offset-background bg-foreground/5'
+          isDraggingOver && 'ring-2 ring-foreground ring-offset-2 ring-offset-background bg-muted'
         )}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
@@ -1576,7 +1576,7 @@ export function FreeFormInput({
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: -4, scale: 0.98 }}
                           transition={{ duration: 0.16, ease: [0.2, 0, 0.2, 1] }}
-                          className="inline-flex max-w-full items-center gap-1.5 overflow-hidden rounded-[6px] bg-foreground/2 pl-1.5 pr-2 py-1 text-[13px] text-foreground/80 select-none transition-colors hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                          className="inline-flex max-w-full items-center gap-1.5 overflow-hidden rounded-[6px] bg-foreground/2 pl-1.5 pr-2 py-1 text-[13px] text-foreground/80 select-none transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                           onClick={(event) => {
                             const rect = event.currentTarget.getBoundingClientRect()
                             onFollowUpClick?.(item, {
@@ -1910,8 +1910,8 @@ export function FreeFormInput({
                   <button
                     type="button"
                     className={cn(
-                      "input-toolbar-btn inline-flex items-center h-7 px-1.5 gap-0.5 text-[13px] shrink-0 rounded-[6px] hover:bg-foreground/5 transition-colors select-none",
-                      modelDropdownOpen && "bg-foreground/5",
+                      "input-toolbar-btn inline-flex items-center h-7 px-1.5 gap-0.5 text-[13px] shrink-0 rounded-[6px] hover:bg-muted transition-colors select-none",
+                      modelDropdownOpen && "bg-muted",
                       connectionUnavailable && "text-destructive",
                     )}
                   >
@@ -1972,7 +1972,7 @@ Model
                             disabled={!isAuthenticated}
                             className={cn(
                               "flex items-center justify-between px-2 py-2 rounded-lg",
-                              isCurrentConnection && "bg-foreground/5"
+                              isCurrentConnection && "bg-muted"
                             )}
                           >
                             <div className="text-left flex-1">
@@ -2379,7 +2379,7 @@ function WorkingDirectoryBadge({
             {hasFolder && (
               <CommandPrimitive.Item
                 value={`current-${workingDirectory}`}
-                className={cn(MENU_ITEM_STYLE, 'pointer-events-none bg-foreground/5')}
+                className={cn(MENU_ITEM_STYLE, 'pointer-events-none bg-muted')}
                 disabled
               >
                 <Icon_Folder className="h-4 w-4 shrink-0 text-muted-foreground" />
@@ -2404,7 +2404,7 @@ function WorkingDirectoryBadge({
                   key={path}
                   value={`${recentFolderName} ${path}`}
                   onSelect={() => handleSelectRecent(path)}
-                  className={cn(MENU_ITEM_STYLE, 'group/item data-[selected=true]:bg-foreground/5')}
+                  className={cn(MENU_ITEM_STYLE, 'group/item data-[selected=true]:bg-muted')}
                 >
                   <Icon_Folder className="h-4 w-4 shrink-0 text-muted-foreground" />
                   <span className="flex-1 min-w-0 truncate">
@@ -2435,7 +2435,7 @@ function WorkingDirectoryBadge({
             <button
               type="button"
               onClick={handleChooseFolder}
-              className={cn(MENU_ITEM_STYLE, 'w-full hover:bg-foreground/5')}
+              className={cn(MENU_ITEM_STYLE, 'w-full hover:bg-muted')}
             >
               {t('chat.chooseFolder')}
             </button>
@@ -2443,7 +2443,7 @@ function WorkingDirectoryBadge({
               <button
                 type="button"
                 onClick={handleReset}
-                className={cn(MENU_ITEM_STYLE, 'w-full hover:bg-foreground/5')}
+                className={cn(MENU_ITEM_STYLE, 'w-full hover:bg-muted')}
               >
                 {t('common.reset')}
               </button>

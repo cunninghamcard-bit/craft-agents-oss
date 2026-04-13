@@ -198,7 +198,7 @@ export function PermissionsDataTable({
       className={cn(
         'p-1 rounded-[6px] transition-all',
         'opacity-0 group-hover:opacity-100',
-        'bg-background/80 backdrop-blur-sm shadow-minimal',
+        'bg-background/80 backdrop-blur-sm border border-border',
         'text-muted-foreground/50 hover:text-foreground',
         'focus:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:opacity-100'
       )}

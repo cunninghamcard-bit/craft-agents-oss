@@ -63,7 +63,7 @@ export function PermissionRequest({ request, onResponse, unstyled = false }: Per
 
         {/* Command preview */}
         {request.command && (
-          <div className="bg-foreground/5 rounded-md p-3 font-mono text-xs text-foreground/90 whitespace-pre-wrap break-all max-h-24 overflow-y-auto">
+          <div className="bg-muted rounded-md p-3 font-mono text-xs text-foreground/90 whitespace-pre-wrap break-all max-h-24 overflow-y-auto">
             {request.command}
           </div>
         )}

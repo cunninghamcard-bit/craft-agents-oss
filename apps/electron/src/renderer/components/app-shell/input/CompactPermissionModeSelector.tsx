@@ -42,7 +42,7 @@ function ModeIcon({ mode, className }: { mode: PermissionMode; className?: strin
 
 const MODE_STYLES: Record<PermissionMode, { className: string; shadowVar: string }> = {
   safe: {
-    className: 'bg-foreground/5 text-foreground/60',
+    className: 'bg-muted text-muted-foreground border border-border',
     shadowVar: 'var(--foreground-rgb)',
   },
   ask: {
@@ -117,7 +117,7 @@ export function CompactPermissionModeSelector({
                   type="button"
                   className={cn(
                     "flex items-center gap-3 w-full px-3 py-3 rounded-lg text-left transition-colors",
-                    isSelected ? "bg-foreground/5" : "hover:bg-foreground/5",
+                    isSelected ? "bg-muted" : "hover:bg-muted",
                   )}
                   onClick={() => handleSelect(mode)}
                 >

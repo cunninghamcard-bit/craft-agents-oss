@@ -44,7 +44,7 @@ export function BrowserEmptyStateCard({
                   type="button"
                   title={sample.full}
                   onClick={() => onPromptSelect?.(sample)}
-                  className="w-fit max-w-full flex items-center gap-1 h-8 px-2.5 rounded-[6px] bg-background border border-border hover:bg-foreground/[0.03] transition-colors text-left cursor-pointer"
+                  className="w-fit max-w-full flex items-center gap-1 h-8 px-2.5 rounded-[6px] bg-background border border-border hover:bg-muted transition-colors text-left cursor-pointer"
                 >
                   <span className="w-4 shrink-0 text-[11px] text-foreground/40 tabular-nums">{index + 1}.</span>
                   <span className="truncate text-[12px] text-foreground/70">{sample.short}</span>

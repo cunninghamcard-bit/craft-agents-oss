@@ -36,7 +36,7 @@ export function AutomationCard({
   return (
     <div
       className={cn(
-        'rounded-[8px] bg-background shadow-minimal overflow-hidden transition-all',
+        'rounded-[8px] bg-background border border-border overflow-hidden transition-all',
         !automation.enabled && 'opacity-50',
         className
       )}
@@ -81,12 +81,12 @@ export function AutomationCard({
               <span className="font-medium">{getEventDisplayName(automation.event)}</span>
               {automation.matcher && (
                 <span className="ml-2">
-                  {t('automations.matching')} <code className="font-mono bg-foreground/5 px-1 rounded">{automation.matcher}</code>
+                  {t('automations.matching')} <code className="font-mono bg-muted px-1 rounded">{automation.matcher}</code>
                 </span>
               )}
               {automation.cron && (
                 <span className="ml-2">
-                  {t('automations.at')} <code className="font-mono bg-foreground/5 px-1 rounded">{automation.cron}</code>
+                  {t('automations.at')} <code className="font-mono bg-muted px-1 rounded">{automation.cron}</code>
                 </span>
               )}
             </div>
@@ -103,7 +103,7 @@ export function AutomationCard({
             {onTest && (
               <button
                 onClick={onTest}
-                className="px-2.5 py-1 text-xs font-medium rounded-md bg-foreground/[0.03] shadow-minimal hover:bg-foreground/[0.06] transition-colors"
+                className="px-2.5 py-1 text-xs font-medium rounded-md bg-muted border border-border hover:bg-muted-foreground/10 transition-colors"
               >
                 {t('automations.runTest')}
               </button>

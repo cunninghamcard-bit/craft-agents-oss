@@ -62,7 +62,7 @@ function ZoomDropdown({
     <div ref={dropdownRef} className="relative">
       <button
         onClick={() => setIsOpen(prev => !prev)}
-        className="flex items-center gap-0.5 px-1 py-1 hover:bg-foreground/5 text-[13px] tabular-nums min-w-[4rem] justify-center transition-colors"
+        className="flex items-center gap-0.5 px-1 py-1 hover:bg-muted text-[13px] tabular-nums min-w-[4rem] justify-center transition-colors"
         title={t('overlay.zoomPresets')}
       >
         {zoomPercent}%
@@ -83,7 +83,7 @@ function ZoomDropdown({
           >
             {t('overlay.zoomToFit')}
           </button>
-          <div className="h-px bg-foreground/5 my-1" />
+          <div className="h-px bg-muted my-1" />
           {zoomPresets.map(preset => (
             <button
               key={preset}

@@ -23,19 +23,19 @@ function ChoiceCard({ icon, title, description, onClick, variant = 'secondary' }
       onClick={onClick}
       className={cn(
         "flex items-center gap-4 w-full p-4 rounded-lg text-left",
-        "bg-background shadow-minimal",
+        "bg-background border border-border",
         "transition-all duration-150",
         "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
         variant === 'primary'
           ? "hover:bg-accent/5"
-          : "hover:bg-foreground/5"
+          : "hover:bg-muted"
       )}
     >
       <div className={cn(
         "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg",
         variant === 'primary'
           ? "bg-accent/10 text-accent"
-          : "bg-foreground/5 text-foreground/70"
+          : "bg-muted text-muted-foreground"
       )}>
         {icon}
       </div>

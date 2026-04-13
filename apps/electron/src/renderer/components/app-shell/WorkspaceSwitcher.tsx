@@ -212,7 +212,7 @@ export function WorkspaceSwitcher({
             <button
               className={cn(
                 "flex items-center gap-1 w-full min-w-0 justify-start px-2 py-1.5 rounded-md",
-                "text-foreground hover:bg-foreground/5 data-[state=open]:bg-foreground/5 transition-colors duration-150",
+                "text-foreground hover:bg-muted data-[state=open]:bg-muted transition-colors duration-150",
                 "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
                 isCollapsed && "h-9 w-9 shrink-0 justify-center p-0"
               )}

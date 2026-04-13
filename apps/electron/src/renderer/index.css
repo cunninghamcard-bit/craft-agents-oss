@@ -106,11 +106,7 @@
 
   /* === SHADOW VALUES (reusable across utility classes and component overrides) === */
   --shadow-minimal:
-    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
-    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
-    rgba(var(--foreground-rgb), 0.06) 0px 0px 0px 1px,
-    rgba(0, 0, 0, var(--shadow-blur-opacity)) 0px 1px 1px -0.5px,
-    rgba(0, 0, 0, var(--shadow-blur-opacity)) 0px 3px 3px -1.5px;
+    rgba(var(--foreground-rgb), 0.15) 0px 0px 0px 1px;
 
   /* Minimal shadow without blur layers — just the border ring */
   --shadow-minimal-flat:
@@ -119,14 +115,7 @@
     rgba(var(--foreground-rgb), 0.06) 0px 0px 0px 1px;
 
   --shadow-modal-small:
-    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
-    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
-    rgba(var(--foreground-rgb), 0.06) 0px 0px 0px 1px,
-    rgba(0, 0, 0, calc(var(--shadow-blur-opacity) * 0.67)) 0px 1px 1px -0.5px,
-    rgba(0, 0, 0, calc(var(--shadow-blur-opacity) * 0.67)) 0px 3px 3px 0px,
-    rgba(0, 0, 0, calc(var(--shadow-blur-opacity) * 0.33)) 0px 6px 6px 0px,
-    rgba(0, 0, 0, calc(var(--shadow-blur-opacity) * 0.33)) 0px 12px 12px 0px,
-    rgba(0, 0, 0, calc(var(--shadow-blur-opacity) * 0.33)) 0px 24px 24px 0px;
+    rgba(var(--foreground-rgb), 0.15) 0px 0px 0px 1px;
 
   /* === MIX VARIANTS (solid interpolation toward background) === */
   /* Use -2, -3, -5, -10, -20, ..., -90, -95 for solid colors (e.g., separators, Explore mode) */
@@ -593,8 +582,9 @@ html[data-font="inter"] {
     box-shadow: inset 0 -1px 0 var(--color-border);
   }
 
-  .shadow-minimal {
-    box-shadow: var(--shadow-minimal);
+    .shadow-minimal {
+    border: 1px solid var(--border);
+    box-shadow: none;
   }
 
   .shadow-middle {
@@ -683,8 +673,9 @@ html[data-font="inter"] {
     z-index: 2;
   }
 
-  .shadow-modal-small {
-    box-shadow: var(--shadow-modal-small);
+    .shadow-modal-small {
+    border: 1px solid var(--border);
+    box-shadow: none;
   }
 
   /* =============================================================================
@@ -1102,7 +1093,8 @@ html.dark[data-scenic] .fullscreen-overlay-background {
 ============================================================================= */
 
 [data-sonner-toast] {
-  box-shadow: var(--shadow-modal-small) !important;
+  box-shadow: none !important;
+  border: 1px solid var(--border) !important;
   background-color: oklch(from var(--popover) l c h / 0.8) !important;
   -webkit-app-region: no-drag !important;
   /* Fixed width to ensure text truncation works */
@@ -1146,7 +1138,8 @@ html.dark[data-scenic] .fullscreen-overlay-background {
 [data-sonner-toast] [data-button],
 [data-sonner-toast] [data-cancel] {
   background-color: var(--background) !important;
-  box-shadow: var(--shadow-minimal) !important;
+  box-shadow: none !important;
+  border: 1px solid var(--border) !important;
   color: oklch(from var(--foreground) l c h / 0.7) !important;
   transition: color 0.15s ease !important;
 }

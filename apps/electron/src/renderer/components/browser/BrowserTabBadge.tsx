@@ -31,7 +31,7 @@ export const BrowserTabBadge = forwardRef<HTMLButtonElement, BrowserTabBadgeProp
     ? (isDarkThemeColor
       ? 'text-white/90 hover:bg-white/10'
       : 'text-black/80 hover:bg-black/5')
-    : 'text-foreground hover:bg-foreground/[0.03]'
+    : 'text-foreground hover:bg-muted'
 
   const [faviconFailed, setFaviconFailed] = useState(false)
 
@@ -45,7 +45,7 @@ export const BrowserTabBadge = forwardRef<HTMLButtonElement, BrowserTabBadgeProp
       type="button"
       className={`
         group flex items-center gap-1 h-[26px] pl-2.5 pr-1.5 rounded-lg cursor-pointer select-none titlebar-no-drag
-        text-[11px] leading-tight transition-colors max-w-[160px] shadow-minimal
+        text-[11px] leading-tight transition-colors max-w-[160px] border border-border
         bg-background
         ${foregroundClass}
         ${instance.agentControlActive ? 'border border-accent' : ''}

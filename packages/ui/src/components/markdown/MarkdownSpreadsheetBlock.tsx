@@ -235,14 +235,14 @@ export function MarkdownSpreadsheetBlock({ code, className }: MarkdownSpreadshee
       <table className="w-max min-w-full text-[13px]">
         {/* Column letter headers */}
         <thead>
-          <tr className="border-b border-foreground/[0.08] bg-foreground/[0.03]">
+          <tr className="border-b border-foreground/[0.08] bg-muted">
             <th className="text-center py-1 px-2 font-normal text-muted-foreground/40 w-10 border-r border-foreground/[0.06] text-[11px]" />
             {colLetters.map((letter) => (
               <th key={letter} className="text-center py-1 px-3 font-normal text-muted-foreground/40 border-r border-foreground/[0.06] last:border-0 text-[11px]">{letter}</th>
             ))}
           </tr>
           {/* Row 1: column labels */}
-          <tr className="border-b border-foreground/[0.06] bg-foreground/[0.02]">
+          <tr className="border-b border-foreground/[0.06] bg-muted">
             <td className="text-center py-1.5 px-2 text-muted-foreground/40 border-r border-foreground/[0.06] text-[11px] font-mono">1</td>
             {parsed.columns.map((col) => (
               <td key={col.key} className="py-1.5 px-3 font-semibold text-foreground border-r border-foreground/[0.06] last:border-0">{col.label}</td>

@@ -177,7 +177,7 @@ export function ActiveOptionBadges({
           <div
             className="flex-1 min-w-0 max-w-full py-0.5 -my-0.5"
             style={{
-              // shadow-minimal replicated as drop-shadow (traces masked alpha, no clipping).
+              // border border-border replicated as drop-shadow (traces masked alpha, no clipping).
               // Ring uses higher blur+opacity for visible border feel (hard 1px ring can't be replicated exactly).
               // Blur shadows use reduced blur+opacity to stay tight (accounting for no negative spread in drop-shadow).
               filter: 'drop-shadow(0px 0px 0.5px rgba(var(--foreground-rgb), 0.3)) drop-shadow(0px 1px 0.1px rgba(0,0,0,0.04)) drop-shadow(0px 3px 0.2px rgba(0,0,0,0.03))',
@@ -406,7 +406,7 @@ function FilesPopoverButton({ sessionId, sessionFolderPath }: { sessionId?: stri
           className={cn(
             "h-[30px] pl-[12px] pr-[14px] text-xs font-medium rounded-[8px] flex items-center gap-1.5 shrink-0",
             "outline-none select-none transition-colors border border-border",
-            "hover:bg-foreground/5 data-[state=open]:bg-foreground/5",
+            "hover:bg-muted data-[state=open]:bg-muted",
             "bg-[color-mix(in_srgb,var(--background)_97%,var(--foreground)_3%)]",
             "text-foreground/80",
           )}
@@ -458,7 +458,7 @@ function PermissionModeDropdown({ permissionMode, onPermissionModeChange, sessio
   // - allow-all (Auto): accent color - purple, full autonomy
   const modeStyles: Record<PermissionMode, { className: string; shadowVar: string }> = {
     'safe': {
-      className: 'bg-foreground/5 text-foreground/60',
+      className: 'bg-muted text-muted-foreground border border-border',
       shadowVar: 'var(--foreground-rgb)',
     },
     'ask': {

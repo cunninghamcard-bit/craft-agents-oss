@@ -50,7 +50,7 @@ const colorConfig: Record<
   muted: {
     bg: 'bg-background',
     text: 'text-foreground/70',
-    shadow: 'shadow-minimal',
+    shadow: 'border border-border',
   },
 }
 

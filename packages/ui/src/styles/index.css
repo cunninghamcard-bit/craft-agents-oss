@@ -68,14 +68,7 @@
     rgba(var(--foreground-rgb), 0.06) 0px 0px 0px 1px;
 
   --shadow-modal-small:
-    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
-    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
-    rgba(var(--foreground-rgb), 0.06) 0px 0px 0px 1px,
-    rgba(0, 0, 0, calc(var(--shadow-blur-opacity) * 0.67)) 0px 1px 1px -0.5px,
-    rgba(0, 0, 0, calc(var(--shadow-blur-opacity) * 0.67)) 0px 3px 3px 0px,
-    rgba(0, 0, 0, calc(var(--shadow-blur-opacity) * 0.33)) 0px 6px 6px 0px,
-    rgba(0, 0, 0, calc(var(--shadow-blur-opacity) * 0.33)) 0px 12px 12px 0px,
-    rgba(0, 0, 0, calc(var(--shadow-blur-opacity) * 0.33)) 0px 24px 24px 0px;
+    rgba(var(--foreground-rgb), 0.15) 0px 0px 0px 1px;
 
   /* === Z-INDEX SCALE === */
   --z-base: 0;
@@ -362,8 +355,9 @@ html[data-font="inter"] {
   }
 
   /* Custom shadow utilities */
-  .shadow-minimal {
-    box-shadow: var(--shadow-minimal);
+    .shadow-minimal {
+    border: 1px solid var(--border);
+    box-shadow: none;
   }
 
   .shadow-middle {
@@ -436,8 +430,9 @@ html[data-font="inter"] {
       rgba(0, 0, 0, 0.04) 0px 24px 24px -12px;
   }
 
-  .shadow-modal-small {
-    box-shadow: var(--shadow-modal-small);
+    .shadow-modal-small {
+    border: 1px solid var(--border);
+    box-shadow: none;
   }
 
   /* Smooth corners (iOS-style superellipse)

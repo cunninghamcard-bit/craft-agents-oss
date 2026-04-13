@@ -121,7 +121,7 @@ export function PanelSlot({
           ...(!isFocusedPanel && !isOnly
             ? {
                 '--background': 'var(--background-elevated)',
-                '--shadow-minimal': 'var(--shadow-minimal-flat)',
+                '--border border-border': 'var(--border border-border-flat)',
                 '--user-message-bubble': 'var(--user-message-bubble-dimmed)',
               } as React.CSSProperties
             : {}
