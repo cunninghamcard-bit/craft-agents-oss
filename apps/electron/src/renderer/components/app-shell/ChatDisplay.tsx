@@ -1526,11 +1526,17 @@ export const ChatDisplay = React.forwardRef<ChatDisplayHandle, ChatDisplayProps>
           <div className="flex flex-1 flex-col min-h-0 min-w-0 relative z-10">
           {/* === MESSAGES AREA: Scrollable list of message bubbles === */}
           <div className="relative flex-1 min-h-0">
-            <div className="h-full">
+            {/* Mask wrapper - fades content at top and bottom over transparent/image backgrounds */}
+            <div
+              className="h-full"
+              style={{
+                maskImage: 'linear-gradient(to bottom, transparent 0%, black 32px, black calc(100% - 32px), transparent 100%)',
+                WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 32px, black calc(100% - 32px), transparent 100%)'
+              }}
+            >
               <ScrollArea className="h-full min-w-0" viewportRef={scrollViewportRef}>
               <div className={cn(
-                CHAT_LAYOUT.maxWidth,
-                "mx-auto min-w-0",
+                "max-w-[1200px] ml-0 mr-auto min-w-0",
                 compactMode ? "px-3 py-4 space-y-2" : [CHAT_LAYOUT.containerPadding, CHAT_LAYOUT.messageSpacing]
               )}>
                 {/* Session-level AnimatePresence: Prevents layout jump when switching sessions */}
@@ -1863,7 +1869,6 @@ export const ChatDisplay = React.forwardRef<ChatDisplayHandle, ChatDisplayProps>
                       </div>
                     )
                   })}
-                  </div>
                     </motion.div>
                     )}
                     </AnimatePresence>
@@ -2109,8 +2114,6 @@ interface MessageBubbleProps {
   onPopOut?: (message: Message) => void
   /** Compact mode - reduces padding for popover embedding */
   compactMode?: boolean
-  /** Align user message bubble for claude-kit timeline style */
-  align?: 'left' | 'right'
 }
 
 /**
@@ -2129,7 +2132,7 @@ function ErrorMessage({ message, onOpenUrl }: { message: Message; onOpenUrl?: (u
     <div className="flex justify-start mt-4">
       {/* Subtle bg (3% opacity) + tinted shadow for softer error appearance */}
       <div
-        className="max-w-[80%] border border-border rounded-[5px] pl-5 pr-4 pt-2 pb-2.5 break-words"
+        className="max-w-[80%] border border-border rounded-[8px] pl-5 pr-4 pt-2 pb-2.5 break-words"
         style={{
           backgroundColor: 'oklch(from var(--destructive) l c h / 0.03)',
           '--shadow-color': 'var(--destructive-rgb)',
@@ -2199,7 +2202,6 @@ function MessageBubble({
   renderMode = 'minimal',
   onPopOut,
   compactMode,
-  align,
 }: MessageBubbleProps) {
   const { t } = useTranslation()
 
@@ -2215,7 +2217,6 @@ function MessageBubble({
         onUrlClick={onOpenUrl}
         onFileClick={onOpenFile}
         compactMode={compactMode}
-        align={align}
       />
     )
   }
@@ -2224,7 +2225,7 @@ function MessageBubble({
   if (message.role === 'assistant') {
     return (
       <div className="flex justify-start group">
-        <div className="relative max-w-[90%] bg-card border border-border rounded-[5px] pl-6 pr-4 py-3 break-words min-w-0 select-text">
+        <div className="relative max-w-[90%] bg-card border border-border rounded-xl pl-6 pr-4 py-3 break-words min-w-0 select-text">
           {/* Pop-out button - visible on hover */}
           {onPopOut && !message.isStreaming && (
             <button
@@ -2320,7 +2321,7 @@ function MessageBubble({
   if (message.role === 'warning') {
     return (
       <div className="flex justify-start">
-        <div className="max-w-[80%] bg-info/10 rounded-[5px] pl-5 pr-4 pt-2 pb-2.5 break-words select-none">
+        <div className="max-w-[80%] bg-info/10 rounded-[8px] pl-5 pr-4 pt-2 pb-2.5 break-words select-none">
           <div className="text-xs text-info/50 mb-0.5 font-semibold">
             Warning
           </div>
