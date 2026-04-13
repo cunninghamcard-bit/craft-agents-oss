@@ -36,8 +36,6 @@ export const SESSION_PERSISTENT_FIELDS = [
   'enabledSourceSlugs', 'permissionMode', 'previousPermissionMode', 'workingDirectory',
   // Model/Connection
   'model', 'llmConnection', 'connectionLocked', 'thinkingLevel',
-  // Sharing
-  'sharedUrl', 'sharedId',
   // Plan execution
   'pendingPlanExecution',
   // Archive
@@ -133,10 +131,6 @@ export interface SessionConfig {
   workingDirectory?: string;
   /** SDK cwd for session storage - set once at creation, never changes. Ensures SDK can find session transcripts regardless of workingDirectory changes. */
   sdkCwd?: string;
-  /** Shared viewer URL (if shared via viewer) */
-  sharedUrl?: string;
-  /** Shared session ID in viewer (for revoke) */
-  sharedId?: string;
   /** Model to use for this session (overrides global config if set) */
   model?: string;
   /** LLM connection slug for this session (locked after first message) */
@@ -249,10 +243,6 @@ export interface SessionHeader {
   workingDirectory?: string;
   /** SDK cwd for session storage - set once at creation, never changes */
   sdkCwd?: string;
-  /** Shared viewer URL (if shared via viewer) */
-  sharedUrl?: string;
-  /** Shared session ID in viewer (for revoke) */
-  sharedId?: string;
   /** Model to use for this session (overrides global config if set) */
   model?: string;
   /** LLM connection slug for this session (locked after first message) */
@@ -328,10 +318,6 @@ export interface SessionMetadata {
   previousPermissionMode?: PermissionMode;
   /** Number of plan files for this session */
   planCount?: number;
-  /** Shared viewer URL (if shared via viewer) */
-  sharedUrl?: string;
-  /** Shared session ID in viewer (for revoke) */
-  sharedId?: string;
   /** Working directory for this session */
   workingDirectory?: string;
   /** SDK cwd for session storage - set once at creation, never changes */

@@ -21,7 +21,6 @@ import type {
   CredentialResponse,
   PermissionModeState,
   UnreadSummary,
-  ShareResult,
 } from '@craft-agent/shared/protocol'
 import type { SessionBundle, DispatchMode } from '@craft-agent/shared/sessions'
 import type { EventSink } from '../transport'
@@ -121,14 +120,6 @@ export interface ISessionManager {
   clearPendingPlanExecution(sessionId: string): Promise<void>
   getPendingPlanExecution(sessionId: string): { planPath: string; draftInputSnapshot?: string; awaitingCompaction: boolean; executionDispatched: boolean } | null
   markCompactionComplete(sessionId: string): Promise<void>
-
-  // ---------------------------------------------------------------------------
-  // Sharing
-  // ---------------------------------------------------------------------------
-
-  shareToViewer(sessionId: string): Promise<ShareResult>
-  updateShare(sessionId: string): Promise<ShareResult>
-  revokeShare(sessionId: string): Promise<ShareResult>
 
   // ---------------------------------------------------------------------------
   // Export / Import
