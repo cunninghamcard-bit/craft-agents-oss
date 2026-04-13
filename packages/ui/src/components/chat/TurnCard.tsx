@@ -2416,7 +2416,7 @@ export function ResponseCard({
 
     return (
       <>
-        <div className="bg-background border border-border rounded-[5px] overflow-hidden relative group">
+        <div className="bg-background border border-border rounded-[8px] overflow-hidden relative group">
           {/* Fullscreen button - desktop only; compact mode keeps message chrome minimal */}
           {!compactMode && (
           <button
@@ -2570,7 +2570,7 @@ export function ResponseCard({
   // Streaming response - show throttled content with spinner
   return (
     <>
-      <div className="bg-background border border-border rounded-[5px] overflow-hidden group">
+      <div className="bg-background border border-border rounded-[8px] overflow-hidden group">
         {/* Content area - uses displayedText (throttled) for performance */}
         {/* Subtle fade at top and bottom edges (dark mode only) */}
         <div
@@ -2908,7 +2908,7 @@ export const TurnCard = React.memo(function TurnCard({
           <button
             onClick={toggleExpanded}
             className={cn(
-              "flex items-center gap-2 w-full pl-2.5 pr-1.5 py-1.5 rounded-[5px] text-left",
+              "flex items-center gap-2 w-full pl-2.5 pr-1.5 py-1.5 rounded-[8px] text-left",
               SIZE_CONFIG.fontSize,
               "text-muted-foreground",
               "hover:bg-muted/50 transition-colors",

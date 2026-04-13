@@ -320,7 +320,7 @@ export interface UserMessageBubbleProps {
   isQueued?: boolean
   /** Compact mode - reduces padding for popover embedding */
   compactMode?: boolean
-  /** Alignment for claude-kit style left-aligned timeline */
+  /** Alignment for claude-kit style left-aligned messages */
   align?: 'left' | 'right'
 }
 
@@ -430,7 +430,7 @@ export function UserMessageBubble({
       {/* Text content bubble */}
       <div
         className={cn(
-          "max-w-[80%] bg-user-message-bubble rounded-[5px] border border-border/50 break-words min-w-0 select-text [&_p]:m-0",
+          "max-w-[80%] bg-user-message-bubble rounded-2xl border border-border/50 break-words min-w-0 select-text [&_p]:m-0",
           compactMode ? "px-4 py-2" : "px-5 py-3.5",
           isPending && "animate-shimmer"
         )}
