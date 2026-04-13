@@ -112,13 +112,13 @@ export function SessionUpload({ onSessionLoad }: SessionUploadProps) {
           transition-all duration-200
           ${isDragging
             ? 'active border-accent bg-accent/5'
-            : 'border-foreground/10 hover:border-foreground/20 hover:bg-foreground/3'
+            : 'border-foreground/10 hover:border-foreground/20 hover:bg-muted-foreground/10'
           }
         `}
       >
         <div className={`
           p-4 rounded-full
-          ${isDragging ? 'bg-accent/10 text-accent' : 'bg-foreground/5 text-foreground/50'}
+          ${isDragging ? 'bg-accent/10 text-accent' : 'bg-muted text-foreground/50'}
         `}>
           {isDragging ? (
             <FileJson className="w-8 h-8" />
