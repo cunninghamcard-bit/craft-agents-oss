@@ -1526,14 +1526,7 @@ export const ChatDisplay = React.forwardRef<ChatDisplayHandle, ChatDisplayProps>
           <div className="flex flex-1 flex-col min-h-0 min-w-0 relative z-10">
           {/* === MESSAGES AREA: Scrollable list of message bubbles === */}
           <div className="relative flex-1 min-h-0">
-            {/* Mask wrapper - fades content at top and bottom over transparent/image backgrounds */}
-            <div
-              className="h-full"
-              style={{
-                maskImage: 'linear-gradient(to bottom, transparent 0%, black 32px, black calc(100% - 32px), transparent 100%)',
-                WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 32px, black calc(100% - 32px), transparent 100%)'
-              }}
-            >
+            <div className="h-full">
               <ScrollArea className="h-full min-w-0" viewportRef={scrollViewportRef}>
               <div className={cn(
                 CHAT_LAYOUT.maxWidth,
@@ -1597,7 +1590,7 @@ export const ChatDisplay = React.forwardRef<ChatDisplayHandle, ChatDisplayProps>
                   )}
                   {/* Timeline connector between conversation turns */}
                   <div className="relative">
-                    <div className="absolute right-[12px] top-0 bottom-0 w-[2px] bg-border" />
+                    <div className="absolute left-[11px] top-0 bottom-0 w-[2px] bg-border" />
                     {turns.map((turn, index) => {
                       // Compute turn key and check if it's a search match
                       const turnKey = getTurnKey(turn)
@@ -1613,19 +1606,20 @@ export const ChatDisplay = React.forwardRef<ChatDisplayHandle, ChatDisplayProps>
                             ref={el => { if (el) turnRefs.current.set(turnKey, el); else turnRefs.current.delete(turnKey) }}
                             className={cn(
                               compactMode ? "pt-2 pb-1" : CHAT_LAYOUT.userMessagePadding,
-                              "relative pr-8 rounded-[5px] transition-all duration-200",
+                              "relative pl-8 rounded-[5px] transition-all duration-200",
                               isCurrentMatch && "ring-2 ring-info ring-offset-2 ring-offset-background",
                               isAnyMatch && !isCurrentMatch && "ring-1 ring-info/30"
                             )}
                           >
-                            <div className="absolute right-[7px] top-4 h-3 w-3 rounded-full bg-background border-2 border-border" />
+                            <div className="absolute left-[6px] top-4 h-3 w-3 rounded-full bg-background border-2 border-border" />
                             <MemoizedMessageBubble
-                            message={turn.message}
-                            onOpenFile={onOpenFile}
-                            onOpenUrl={onOpenUrl}
-                            compactMode={compactMode}
-                          />
-                        </div>
+                              message={turn.message}
+                              onOpenFile={onOpenFile}
+                              onOpenUrl={onOpenUrl}
+                              compactMode={compactMode}
+                              align="left"
+                            />
+                          </div>
                       )
                     }
 
@@ -1636,12 +1630,12 @@ export const ChatDisplay = React.forwardRef<ChatDisplayHandle, ChatDisplayProps>
                           key={turnKey}
                           ref={el => { if (el) turnRefs.current.set(turnKey, el); else turnRefs.current.delete(turnKey) }}
                           className={cn(
-                            "relative pr-8 rounded-[5px] transition-all duration-200",
+                            "relative pl-8 rounded-[5px] transition-all duration-200",
                             isCurrentMatch && "ring-2 ring-info ring-offset-2 ring-offset-background",
                             isAnyMatch && !isCurrentMatch && "ring-1 ring-info/30"
                           )}
                         >
-                          <div className="absolute right-[7px] top-3 h-3 w-3 rounded-full bg-background border-2 border-border" />
+                          <div className="absolute left-[6px] top-3 h-3 w-3 rounded-full bg-background border-2 border-border" />
                           <MemoizedMessageBubble
                             message={turn.message}
                             onOpenFile={onOpenFile}
@@ -1661,12 +1655,12 @@ export const ChatDisplay = React.forwardRef<ChatDisplayHandle, ChatDisplayProps>
                           key={turnKey}
                           ref={el => { if (el) turnRefs.current.set(turnKey, el); else turnRefs.current.delete(turnKey) }}
                           className={cn(
-                            "relative pr-8 mt-2 rounded-[5px] transition-all duration-200",
+                            "relative pl-8 mt-2 rounded-[5px] transition-all duration-200",
                             isCurrentMatch && "ring-2 ring-info ring-offset-2 ring-offset-background",
                             isAnyMatch && !isCurrentMatch && "ring-1 ring-info/30"
                           )}
                         >
-                          <div className="absolute right-[7px] top-3 h-3 w-3 rounded-full bg-background border-2 border-border" />
+                          <div className="absolute left-[6px] top-3 h-3 w-3 rounded-full bg-background border-2 border-border" />
                           <MemoizedAuthRequestCard
                             message={turn.message}
                             sessionId={session.id}
@@ -1687,14 +1681,13 @@ export const ChatDisplay = React.forwardRef<ChatDisplayHandle, ChatDisplayProps>
                         key={turnKey}
                         ref={el => { if (el) turnRefs.current.set(turnKey, el); else turnRefs.current.delete(turnKey) }}
                         className={cn(
-                          "relative pr-8 pt-2",
+                          "relative pl-8 pt-2",
                           "rounded-[5px] transition-all duration-200",
                           isCurrentMatch && "ring-2 ring-info ring-offset-2 ring-offset-background",
                           isAnyMatch && !isCurrentMatch && "ring-1 ring-info/30"
                         )}
                       >
-                        <div className="absolute right-[7px] top-3 h-3 w-3 rounded-full bg-background border-2 border-border" />
-                        <div className="absolute right-[7px] top-3 h-[5px] w-[5px] rounded-full bg-border" />
+                        <div className="absolute left-[6px] top-3 h-3 w-3 rounded-full bg-background border-2 border-border" />
                       <TurnCard
                         sessionId={session.id}
                         sessionFolderPath={session.sessionFolderPath}
@@ -2123,6 +2116,8 @@ interface MessageBubbleProps {
   onPopOut?: (message: Message) => void
   /** Compact mode - reduces padding for popover embedding */
   compactMode?: boolean
+  /** Align user message bubble for claude-kit timeline style */
+  align?: 'left' | 'right'
 }
 
 /**
@@ -2211,6 +2206,7 @@ function MessageBubble({
   renderMode = 'minimal',
   onPopOut,
   compactMode,
+  align,
 }: MessageBubbleProps) {
   const { t } = useTranslation()
 
@@ -2226,6 +2222,7 @@ function MessageBubble({
         onUrlClick={onOpenUrl}
         onFileClick={onOpenFile}
         compactMode={compactMode}
+        align={align}
       />
     )
   }

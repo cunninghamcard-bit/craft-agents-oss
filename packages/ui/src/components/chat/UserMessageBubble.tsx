@@ -320,6 +320,8 @@ export interface UserMessageBubbleProps {
   isQueued?: boolean
   /** Compact mode - reduces padding for popover embedding */
   compactMode?: boolean
+  /** Alignment for claude-kit style left-aligned timeline */
+  align?: 'left' | 'right'
 }
 
 export function UserMessageBubble({
@@ -332,6 +334,7 @@ export function UserMessageBubble({
   isPending,
   isQueued,
   compactMode,
+  align = 'right',
 }: UserMessageBubbleProps) {
   const hasAttachments = attachments && attachments.length > 0
 
@@ -355,10 +358,10 @@ export function UserMessageBubble({
   }
 
   return (
-    <div className={cn("flex flex-col items-end gap-3 w-full", className)}>
+    <div className={cn("flex flex-col gap-3 w-full", align === 'left' ? 'items-start' : 'items-end', className)}>
       {/* Attachment preview row - stored attachments with thumbnails */}
       {hasAttachments && (
-        <div className="flex gap-2 justify-end max-w-[80%] flex-wrap">
+        <div className={cn("flex gap-2 max-w-[80%] flex-wrap", align === 'left' ? 'justify-start' : 'justify-end')}>
           {attachments!.map((att, i) => {
             const isImage = att.type === 'image'
             const hasThumbnail = !!att.thumbnailBase64
@@ -417,7 +420,7 @@ export function UserMessageBubble({
 
       {/* Badges row - edit request badges above text bubble */}
       {hasEditRequestBadges && (
-        <div className="flex gap-2 justify-end max-w-[80%] flex-wrap">
+        <div className={cn("flex gap-2 max-w-[80%] flex-wrap", align === 'left' ? 'justify-start' : 'justify-end')}>
           {editRequestBadges.map((badge, i) => (
             <EditRequestBadge key={`edit-badge-${i}`} badge={badge} />
           ))}
