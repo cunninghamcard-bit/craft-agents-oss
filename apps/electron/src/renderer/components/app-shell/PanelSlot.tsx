@@ -112,7 +112,7 @@ export function PanelSlot({
         data-compact={isCompact || undefined}
         className={cn(
           'h-full overflow-hidden relative @container/panel',
-          !isOnly && isFocusedPanel ? 'shadow-panel-focused z-[1]' : 'shadow-middle z-0',
+          !isOnly && isFocusedPanel ? 'border border-border z-[1]' : 'border border-border z-0',
           'bg-foreground-2',
         )}
         style={{

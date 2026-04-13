@@ -79,7 +79,7 @@ export const FreeFormInputContextBadge = React.forwardRef<HTMLButtonElement, Fre
           // Padding: more padding when showing label
           showLabel ? "px-2" : "px-1.5",
           // Collapsed with selection: visible background + thin 1px border + margin
-          !isExpanded && hasSelection && "bg-background border border-foreground/5 mx-0.5",
+          !isExpanded && hasSelection && "bg-background border border-border mx-0.5",
           // Hover state (when not already showing background from selection)
           !(!isExpanded && hasSelection) && "hover:bg-foreground/5",
           // Open state (dropdown shown)

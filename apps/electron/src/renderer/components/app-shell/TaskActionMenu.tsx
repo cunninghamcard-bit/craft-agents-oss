@@ -123,7 +123,7 @@ export function TaskActionMenu({ task, sessionId, onKillTask, onInsertMessage, o
           className={cn(
             "h-[30px] pl-2.5 pr-2 text-xs font-medium rounded-[8px]",
             "flex items-center gap-1.5 shrink-0 select-none",
-            "transition-all shadow-minimal cursor-pointer",
+            "transition-all border border-border cursor-pointer",
             // Plain white badge with hover
             "bg-white dark:bg-white/10",
             "hover:bg-white/80 dark:hover:bg-white/15",

@@ -189,7 +189,7 @@ export function LeftSidebar({ links, isCollapsed, getItemProps, focusedItemId, i
         {/* Vertical line for nested items - 4px left of chevron center */}
         {isNested && (
           <div
-            className="absolute left-[13px] top-1 bottom-1 w-px bg-foreground/10"
+            className="absolute left-[13px] top-1 bottom-1 w-px bg-border"
             aria-hidden="true"
           />
         )}
@@ -198,7 +198,7 @@ export function LeftSidebar({ links, isCollapsed, getItemProps, focusedItemId, i
           if (isSeparatorItem(item)) {
             return (
               <div key={item.id} className="py-1 px-2" aria-hidden="true">
-                <div className="h-px bg-foreground/5" />
+                <div className="h-px bg-border" />
               </div>
             )
           }
@@ -372,7 +372,7 @@ function SortableStatusList({ items, onReorder, getItemProps, focusedItemId, tra
       <div className="pl-5 pr-0 relative">
         {/* Vertical line for nested items */}
         <div
-          className="absolute left-[13px] top-1 bottom-1 w-px bg-foreground/10"
+          className="absolute left-[13px] top-1 bottom-1 w-px bg-border"
           aria-hidden="true"
         />
         <SortableList
@@ -430,7 +430,7 @@ function SortableStatusList({ items, onReorder, getItemProps, focusedItemId, tra
         {trailingItems && trailingItems.length > 0 && (
           <>
             <div className="my-1 ml-2" aria-hidden="true">
-              <div className="h-px bg-foreground/5" />
+              <div className="h-px bg-border" />
             </div>
             <div className="grid gap-0.5">
               {trailingItems.map(item => (
@@ -492,7 +492,7 @@ const SidebarButton = React.forwardRef<HTMLButtonElement, SidebarButtonProps & R
           link.compact ? "py-[3px]" : "py-[5px]",
           "px-2",
           link.variant === "default"
-            ? "bg-foreground/[0.07]"
+            ? "bg-muted"
             // Highlight on hover, context menu open (data-state), or EditPopover active (data-edit-active)
             : "hover:bg-sidebar-hover data-[state=open]:bg-sidebar-hover data-[edit-active=true]:bg-sidebar-hover",
           extraClassName,

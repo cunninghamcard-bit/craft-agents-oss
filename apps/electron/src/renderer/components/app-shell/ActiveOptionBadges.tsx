@@ -490,7 +490,7 @@ function PermissionModeDropdown({ permissionMode, onPermissionModeChange, sessio
         </button>
       </PopoverTrigger>
       <PopoverContent
-        className="w-auto p-0 rounded-[8px] bg-background text-foreground shadow-modal-small"
+        className="w-auto p-0 rounded-[8px] bg-background text-foreground border border-border"
         side="top"
         align="start"
         sideOffset={4}

@@ -61,7 +61,7 @@ export function SkillsListPanel({
             <EditPopover
               align="center"
               trigger={
-                <button className="inline-flex items-center h-7 px-3 text-xs font-medium rounded-[8px] bg-background shadow-minimal hover:bg-foreground/[0.03] transition-colors">
+                <button className="inline-flex items-center h-7 px-3 text-xs font-medium rounded-[8px] bg-muted border border-border hover:bg-muted-foreground/10 transition-colors">
                   {t('skillsList.addSkill')}
                 </button>
               }
@@ -76,7 +76,7 @@ export function SkillsListPanel({
         badges: (
           <span className="flex items-center gap-1.5 min-w-0">
             {skill.source === 'project' && (
-              <span className="shrink-0 text-[10px] px-1.5 py-0.5 rounded-full bg-foreground/5 text-muted-foreground">
+              <span className="shrink-0 text-[10px] px-1.5 py-0.5 rounded-full bg-muted text-muted-foreground">
                 {t('skillsList.projectBadge')}
               </span>
             )}

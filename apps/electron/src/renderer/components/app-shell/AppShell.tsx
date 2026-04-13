@@ -2564,7 +2564,7 @@ function AppShellContent({
 
                         {/* Search input — typing switches from hierarchical submenus to a flat filtered list.
                             stopPropagation prevents Radix from intercepting keys. Arrow/Enter handled for navigation. */}
-                        <div className="px-1 pb-3 border-b border-foreground/5">
+                        <div className="px-1 pb-3 border-b border-border/50">
                           <div className="bg-background rounded-md border border-border px-2 py-1.5">
                             <input
                               ref={filterDropdownInputRef}
