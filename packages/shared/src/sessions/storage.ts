@@ -535,8 +535,6 @@ export async function updateSessionMetadata(
     | 'workingDirectory'
     | 'sdkCwd'
     | 'permissionMode'
-    | 'sharedUrl'
-    | 'sharedId'
     | 'model'
     | 'llmConnection'
     | 'isArchived'
@@ -556,8 +554,6 @@ export async function updateSessionMetadata(
   if (updates.permissionMode !== undefined) session.permissionMode = updates.permissionMode;
   if ('lastReadMessageId' in updates) session.lastReadMessageId = updates.lastReadMessageId;
   if ('hasUnread' in updates) session.hasUnread = updates.hasUnread;
-  if ('sharedUrl' in updates) session.sharedUrl = updates.sharedUrl;
-  if ('sharedId' in updates) session.sharedId = updates.sharedId;
   if (updates.model !== undefined) session.model = updates.model;
   if (updates.llmConnection !== undefined) session.llmConnection = updates.llmConnection;
   if (updates.isArchived !== undefined) session.isArchived = updates.isArchived;

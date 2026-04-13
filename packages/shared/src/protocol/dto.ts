@@ -69,8 +69,6 @@ export interface Session {
   enabledSourceSlugs?: string[]
   workingDirectory?: string
   sessionFolderPath?: string
-  sharedUrl?: string
-  sharedId?: string
   model?: string
   llmConnection?: string
   thinkingLevel?: ThinkingLevel
@@ -194,8 +192,6 @@ export type SessionEvent =
   | { type: 'session_status_changed'; sessionId: string; sessionStatus: SessionStatus }
   | { type: 'session_deleted'; sessionId: string }
   | { type: 'session_created'; sessionId: string }
-  | { type: 'session_shared'; sessionId: string; sharedUrl: string }
-  | { type: 'session_unshared'; sessionId: string }
   | { type: 'auth_request'; sessionId: string; message: Message; request: SharedAuthRequest }
   | { type: 'auth_completed'; sessionId: string; requestId: string; success: boolean; cancelled?: boolean; error?: string }
   | { type: 'source_activated'; sessionId: string; sourceSlug: string; originalMessage: string }
@@ -230,9 +226,6 @@ export type SessionCommand =
   | { type: 'setLabels'; labels: string[] }
   | { type: 'showInFinder' }
   | { type: 'copyPath' }
-  | { type: 'shareToViewer' }
-  | { type: 'updateShare' }
-  | { type: 'revokeShare' }
   | { type: 'refreshTitle' }
   | { type: 'setConnection'; connectionSlug: string }
   | { type: 'setPendingPlanExecution'; planPath: string; draftInputSnapshot?: string }
