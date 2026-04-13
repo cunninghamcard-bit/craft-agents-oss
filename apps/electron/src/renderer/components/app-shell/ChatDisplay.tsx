@@ -1536,7 +1536,7 @@ export const ChatDisplay = React.forwardRef<ChatDisplayHandle, ChatDisplayProps>
             >
               <ScrollArea className="h-full min-w-0" viewportRef={scrollViewportRef}>
               <div className={cn(
-                "max-w-[1200px] ml-0 mr-auto min-w-0",
+                "max-w-[1200px] mx-auto min-w-0",
                 compactMode ? "px-3 py-4 space-y-2" : [CHAT_LAYOUT.containerPadding, CHAT_LAYOUT.messageSpacing]
               )}>
                 {/* Session-level AnimatePresence: Prevents layout jump when switching sessions */}
@@ -1619,7 +1619,7 @@ export const ChatDisplay = React.forwardRef<ChatDisplayHandle, ChatDisplayProps>
                             onOpenFile={onOpenFile}
                             onOpenUrl={onOpenUrl}
                             compactMode={compactMode}
-                            align="left"
+                            align="right"
                           />
                         </div>
                       )

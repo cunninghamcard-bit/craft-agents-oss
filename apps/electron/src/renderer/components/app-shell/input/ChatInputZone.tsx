@@ -63,7 +63,7 @@ export function ChatInputZone({
 
   return (
     <div className={cn(
-      'max-w-[1200px] ml-0 mr-auto w-full mt-1',
+      'max-w-[1200px] mx-auto w-full mt-1',
       compactMode ? 'px-2 pb-3' : 'px-3 @xs/panel:px-4 pb-4',
       className,
     )}>
