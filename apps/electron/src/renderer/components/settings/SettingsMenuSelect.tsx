@@ -114,10 +114,10 @@ export function SettingsMenuSelect({
           type="button"
           className={cn(
             'inline-flex items-center h-8 px-3 gap-1 text-sm rounded-lg',
-            'bg-background shadow-minimal',
-            'hover:bg-foreground/[0.02] transition-colors',
+            'bg-background border border-border',
+            'hover:bg-muted transition-colors',
             'disabled:cursor-not-allowed disabled:opacity-50',
-            isOpen && 'bg-foreground/[0.02]',
+            isOpen && 'bg-muted',
             className
           )}
         >
@@ -144,7 +144,7 @@ export function SettingsMenuSelect({
               placeholder={effectiveSearchPlaceholder}
               className={cn(
                 'w-full h-8 pl-8 pr-3 text-sm rounded-md',
-                'bg-foreground/5 border-0',
+                'bg-muted border-0',
                 'placeholder:text-muted-foreground/50',
                 'focus:outline-none focus:ring-1 focus:ring-foreground/20'
               )}
@@ -167,8 +167,8 @@ export function SettingsMenuSelect({
                   onMouseEnter={() => onHover?.(option.value)}
                   className={cn(
                     'w-full flex items-center justify-between px-2.5 py-2 rounded-lg',
-                    'hover:bg-foreground/5 transition-colors text-left',
-                    isSelected && 'bg-foreground/3'
+                    'hover:bg-muted transition-colors text-left',
+                    isSelected && 'bg-muted-foreground/10'
                   )}
                 >
                   <div className="flex-1 min-w-0">

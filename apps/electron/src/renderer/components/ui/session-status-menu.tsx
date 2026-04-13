@@ -18,7 +18,7 @@ export { type SessionStatusId, type SessionStatus, getStateIcon, getStateColor }
 // Shared Styles (matching slash-command-menu)
 // ============================================================================
 
-const MENU_CONTAINER_STYLE = 'min-w-[180px] overflow-hidden rounded-[8px] bg-background text-foreground shadow-modal-small'
+const MENU_CONTAINER_STYLE = 'min-w-[180px] overflow-hidden rounded-[8px] bg-background text-foreground border border-border'
 const MENU_LIST_STYLE = 'max-h-[240px] overflow-y-auto p-1 [&_[cmdk-list-sizer]]:space-y-px'
 const MENU_ITEM_STYLE = 'flex cursor-pointer select-none items-center gap-3 rounded-[6px] px-3 py-1.5 text-[13px]'
 
@@ -110,7 +110,7 @@ export function SessionStatusMenu({
               className={cn(
                 MENU_ITEM_STYLE,
                 'outline-none',
-                isActive ? 'bg-foreground/7' : 'data-[selected=true]:bg-foreground/3'
+                isActive ? 'bg-muted' : 'data-[selected=true]:bg-muted-foreground/10'
               )}
             >
               <StateItemContent state={state} />
@@ -127,7 +127,7 @@ export function SessionStatusMenu({
               className={cn(
                 MENU_ITEM_STYLE,
                 'outline-none',
-                'data-[selected=true]:bg-foreground/3'
+                'data-[selected=true]:bg-muted-foreground/10'
               )}
             >
               <span className="shrink-0 flex items-center opacity-60">

@@ -1034,7 +1034,7 @@ export function EditPopover({
             {/* Container */}
             <div
               ref={popoverRef}
-              className="relative bg-foreground-2 overflow-hidden w-full h-full shadow-modal-small"
+              className="relative bg-foreground-2 overflow-hidden w-full h-full border border-border"
               style={{
                 transform: `translate(${dragOffset.x}px, ${dragOffset.y}px)`,
                 borderRadius: 16,
@@ -1107,7 +1107,7 @@ export const EditButton = React.forwardRef<
       variant="ghost"
       size="sm"
       // Merge our base styles with any className from asChild props
-      className={cn("h-8 px-3 rounded-[6px] bg-background shadow-minimal text-foreground/70 hover:text-foreground", className)}
+      className={cn("h-8 px-3 rounded-[6px] bg-background border border-border text-foreground/70 hover:text-foreground", className)}
       {...props}
     >
       {t("common.edit")}

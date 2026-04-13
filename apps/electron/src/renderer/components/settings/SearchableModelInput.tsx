@@ -133,7 +133,7 @@ export function SearchableModelInput({
                 placeholder={t("apiSetup.searchModels")}
                 className={cn(
                   'w-full h-8 pl-8 pr-3 text-sm rounded-md',
-                  'bg-foreground/5 border-0',
+                  'bg-muted border-0',
                   'placeholder:text-muted-foreground/50',
                   'focus:outline-none focus:ring-1 focus:ring-foreground/20'
                 )}
@@ -152,8 +152,8 @@ export function SearchableModelInput({
                     type="button"
                     className={cn(
                       'w-full px-2.5 py-2 text-left text-sm rounded-lg',
-                      'hover:bg-foreground/5 transition-colors',
-                      value === model.id && 'bg-foreground/3'
+                      'hover:bg-muted transition-colors',
+                      value === model.id && 'bg-muted-foreground/10'
                     )}
                     onClick={() => handleSelect(model.id)}
                   >

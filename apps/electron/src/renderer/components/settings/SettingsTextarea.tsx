@@ -84,7 +84,7 @@ export function SettingsTextarea({
         </div>
       )}
       <div className={cn(
-        'relative rounded-md shadow-minimal has-[:focus-visible]:bg-background',
+        'relative rounded-md border border-border has-[:focus-visible]:bg-background',
         error && 'ring-1 ring-destructive',
         isOverLimit && 'ring-1 ring-destructive'
       )}>

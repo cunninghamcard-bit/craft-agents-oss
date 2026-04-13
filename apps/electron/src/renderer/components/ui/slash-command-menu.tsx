@@ -110,11 +110,11 @@ export const DEFAULT_SLASH_COMMAND_GROUPS: CommandGroup[] = [
 // Shared Styles
 // ============================================================================
 
-const MENU_CONTAINER_STYLE = 'min-w-[200px] overflow-hidden rounded-[8px] bg-background text-foreground shadow-modal-small'
+const MENU_CONTAINER_STYLE = 'min-w-[200px] overflow-hidden rounded-[8px] bg-background text-foreground border border-border'
 const MENU_LIST_STYLE = 'max-h-[260px] overflow-y-auto py-1'
 const MENU_ITEM_STYLE = 'flex cursor-pointer select-none items-center gap-2 rounded-[6px] mx-1 px-2 py-1.5 text-[13px]'
-const MENU_ITEM_SELECTED = 'bg-foreground/5'
-const MENU_SECTION_HEADER = 'px-3 py-1.5 mb-0.5 text-[12px] font-medium text-muted-foreground border-b border-foreground/5'
+const MENU_ITEM_SELECTED = 'bg-muted'
+const MENU_SECTION_HEADER = 'px-3 py-1.5 mb-0.5 text-[12px] font-medium text-muted-foreground border-b border-border/50'
 
 // ============================================================================
 // Shared: Filter utilities
@@ -258,7 +258,7 @@ export function SlashCommandMenu({
         className={cn(
           MENU_ITEM_STYLE,
           'outline-none',
-          'data-[selected=true]:bg-foreground/5'
+          'data-[selected=true]:bg-muted'
         )}
       >
         <CommandItemContent command={cmd} isActive={isActive} />
