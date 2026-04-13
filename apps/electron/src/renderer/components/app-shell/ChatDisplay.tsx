@@ -1597,7 +1597,7 @@ export const ChatDisplay = React.forwardRef<ChatDisplayHandle, ChatDisplayProps>
                   )}
                   {/* Timeline connector between conversation turns */}
                   <div className="relative">
-                    <div className="absolute left-[9px] top-3 bottom-3 w-px bg-border" />
+                    <div className="absolute right-[9px] top-3 bottom-3 w-px bg-border" />
                     {turns.map((turn, index) => {
                       // Compute turn key and check if it's a search match
                       const turnKey = getTurnKey(turn)
@@ -1613,12 +1613,12 @@ export const ChatDisplay = React.forwardRef<ChatDisplayHandle, ChatDisplayProps>
                             ref={el => { if (el) turnRefs.current.set(turnKey, el); else turnRefs.current.delete(turnKey) }}
                             className={cn(
                               compactMode ? "pt-2 pb-1" : CHAT_LAYOUT.userMessagePadding,
-                              "relative pl-5 rounded-lg transition-all duration-200",
+                              "relative pr-5 rounded-lg transition-all duration-200",
                               isCurrentMatch && "ring-2 ring-info ring-offset-2 ring-offset-background",
                               isAnyMatch && !isCurrentMatch && "ring-1 ring-info/30"
                             )}
                           >
-                            <div className="absolute left-[7px] top-3 h-[5px] w-[5px] rounded-full bg-border" />
+                            <div className="absolute right-[7px] top-3 h-[5px] w-[5px] rounded-full bg-border" />
                             <MemoizedMessageBubble
                             message={turn.message}
                             onOpenFile={onOpenFile}
@@ -1636,12 +1636,12 @@ export const ChatDisplay = React.forwardRef<ChatDisplayHandle, ChatDisplayProps>
                           key={turnKey}
                           ref={el => { if (el) turnRefs.current.set(turnKey, el); else turnRefs.current.delete(turnKey) }}
                           className={cn(
-                            "relative pl-5 rounded-lg transition-all duration-200",
+                            "relative pr-5 rounded-lg transition-all duration-200",
                             isCurrentMatch && "ring-2 ring-info ring-offset-2 ring-offset-background",
                             isAnyMatch && !isCurrentMatch && "ring-1 ring-info/30"
                           )}
                         >
-                          <div className="absolute left-[7px] top-3 h-[5px] w-[5px] rounded-full bg-border" />
+                          <div className="absolute right-[7px] top-3 h-[5px] w-[5px] rounded-full bg-border" />
                           <MemoizedMessageBubble
                             message={turn.message}
                             onOpenFile={onOpenFile}
@@ -1661,12 +1661,12 @@ export const ChatDisplay = React.forwardRef<ChatDisplayHandle, ChatDisplayProps>
                           key={turnKey}
                           ref={el => { if (el) turnRefs.current.set(turnKey, el); else turnRefs.current.delete(turnKey) }}
                           className={cn(
-                            "relative pl-5 mt-2 rounded-lg transition-all duration-200",
+                            "relative pr-5 mt-2 rounded-lg transition-all duration-200",
                             isCurrentMatch && "ring-2 ring-info ring-offset-2 ring-offset-background",
                             isAnyMatch && !isCurrentMatch && "ring-1 ring-info/30"
                           )}
                         >
-                          <div className="absolute left-[7px] top-3 h-[5px] w-[5px] rounded-full bg-border" />
+                          <div className="absolute right-[7px] top-3 h-[5px] w-[5px] rounded-full bg-border" />
                           <MemoizedAuthRequestCard
                             message={turn.message}
                             sessionId={session.id}
@@ -1687,13 +1687,13 @@ export const ChatDisplay = React.forwardRef<ChatDisplayHandle, ChatDisplayProps>
                         key={turnKey}
                         ref={el => { if (el) turnRefs.current.set(turnKey, el); else turnRefs.current.delete(turnKey) }}
                         className={cn(
-                          "relative pl-5 pt-2",
+                          "relative pr-5 pt-2",
                           "rounded-lg transition-all duration-200",
                           isCurrentMatch && "ring-2 ring-info ring-offset-2 ring-offset-background",
                           isAnyMatch && !isCurrentMatch && "ring-1 ring-info/30"
                         )}
                       >
-                        <div className="absolute left-[7px] top-3 h-[5px] w-[5px] rounded-full bg-border" />
+                        <div className="absolute right-[7px] top-3 h-[5px] w-[5px] rounded-full bg-border" />
                       <TurnCard
                         sessionId={session.id}
                         sessionFolderPath={session.sessionFolderPath}
