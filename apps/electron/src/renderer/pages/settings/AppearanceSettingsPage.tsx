@@ -191,7 +191,7 @@ export default function AppearanceSettingsPage() {
   useEffect(() => {
     window.electronAPI?.getZoomFactor?.().then((z) => setZoomFactor(z ?? 1.0))
   }, [])
-  const handleZoomChange = useCallback(async (value: number) => {
+  const applyZoom = useCallback(async (value: number) => {
     const clamped = Math.min(Math.max(value, 0.5), 3.0)
     setZoomFactor(clamped)
     await window.electronAPI?.setZoomFactor?.(clamped)
@@ -484,26 +484,35 @@ export default function AppearanceSettingsPage() {
                     label={t("settings.appearance.zoomLevel")}
                     description={t("settings.appearance.zoomLevelDesc")}
                   >
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2">
                       <button
                         type="button"
-                        onClick={() => handleZoomChange(1.0)}
-                        className="p-1.5 rounded-md border border-border bg-background hover:bg-muted/50 focus:outline-none focus:ring-1 focus:ring-ring text-muted-foreground hover:text-foreground transition-colors"
+                        onClick={() => applyZoom(zoomFactor - 0.1)}
+                        className="px-2.5 py-1 text-sm rounded-md border border-border bg-background hover:bg-muted/50 focus:outline-none focus:ring-1 focus:ring-ring"
+                        aria-label={t("settings.appearance.zoomOut")}
+                      >
+                        -
+                      </button>
+                      <span className="w-12 text-center text-sm tabular-nums">
+                        {Math.round(zoomFactor * 100)}%
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => applyZoom(zoomFactor + 0.1)}
+                        className="px-2.5 py-1 text-sm rounded-md border border-border bg-background hover:bg-muted/50 focus:outline-none focus:ring-1 focus:ring-ring"
+                        aria-label={t("settings.appearance.zoomIn")}
+                      >
+                        +
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => applyZoom(1.0)}
+                        className="ml-1 p-1.5 rounded-md border border-border bg-background hover:bg-muted/50 focus:outline-none focus:ring-1 focus:ring-ring text-muted-foreground hover:text-foreground transition-colors"
                         aria-label={t("settings.appearance.zoomReset")}
                         title={t("settings.appearance.zoomReset")}
                       >
                         <RotateCcw className="w-4 h-4" />
                       </button>
-                      <input
-                        type="range"
-                        min={0.5}
-                        max={3.0}
-                        step={0.1}
-                        value={zoomFactor}
-                        onChange={(e) => handleZoomChange(parseFloat(e.target.value))}
-                        className="w-32 h-1.5 bg-muted rounded-lg appearance-none cursor-pointer accent-foreground"
-                        aria-label={t("settings.appearance.zoomLevel")}
-                      />
                     </div>
                   </SettingsRow>
                 </SettingsCard>
