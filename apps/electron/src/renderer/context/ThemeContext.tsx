@@ -311,7 +311,7 @@ export function ThemeProvider({
 
     // Apply font via CSS variable (presets or custom string)
     const effectiveFont = fontPreset === 'custom'
-      ? (font || FONT_PRESET_MAP.system)
+      ? (font ? `${font}, ${FONT_PRESET_MAP.system}` : FONT_PRESET_MAP.system)
       : (FONT_PRESET_MAP[fontPreset] ?? FONT_PRESET_MAP.system)
     root.style.setProperty('--font-default', effectiveFont)
 
@@ -456,6 +456,7 @@ export function ThemeProvider({
         colorTheme: preferences.colorTheme,
         font: preferences.font,
         fontPreset: syncedPreset,
+        customFont: preferences.customFont,
         isUserOverride: true
       })
       externalUpdateTimeout.current = setTimeout(() => {
@@ -491,6 +492,7 @@ export function ThemeProvider({
         colorTheme: next.colorTheme,
         font: next.font ?? font,
         fontPreset: next.fontPreset ?? fontPreset,
+        customFont: next.customFont ?? existing?.customFont,
       })
     }
   }, [mode, colorTheme, font, fontPreset])
