@@ -61,7 +61,7 @@ export function OAuthConnect({
         <div className="space-y-2">
           <Label htmlFor="auth-code">{t("apiSetup.authorizationCode")}</Label>
           <div className={cn(
-            "relative rounded-md shadow-minimal transition-colors",
+            "relative rounded-md border border-border transition-colors",
             "bg-foreground-2 focus-within:bg-background"
           )}>
             <Input

@@ -76,7 +76,7 @@ export function GitBashWarning({
           </p>
           <Button
             onClick={handleDownload}
-            className="mt-3 w-full bg-background shadow-minimal text-foreground hover:bg-foreground/5 rounded-lg"
+            className="mt-3 w-full bg-background border border-border text-foreground hover:bg-muted rounded-lg"
             size="sm"
           >
             <Download className="mr-2 size-4" />
@@ -107,7 +107,7 @@ export function GitBashWarning({
               <Button
                 onClick={handleUsePath}
                 disabled={!customPath.trim()}
-                className="w-full bg-background shadow-minimal text-foreground hover:bg-foreground/5 rounded-lg"
+                className="w-full bg-background border border-border text-foreground hover:bg-muted rounded-lg"
                 size="sm"
               >
                 {t("onboarding.gitBash.useThisPath")}
@@ -122,7 +122,7 @@ export function GitBashWarning({
                 onClick={onRecheck}
                 disabled={isRechecking}
                 size="sm"
-                className="flex-1 bg-background text-foreground hover:bg-foreground/5 rounded-lg shadow-minimal"
+                className="flex-1 bg-background text-foreground hover:bg-muted rounded-lg border border-border"
               >
                 <RefreshCw className={`mr-2 size-4 ${isRechecking ? 'animate-spin' : ''}`} />
                 {isRechecking ? t("common.checking") : t("onboarding.gitBash.recheck")}
@@ -130,7 +130,7 @@ export function GitBashWarning({
               <Button
                 onClick={handleBrowse}
                 size="sm"
-                className="flex-1 bg-background text-foreground hover:bg-foreground/5 rounded-lg shadow-minimal"
+                className="flex-1 bg-background text-foreground hover:bg-muted rounded-lg border border-border"
               >
                 <FolderOpen className="mr-2 size-4" />
                 {t("onboarding.gitBash.browse")}

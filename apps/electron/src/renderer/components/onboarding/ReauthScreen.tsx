@@ -63,7 +63,7 @@ export function ReauthScreen({ onLogin, onReset }: ReauthScreenProps) {
               <Button
                 onClick={handleLogin}
                 disabled={isLoading}
-                className="w-full max-w-[320px] bg-background shadow-minimal text-foreground hover:bg-foreground/5 rounded-lg"
+                className="w-full max-w-[320px] bg-background border border-border text-foreground hover:bg-muted rounded-lg"
                 size="lg"
               >
                 {isLoading ? (
@@ -82,7 +82,7 @@ export function ReauthScreen({ onLogin, onReset }: ReauthScreenProps) {
                 variant="ghost"
                 onClick={onReset}
                 disabled={isLoading}
-                className="w-full max-w-[320px] bg-foreground-2 shadow-minimal text-foreground hover:bg-foreground/5 rounded-lg"
+                className="w-full max-w-[320px] bg-muted border border-border text-foreground hover:bg-muted-foreground/10 rounded-lg"
                 size="sm"
               >
                 {t("onboarding.reauth.resetApp")}

@@ -89,7 +89,7 @@ export function LocalModelStep({
         <div className="space-y-2">
           <Label htmlFor="local-base-url">{t("onboarding.localModel.endpoint")}</Label>
           <div className={cn(
-            "rounded-md shadow-minimal transition-colors",
+            "rounded-md border border-border transition-colors",
             "bg-foreground-2 focus-within:bg-background"
           )}>
             <Input
@@ -115,7 +115,7 @@ export function LocalModelStep({
             <span className="text-foreground/30">· {t("onboarding.localModel.required")}</span>
           </Label>
           <div className={cn(
-            "rounded-md shadow-minimal transition-colors",
+            "rounded-md border border-border transition-colors",
             "bg-foreground-2 focus-within:bg-background",
             modelError && "ring-1 ring-destructive/40"
           )}>

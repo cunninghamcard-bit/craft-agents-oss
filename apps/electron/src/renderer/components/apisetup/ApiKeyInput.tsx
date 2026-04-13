@@ -416,7 +416,7 @@ export function ApiKeyInput({
       {!isBedrock && (<div className="space-y-2">
         <Label htmlFor="api-key">API Key</Label>
         <div className={cn(
-          "relative rounded-md shadow-minimal transition-colors",
+          "relative rounded-md border border-border transition-colors",
           "bg-foreground-2 focus-within:bg-background"
         )}>
           <Input
@@ -455,7 +455,7 @@ export function ApiKeyInput({
           <DropdownMenu>
             <DropdownMenuTrigger
               disabled={isDisabled}
-              className="flex h-6 items-center gap-1 rounded-[6px] bg-background shadow-minimal pl-2.5 pr-2 text-[12px] font-medium text-foreground/50 hover:bg-foreground/5 hover:text-foreground focus:outline-none"
+              className="flex h-6 items-center gap-1 rounded-[6px] bg-background border border-border pl-2.5 pr-2 text-[12px] font-medium text-foreground/50 hover:bg-muted hover:text-foreground focus:outline-none"
             >
               {presets.find(p => p.key === activePreset)?.label}
               <ChevronDown className="size-2.5 opacity-50" />
@@ -477,7 +477,7 @@ export function ApiKeyInput({
         {/* Base URL input - hidden for default provider presets (Anthropic/OpenAI) and Bedrock */}
         {!isDefaultProviderPreset && !isBedrock && (
           <div className={cn(
-            "rounded-md shadow-minimal transition-colors",
+            "rounded-md border border-border transition-colors",
             "bg-foreground-2 focus-within:bg-background"
           )}>
             <Input
@@ -499,7 +499,7 @@ export function ApiKeyInput({
         <div className="space-y-2">
           <Label>Protocol</Label>
           <div className={cn(
-            "flex rounded-md shadow-minimal overflow-hidden",
+            "flex rounded-md border border-border overflow-hidden",
             "bg-foreground-2",
             isDisabled && "opacity-50 pointer-events-none"
           )}>
@@ -515,8 +515,8 @@ export function ApiKeyInput({
                 className={cn(
                   "flex-1 py-1.5 text-[12px] font-medium transition-colors",
                   customApi === value
-                    ? "bg-background text-foreground shadow-minimal"
-                    : "text-foreground/50 hover:text-foreground/70"
+                    ? "bg-background text-foreground border-r border-border last:border-r-0"
+                    : "text-foreground/50 hover:text-muted-foreground"
                 )}
               >
                 {label}
@@ -536,7 +536,7 @@ export function ApiKeyInput({
           <div className="space-y-2">
             <Label>Authentication</Label>
             <div className={cn(
-              "flex rounded-md shadow-minimal overflow-hidden",
+              "flex rounded-md border border-border overflow-hidden",
               "bg-foreground-2",
               isDisabled && "opacity-50 pointer-events-none"
             )}>
@@ -552,8 +552,8 @@ export function ApiKeyInput({
                   className={cn(
                     "flex-1 py-1.5 text-[12px] font-medium transition-colors",
                     bedrockAuthMethod === value
-                      ? "bg-background text-foreground shadow-minimal"
-                      : "text-foreground/50 hover:text-foreground/70"
+                      ? "bg-background text-foreground border-r border-border last:border-r-0"
+                      : "text-foreground/50 hover:text-muted-foreground"
                   )}
                 >
                   {label}
@@ -569,7 +569,7 @@ export function ApiKeyInput({
                 <Label htmlFor="aws-access-key-id" className="text-muted-foreground font-normal text-xs">
                   Access Key ID
                 </Label>
-                <div className={cn("rounded-md shadow-minimal transition-colors", "bg-foreground-2 focus-within:bg-background")}>
+                <div className={cn("rounded-md border border-border transition-colors", "bg-foreground-2 focus-within:bg-background")}>
                   <Input
                     id="aws-access-key-id"
                     type="text"
@@ -586,7 +586,7 @@ export function ApiKeyInput({
                 <Label htmlFor="aws-secret-key" className="text-muted-foreground font-normal text-xs">
                   Secret Access Key
                 </Label>
-                <div className={cn("relative rounded-md shadow-minimal transition-colors", "bg-foreground-2 focus-within:bg-background")}>
+                <div className={cn("relative rounded-md border border-border transition-colors", "bg-foreground-2 focus-within:bg-background")}>
                   <Input
                     id="aws-secret-key"
                     type={showValue ? 'text' : 'password'}
@@ -610,7 +610,7 @@ export function ApiKeyInput({
                 <Label htmlFor="aws-session-token" className="text-muted-foreground font-normal text-xs">
                   Session Token <span className="text-foreground/30">· optional</span>
                 </Label>
-                <div className={cn("rounded-md shadow-minimal transition-colors", "bg-foreground-2 focus-within:bg-background")}>
+                <div className={cn("rounded-md border border-border transition-colors", "bg-foreground-2 focus-within:bg-background")}>
                   <Input
                     id="aws-session-token"
                     type="text"
@@ -639,7 +639,7 @@ export function ApiKeyInput({
             <Label htmlFor="aws-region" className="text-muted-foreground font-normal text-xs">
               AWS Region
             </Label>
-            <div className={cn("rounded-md shadow-minimal transition-colors", "bg-foreground-2 focus-within:bg-background")}>
+            <div className={cn("rounded-md border border-border transition-colors", "bg-foreground-2 focus-within:bg-background")}>
               <Input
                 id="aws-region"
                 type="text"
@@ -687,7 +687,7 @@ export function ApiKeyInput({
                     }}
                     className={cn(
                       "flex h-9 w-full items-center justify-between rounded-md px-3 text-sm",
-                      "bg-foreground-2 shadow-minimal transition-colors",
+                      "bg-foreground-2 border border-border transition-colors",
                       "hover:bg-background focus:outline-none focus:bg-background",
                       isDisabled && "opacity-50 pointer-events-none"
                     )}
@@ -706,7 +706,7 @@ export function ApiKeyInput({
                     onClick={() => { setOpenTier(null); setTierFilter('') }}
                   />
                   <div
-                    className="fixed z-floating-menu min-w-[200px] overflow-hidden rounded-[8px] bg-background text-foreground shadow-modal-small"
+                    className="fixed z-floating-menu min-w-[200px] overflow-hidden rounded-[8px] bg-background text-foreground border border-border"
                     style={{
                       top: tierDropdownPosition.top,
                       left: tierDropdownPosition.left,
@@ -741,7 +741,7 @@ export function ApiKeyInput({
                               }}
                               className={cn(
                                 "flex cursor-pointer select-none items-center justify-between gap-3 rounded-[6px] px-3 py-2 text-[13px]",
-                                "outline-none data-[selected=true]:bg-foreground/5"
+                                "outline-none data-[selected=true]:bg-muted"
                               )}
                             >
                               <div className="flex items-center gap-2 min-w-0">
@@ -773,7 +773,7 @@ export function ApiKeyInput({
             </span>
           </Label>
           <div className={cn(
-            "rounded-md shadow-minimal transition-colors",
+            "rounded-md border border-border transition-colors",
             "bg-foreground-2 focus-within:bg-background",
             modelError && "ring-1 ring-destructive/40"
           )}>
